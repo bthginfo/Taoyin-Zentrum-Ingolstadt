@@ -1,10 +1,5 @@
 import { Link } from "react-router";
-
-const items = [
-  'Individuelle Abstimmung: Ich gehe auf die Bedürfnisse jedes einzelnen Menschen ein – kein "Schema F", sondern eine Begleitung, die wirklich passt.',
-  "Ganzheitliche Verbindung: Die Kombination von Qi Gong und Chi Nei Tsang verstärkt die Wirkung und schafft nachhaltige Heilimpulse.",
-  "Authentische Begleitung: Ich lebe, was ich unterrichte. Meine Arbeit ist getragen von Achtsamkeit, Liebe zur Berührung und dem Wunsch, Heilung zu fördern.",
-];
+import { useTranslation, useLangLink } from "../../hooks/useTranslation";
 
 interface PersoenlichesAngebotProps {
   content?: {
@@ -16,6 +11,9 @@ interface PersoenlichesAngebotProps {
 }
 
 export function PersoenlichesAngebot({ content }: PersoenlichesAngebotProps) {
+  const { t } = useTranslation();
+  const ll = useLangLink();
+  const items = [t("personal.f1"), t("personal.f2"), t("personal.f3")];
   // Extract text from features if they're objects from Storyblok, or parse flat string
   const rawFeatures = content?.personal_features;
   const features = Array.isArray(rawFeatures)
@@ -31,7 +29,7 @@ export function PersoenlichesAngebot({ content }: PersoenlichesAngebotProps) {
       <div className="max-w-[var(--container-width)] mx-auto px-[var(--container-padding)]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-[var(--gap-md)] lg:gap-[var(--gap-lg)] items-start">
           <h2>
-            {content?.personal_title || "✨ Mein persönliches Angebot – das Besondere bei TaoBasis"}
+            {content?.personal_title || t("personal.title")}
           </h2>
           <div>
             <div className="flex flex-col gap-0">
@@ -49,10 +47,10 @@ export function PersoenlichesAngebot({ content }: PersoenlichesAngebotProps) {
             </div>
             <div className="mt-[var(--space-2x)]">
               <Link
-                to={content?.personal_button_link?.cached_url || "/kontakt"}
+                to={ll(content?.personal_button_link?.cached_url || "/kontakt")}
                 className="inline-flex items-center justify-center bg-secondary text-secondary-foreground py-[1em] px-[1.5em] rounded-[var(--radius-button)] text-[1rem] font-normal leading-[1.2] hover:opacity-90 transition-all"
               >
-                {content?.personal_button_text || "Kontakt aufnehmen"}
+                {content?.personal_button_text || t("personal.btn")}
               </Link>
             </div>
           </div>

@@ -1,3 +1,5 @@
+import { useTranslation } from "../../hooks/useTranslation";
+
 interface CtaSectionProps {
   content?: {
     cta_title?: string;
@@ -8,8 +10,9 @@ interface CtaSectionProps {
 }
 
 export function CtaSection({ content }: CtaSectionProps) {
-  const defaultTitle = "Finde deine Mitte. Spüre dein Chi.";
-  const defaultDesc = "Tauche ein in einen Raum für Achtsamkeit, Heilung und innere Balance. Entdecke sanfte taoistische Praktiken, die Körper, Geist und Seele verbinden. Hier findest du Ruhe, neue Energie und Inspiration für deinen Alltag – unabhängig von Erfahrung oder Lebensphase. Komm an, atme durch und lass dich begleiten auf deinem Weg zu mehr Wohlbefinden.";
+  const { t } = useTranslation();
+  const defaultTitle = t("cta.title");
+  const defaultDesc = t("cta.desc");
   const defaultImage = "https://cdn.prod.website-files.com/image-generation-assets/ee125b47-41aa-4ec5-a593-18b12a1fca27.avif";
   
   return (
@@ -18,7 +21,7 @@ export function CtaSection({ content }: CtaSectionProps) {
       <div className="absolute inset-0">
         <img
           src={content?.cta_background?.filename || defaultImage}
-          alt="Hintergrund"
+          alt={t("cta.imgAlt")}
           className="absolute inset-0 w-full h-full object-cover"
           loading="lazy"
         />
@@ -45,13 +48,13 @@ export function CtaSection({ content }: CtaSectionProps) {
                 href="tel:+4915115539416"
                 className="inline-flex items-center justify-center bg-secondary text-secondary-foreground py-[1em] px-[1.5em] rounded-[var(--radius-button)] text-[1rem] leading-[1.2] hover:opacity-90 transition-all min-h-[48px]"
               >
-                Telefon
+                {t("cta.phone")}
               </a>
               <a
                 href="mailto:info@taoyin-zentrum.de?subject=Neue%20Anfrage%20Taoyin%20Zentrum"
                 className="inline-flex items-center justify-center bg-secondary text-secondary-foreground py-[1em] px-[1.5em] rounded-[var(--radius-button)] text-[1rem] leading-[1.2] hover:opacity-90 transition-all min-h-[48px]"
               >
-                E-Mail
+                {t("cta.email")}
               </a>
               <a
                 href="https://wa.me/4915115539416"
@@ -59,7 +62,7 @@ export function CtaSection({ content }: CtaSectionProps) {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center bg-secondary text-secondary-foreground py-[1em] px-[1.5em] rounded-[var(--radius-button)] text-[1rem] leading-[1.2] hover:opacity-90 transition-all min-h-[48px]"
               >
-                WhatsApp
+                {t("cta.whatsapp")}
               </a>
             </div>
           </div>

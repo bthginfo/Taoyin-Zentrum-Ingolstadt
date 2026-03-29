@@ -2,6 +2,8 @@
 const heroImage1 = "https://cdn.prod.website-files.com/6890d61524a7dba397203fde/6890d6745cc734423847d58b_9ae3166a-4496-49f1-9d77-c97f40759bdb.avif";
 const heroImage2 = "https://cdn.prod.website-files.com/6890d61524a7dba397203fde/68c5370c877743c4a7999300_Estela-byaylin-3.jpg";
 
+import { useTranslation } from "../../hooks/useTranslation";
+
 interface HeroProps {
   content?: {
     hero_title?: string;
@@ -16,13 +18,14 @@ interface HeroProps {
 }
 
 export function Hero({ content }: HeroProps) {
-  const title = content?.hero_title || "Willkommen im Taoyin Zentrum Ingolstadt";
-  const subtitle = content?.hero_subtitle || "Willkommen in deinem Raum für Achtsamkeit, Heilung und innere Balance. Entdecke sanfte taoistische Praktiken, die Körper, Geist und Seele verbinden \u2013 f\u00fcr mehr Energie, Gelassenheit und Wohlbefinden im Alltag.";
+  const { t } = useTranslation();
+  const title = content?.hero_title || t("hero.title");
+  const subtitle = content?.hero_subtitle || t("hero.subtitle");
   const image1 = content?.hero_image_1?.filename || heroImage1;
   const image2 = content?.hero_image_2?.filename || heroImage2;
-  const button1Text = content?.hero_button_1_text || "Mehr erfahren";
+  const button1Text = content?.hero_button_1_text || t("hero.btn1");
   const button1Link = content?.hero_button_1_link || "#Details";
-  const button2Text = content?.hero_button_2_text || "Angebote entdecken";
+  const button2Text = content?.hero_button_2_text || t("hero.btn2");
   const button2Link = content?.hero_button_2_link || "#Angebote";
 
   return (
@@ -35,7 +38,7 @@ export function Hero({ content }: HeroProps) {
           <div className="order-2 lg:order-1 flex flex-col items-stretch">
             <div className="inline-flex items-center gap-2 mb-4 text-[var(--eyebrow-size)] tracking-[var(--eyebrow-letter-spacing)] uppercase text-[var(--secondary)]">
               <span className="w-8 h-px bg-[var(--secondary)]"></span>
-              Taoyin Zentrum Ingolstadt
+              {t("hero.eyebrow")}
             </div>
             <h1>{title}</h1>
             <p className="text-[var(--text-lg-size)] leading-[1.7] text-current/65 mb-[var(--space-1-5x)] max-w-[var(--container-sm-width)]" style={{ textWrap: 'balance' }}>
@@ -65,14 +68,14 @@ export function Hero({ content }: HeroProps) {
                   <div className="overflow-hidden rounded-[var(--radius-image)] shadow-lg">
                     <img
                       src={image1}
-                      alt={content?.hero_image_1?.alt || "Spa-Ambiente im Taoyin Zentrum Ingolstadt"}
+                      alt={content?.hero_image_1?.alt || t("hero.imgAlt1")}
                       className="w-full object-cover aspect-[3/2] hover:scale-105 transition-transform duration-700"
                     />
                   </div>
                   <div className="overflow-hidden rounded-[var(--radius-image)] shadow-lg">
                     <img
                       src={image2}
-                      alt={content?.hero_image_2?.alt || "Estela Fuchs – Taoyin Zentrum Ingolstadt"}
+                      alt={content?.hero_image_2?.alt || t("hero.imgAlt2")}
                       className="w-full object-cover aspect-[3/2] hover:scale-105 transition-transform duration-700"
                     />
                   </div>

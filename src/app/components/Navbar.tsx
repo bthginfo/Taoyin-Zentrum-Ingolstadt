@@ -1,28 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { getCurrentLanguage, type Language } from "../../lib/storyblok";
+import { useTranslation, useLangLink } from "../../hooks/useTranslation";
 
 // Real logo from CDN
 const logoImg = "https://cdn.prod.website-files.com/6890d61524a7dba397203fde/6890d6bafdd0696561be5520_tao_logo.png";
-
-const angeboteItems = [
-  {
-    category: "Tao Yin & Qigong",
-    items: [
-      { label: "Tao Yin", desc: "Sanfte Bewegung, tiefe Entspannung.", href: "/taoyin" },
-      { label: "Qigong", desc: "Lebensenergie st\u00e4rken, Balance finden.", href: "/qi-gong" },
-      { label: "Chi Nei Tsang", desc: "Bauchmassage f\u00fcr innere Harmonie.", href: "/chi-nei-tsang" },
-    ],
-  },
-  {
-    category: "Ganzheitliche Psychotherapie",
-    items: [
-      { label: "Zur Praxis", desc: "Ganzheitliche Praxis f\u00fcr Psychotherapie", href: "/psychotherapie" },
-      { label: "Therapien", desc: "Meine verschiedenen Therapie Angebote", href: "/therapien" },
-      { label: "Behandlung", desc: "Welche M\u00f6glichkeiten gibt es", href: "/psychotherapie/ziele" },
-    ],
-  },
-];
 
 const DocIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" fill="currentColor">
@@ -39,7 +21,27 @@ export function Navbar() {
   const navigate = useNavigate();
   const angeboteRef = useRef<HTMLDivElement>(null);
   const langRef = useRef<HTMLDivElement>(null);
-  const currentLang = getCurrentLanguage();
+  const { t, lang: currentLang } = useTranslation();
+  const ll = useLangLink();
+
+  const angeboteItems = [
+    {
+      category: t("nav.cat.taoyin"),
+      items: [
+        { label: t("nav.item.taoyin"), desc: t("nav.item.taoyinDesc"), href: "/taoyin" },
+        { label: t("nav.item.qigong"), desc: t("nav.item.qigongDesc"), href: "/qi-gong" },
+        { label: t("nav.item.cnt"), desc: t("nav.item.cntDesc"), href: "/chi-nei-tsang" },
+      ],
+    },
+    {
+      category: t("nav.cat.psycho"),
+      items: [
+        { label: t("nav.item.praxis"), desc: t("nav.item.praxisDesc"), href: "/psychotherapie" },
+        { label: t("nav.item.therapien"), desc: t("nav.item.therapienDesc"), href: "/therapien" },
+        { label: t("nav.item.behandlung"), desc: t("nav.item.behandlungDesc"), href: "/psychotherapie/ziele" },
+      ],
+    },
+  ];
 
   // Switch language: navigate to /{newLang}/{currentPagePath}
   const switchLanguage = (newLang: string) => {
@@ -69,7 +71,7 @@ export function Navbar() {
     <nav className="w-full bg-[var(--background-secondary)] sticky top-0 z-50">
       <div className="max-w-[1280px] mx-auto px-[var(--container-padding)] py-[var(--space-0-75x)] flex items-center rounded-b-[var(--radius-card)]">
         {/* Logo */}
-        <Link to="/" className="flex-shrink-0 flex items-center h-10 mr-[var(--gap-sm)]">
+        <Link to={ll("/")} className="flex-shrink-0 flex items-center h-10 mr-[var(--gap-sm)]">
           <img src={logoImg} alt="Taoyin Zentrum" className="h-10 w-auto" />
         </Link>
 
@@ -83,7 +85,7 @@ export function Navbar() {
             onMouseLeave={() => setAngeboteOpen(false)}
           >
             <button className="flex items-center gap-[var(--gap-xxs)] py-2 px-3 rounded-[var(--radius-button)] text-[1rem] text-inherit hover:opacity-70 transition-opacity">
-              Angebote
+              {t("nav.angebote")}
               <svg className={`w-3 h-3 transition-transform ${angeboteOpen ? "rotate-180" : ""}`} viewBox="0 0 16 16" fill="none">
                 <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="2" />
               </svg>
@@ -102,7 +104,7 @@ export function Navbar() {
                           {group.items.map((item) => (
                             <Link
                               key={item.href}
-                              to={item.href}
+                              to={ll(item.href)}
                               className="flex items-start gap-3 p-2.5 rounded-[var(--radius-button)] hover:bg-white/60 transition-colors group"
                             >
                               <div className="text-current/50 mt-0.5 group-hover:text-current transition-colors">
@@ -120,15 +122,15 @@ export function Navbar() {
                     {/* Right: Individuelle Anfragen card */}
                     <div className="bg-primary text-primary-foreground rounded-[var(--radius-card)] p-[var(--card-padding)] flex flex-col justify-between">
                       <div>
-                        <div className="text-[var(--h3-size)]">Individuelle Anfragen</div>
+                        <div className="text-[var(--h3-size)]">{t("nav.individuell")}</div>
                         <p className="text-[var(--text-sm-size)] text-current/70 leading-relaxed">
-                          Das passende Angebot f&uuml;r dich, individuell abgestimmt auf deine Bed&uuml;rfnisse
+                          {t("nav.individuellDesc")}
                         </p>
                       </div>
                       <div className="mt-auto">
                         <div className="mt-[var(--space-2x)]">
-                          <Link to="/kontakt" className="inline-flex items-center gap-[0.5em] text-[1rem] font-medium text-current/80 hover:gap-[0.7em] hover:text-current transition-all">
-                            Jetzt anfragen
+                          <Link to={ll("/kontakt")} className="inline-flex items-center gap-[0.5em] text-[1rem] font-medium text-current/80 hover:gap-[0.7em] hover:text-current transition-all">
+                            {t("nav.jetztAnfragen")}
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                               <path d="M2 8H14.5M14.5 8L8.5 2M14.5 8L8.5 14" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
                             </svg>
@@ -143,21 +145,21 @@ export function Navbar() {
           </div>
 
           <Link
-            to="/about"
+            to={ll("/about")}
             className={`py-2 px-3 rounded-[var(--radius-button)] text-[1rem] transition-opacity ${
               location.pathname === "/about" ? "text-inherit" : "text-inherit hover:opacity-70"
             }`}
           >
-            &Uuml;ber mich
+            {t("nav.about")}
           </Link>
 
           <Link
-            to="/kontakt"
+            to={ll("/kontakt")}
             className={`py-2 px-3 rounded-[var(--radius-button)] text-[1rem] transition-opacity ${
               location.pathname === "/kontakt" ? "text-inherit" : "text-inherit hover:opacity-70"
             }`}
           >
-            Kontakt
+            {t("nav.kontakt")}
           </Link>
 
           {/* Language Dropdown */}
@@ -195,10 +197,10 @@ export function Navbar() {
 
           {/* CTA */}
           <Link
-            to="/kontakt"
+            to={ll("/kontakt")}
             className="inline-flex items-center justify-center bg-secondary text-secondary-foreground py-[1em] px-[1.5em] rounded-[var(--radius-button)] text-[1rem] font-normal leading-[1.2] hover:opacity-90 transition-all"
           >
-            Kontakt &amp; Anfahrt
+            {t("nav.kontaktAnfahrt")}
           </Link>
         </div>
 
@@ -232,7 +234,7 @@ export function Navbar() {
               onClick={() => setMobileAngeboteOpen(!mobileAngeboteOpen)}
               className="flex items-center justify-between w-full py-4 text-[var(--text-lg-size)] text-inherit min-h-[48px]"
             >
-              Angebote
+              {t("nav.angebote")}
               <svg className={`w-3 h-3 transition-transform ${mobileAngeboteOpen ? "rotate-180" : ""}`} viewBox="0 0 16 16" fill="none">
                 <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="2" />
               </svg>
@@ -243,7 +245,7 @@ export function Navbar() {
                   group.items.map((item) => (
                     <Link
                       key={item.href}
-                      to={item.href}
+                      to={ll(item.href)}
                       onClick={() => setMobileOpen(false)}
                       className="block py-2 text-[1rem] text-inherit/70 hover:text-inherit"
                     >
@@ -254,11 +256,11 @@ export function Navbar() {
               </div>
             )}
 
-            <Link to="/about" onClick={() => setMobileOpen(false)} className="block py-4 text-[var(--text-lg-size)] text-inherit min-h-[48px]">
-              &Uuml;ber mich
+            <Link to={ll("/about")} onClick={() => setMobileOpen(false)} className="block py-4 text-[var(--text-lg-size)] text-inherit min-h-[48px]">
+              {t("nav.about")}
             </Link>
-            <Link to="/kontakt" onClick={() => setMobileOpen(false)} className="block py-4 text-[var(--text-lg-size)] text-inherit min-h-[48px]">
-              Kontakt
+            <Link to={ll("/kontakt")} onClick={() => setMobileOpen(false)} className="block py-4 text-[var(--text-lg-size)] text-inherit min-h-[48px]">
+              {t("nav.kontakt")}
             </Link>
 
             {/* Language in mobile */}
@@ -275,11 +277,11 @@ export function Navbar() {
             </div>
 
             <Link
-              to="/kontakt"
+              to={ll("/kontakt")}
               onClick={() => setMobileOpen(false)}
               className="block mt-2 bg-secondary text-secondary-foreground text-center py-[1em] px-[1.5em] rounded-[var(--radius-button)] text-[1rem] font-normal leading-[1.2]"
             >
-              Kontakt &amp; Anfahrt
+              {t("nav.kontaktAnfahrt")}
             </Link>
           </div>
         </div>

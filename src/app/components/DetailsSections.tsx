@@ -1,92 +1,14 @@
 import { ContentSection } from "./ContentSection";
+import { useTranslation, useLangLink } from "../../hooks/useTranslation";
 
-const fallbackSections = [
-  {
-    eyebrow: "Ganzheitlich. Achtsam. Verbunden.",
-    heading: "Tao Basis",
-    paragraph:
-      '\u201ETaoBasis \u2013 Qi Gong Kurse & Chi Nei Tsang Bauchmassage. Finden Sie Ruhe, Energie & innere Balance.',
-    links: [
-      { label: "Mehr erfahren \u00fcber Tao Yin", href: "/taoyin" },
-      { label: "Jetzt Angebote entdecken", href: "#Angebote" },
-    ],
-    imageSrc:
-      "https://cdn.prod.website-files.com/6890d61524a7dba397203fde/68c5371146ec6241e81774b7_Estela-byaylin-52-min.jpg",
-    imageAlt: "Estela in Meditation \u2013 Tao Basis",
-    imageLeft: false,
-  },
-  {
-    eyebrow: "Tao Yin & Qigong",
-    heading: "Einf\u00fchrung in Qi Gong",
-    paragraph:
-      '\u201EQi Gong Kurs f\u00fcr Anf\u00e4nger: Lernen Sie sanfte \u00dcbungen, Atemtechniken & Energiearbeit f\u00fcr Vitalit\u00e4t, Entspannung & mehr Lebensbalance.\u201c',
-    links: [
-      { label: "Mehr erfahren \u00fcber Qi Gong", href: "/qi-gong" },
-      { label: "Kurse ansehen", href: "#Angebote" },
-    ],
-    imageSrc:
-      "https://cdn.prod.website-files.com/6890d61524a7dba397203fde/68c53713513520b6bbe5b786_Estela-byaylin-33-min.jpg",
-    imageAlt: "Estela \u2013 Qi Gong Praxis",
-    imageLeft: true,
-  },
-  {
-    eyebrow: "Tao Yin & Qigong",
-    heading: "Medizinisches Qi Gong",
-    paragraph:
-      '\u201EMedizinisches Qi Gong \u2013 dreimal pro Woche: st\u00e4rken Sie Ihr Immunsystem, bauen Sie Stress ab & finden Sie Energie f\u00fcr K\u00f6rper & Geist.\u201c',
-    links: [{ label: "Kurse ansehen", href: "#Angebote" }],
-    imageSrc:
-      "https://cdn.prod.website-files.com/6890d61524a7dba397203fde/68c53718065ce01562873ef1_Estela-byaylin-43.jpg",
-    imageAlt: "Medizinisches Qi Gong \u00dcbung",
-    imageLeft: false,
-  },
-  {
-    eyebrow: "Chi Nei Tsang",
-    heading: "Chi Nei Tsang Behandlung",
-    paragraph:
-      '\u201EChi Nei Tsang Bauchmassage: l\u00f6sen Sie Blockaden, aktivieren Sie Selbstheilung & erleben Sie tiefe Entspannung f\u00fcr K\u00f6rper & Seele.\u201c',
-    links: [
-      { label: "Mehr erfahren \u00fcber Chi Nei Tsang", href: "/chi-nei-tsang" },
-      { label: "Jetzt Behandlung buchen", href: "#Angebote" },
-    ],
-    imageSrc:
-      "https://cdn.prod.website-files.com/6890d61524a7dba397203fde/68c5371f98928ab373b92ff9_Estela-byaylin-59-min.jpg",
-    imageAlt: "Chi Nei Tsang Behandlung",
-    imageLeft: true,
-  },
-  {
-    eyebrow: "Chi Nei Tsang",
-    heading: "Chi Nei Tsang Ausbildung",
-    paragraph:
-      '\u201EChi Nei Tsang Ausbildung: lernen Sie die taoistische Bauchmassage & Selbstbehandlung, kombiniert mit Qi Gong f\u00fcr maximale Heilwirkung.\u201c',
-    links: [{ label: "Ausbildung buchen", href: "#Angebote" }],
-    imageSrc:
-      "https://cdn.prod.website-files.com/6890d61524a7dba397203fde/68c537205b0c2bd091d7b6a5_Estela-byaylin-58-min.jpg",
-    imageAlt: "Chi Nei Tsang Ausbildung",
-    imageLeft: false,
-  },
-  {
-    eyebrow: "Ich berate und unterst\u00fctze Sie gerne",
-    heading: "Praxis f\u00fcr ganzheitliche Psychotherapie",
-    paragraph:
-      "Lernen Sie die Kraft der Integration von K\u00f6rper, Geist und Seele f\u00fcr Sich zu nutzen.",
-    links: [{ label: "zur Praxis", href: "/psychotherapie" }],
-    imageSrc:
-      "https://cdn.prod.website-files.com/6890d61524a7dba397203fde/689c709e31ebcac5995a9622_a9db9b1a-d5b1-4270-a1b0-8044de34b697.avif",
-    imageAlt: "Praxis f\u00fcr Psychotherapie",
-    imageLeft: true,
-  },
-  {
-    eyebrow: "Estela Fuchs",
-    heading: "Meine Geschichte",
-    paragraph:
-      "Nach einer langen Pause kehre ich mit neuer Kraft und Dankbarkeit zur\u00fcck. Ein schwerer Bruch am Fu\u00dfgelenk hat mich gezwungen, innezuhalten \u2013 und zugleich gezeigt, wie heilsam Qi Gong und taoistische Praktiken wirklich sind.\n\nSie haben mir geholfen, schneller zu regenerieren, wieder fest auf den Beinen zu stehen und tiefer in meine Praxis einzutauchen. Seit \u00fcber 30 Jahren \u00fcbe ich den Weg des Taoismus \u2013 heute mit noch mehr \u00dcberzeugung und dem Wunsch, diese Sch\u00e4tze mit anderen zu teilen.\n\nMeine Angebote sind mehr als Kurse \u2013 sie sind eine Einladung, die eigene Lebenskraft neu zu entdecken.",
-    links: [{ label: "Mehr erfahren", href: "/about" }],
-    imageSrc:
-      "https://cdn.prod.website-files.com/6890d61524a7dba397203fde/68c5370f3e66ed943079d4c6_Estela-byaylin-26-min.jpg",
-    imageAlt: "Estela Fuchs \u2013 Meine Geschichte",
-    imageLeft: false,
-  },
+const images = [
+  "https://cdn.prod.website-files.com/6890d61524a7dba397203fde/68c5371146ec6241e81774b7_Estela-byaylin-52-min.jpg",
+  "https://cdn.prod.website-files.com/6890d61524a7dba397203fde/68c53713513520b6bbe5b786_Estela-byaylin-33-min.jpg",
+  "https://cdn.prod.website-files.com/6890d61524a7dba397203fde/68c53718065ce01562873ef1_Estela-byaylin-43.jpg",
+  "https://cdn.prod.website-files.com/6890d61524a7dba397203fde/68c5371f98928ab373b92ff9_Estela-byaylin-59-min.jpg",
+  "https://cdn.prod.website-files.com/6890d61524a7dba397203fde/68c537205b0c2bd091d7b6a5_Estela-byaylin-58-min.jpg",
+  "https://cdn.prod.website-files.com/6890d61524a7dba397203fde/689c709e31ebcac5995a9622_a9db9b1a-d5b1-4270-a1b0-8044de34b697.avif",
+  "https://cdn.prod.website-files.com/6890d61524a7dba397203fde/68c5370f3e66ed943079d4c6_Estela-byaylin-26-min.jpg",
 ];
 
 interface DetailsSectionsProps {
@@ -107,6 +29,47 @@ interface DetailsSectionsProps {
 }
 
 export function DetailsSections({ content }: DetailsSectionsProps) {
+  const { t } = useTranslation();
+  const ll = useLangLink();
+
+  const fallbackSections = [
+    {
+      eyebrow: t("details.s1.eyebrow"), heading: t("details.s1.heading"), paragraph: t("details.s1.text"),
+      links: [{ label: t("details.s1.btn1"), href: "/taoyin" }, { label: t("details.s1.btn2"), href: "#Angebote" }],
+      imageSrc: images[0], imageAlt: t("details.s1.heading"), imageLeft: false,
+    },
+    {
+      eyebrow: t("details.s2.eyebrow"), heading: t("details.s2.heading"), paragraph: t("details.s2.text"),
+      links: [{ label: t("details.s2.btn1"), href: "/qi-gong" }, { label: t("details.s2.btn2"), href: "#Angebote" }],
+      imageSrc: images[1], imageAlt: t("details.s2.heading"), imageLeft: true,
+    },
+    {
+      eyebrow: t("details.s3.eyebrow"), heading: t("details.s3.heading"), paragraph: t("details.s3.text"),
+      links: [{ label: t("details.s3.btn1"), href: "#Angebote" }],
+      imageSrc: images[2], imageAlt: t("details.s3.heading"), imageLeft: false,
+    },
+    {
+      eyebrow: t("details.s4.eyebrow"), heading: t("details.s4.heading"), paragraph: t("details.s4.text"),
+      links: [{ label: t("details.s4.btn1"), href: "/chi-nei-tsang" }, { label: t("details.s4.btn2"), href: "#Angebote" }],
+      imageSrc: images[3], imageAlt: t("details.s4.heading"), imageLeft: true,
+    },
+    {
+      eyebrow: t("details.s5.eyebrow"), heading: t("details.s5.heading"), paragraph: t("details.s5.text"),
+      links: [{ label: t("details.s5.btn1"), href: "#Angebote" }],
+      imageSrc: images[4], imageAlt: t("details.s5.heading"), imageLeft: false,
+    },
+    {
+      eyebrow: t("details.s6.eyebrow"), heading: t("details.s6.heading"), paragraph: t("details.s6.text"),
+      links: [{ label: t("details.s6.btn1"), href: "/psychotherapie" }],
+      imageSrc: images[5], imageAlt: t("details.s6.heading"), imageLeft: true,
+    },
+    {
+      eyebrow: t("details.s7.eyebrow"), heading: t("details.s7.heading"), paragraph: t("details.s7.text"),
+      links: [{ label: t("details.s7.btn1"), href: "/about" }],
+      imageSrc: images[6], imageAlt: t("details.s7.heading"), imageLeft: false,
+    },
+  ];
+
   // Map Storyblok content to ContentSection format
   const sections = (Array.isArray(content?.details_sections) ? content.details_sections.map(section => ({
     eyebrow: section.eyebrow || "",
@@ -127,11 +90,17 @@ export function DetailsSections({ content }: DetailsSectionsProps) {
     imageLeft: section.image_left || false,
   })) : null) || fallbackSections;
 
+  // Add lang prefix to links
+  const prefixedSections = sections.map(s => ({
+    ...s,
+    links: s.links.map(l => ({ ...l, href: l.href.startsWith('#') ? l.href : ll(l.href) })),
+  }));
+
   return (
     <section id="Details" className="w-full bg-background py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)]">
       <div className="max-w-[var(--container-width)] mx-auto px-[var(--container-padding)]">
         <div className="flex flex-col gap-[var(--gap-xl)] lg:gap-[var(--gap-xxl)]">
-          {sections.map((section, index) => (
+          {prefixedSections.map((section, index) => (
             <ContentSection key={index} {...section} />
           ))}
         </div>

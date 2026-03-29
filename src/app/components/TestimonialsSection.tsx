@@ -13,6 +13,8 @@ const defaultTestimonials = [
   },
 ];
 
+import { useTranslation } from "../../hooks/useTranslation";
+
 interface TestimonialsSectionProps {
   content?: {
     testimonials_eyebrow?: string;
@@ -29,6 +31,7 @@ interface TestimonialsSectionProps {
 
 export function TestimonialsSection({ content }: TestimonialsSectionProps) {
   const testimonials = Array.isArray(content?.testimonials_items) ? content.testimonials_items : defaultTestimonials;
+  const { t } = useTranslation();
   
   return (
     <section className="w-full bg-background py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)]">
@@ -37,15 +40,12 @@ export function TestimonialsSection({ content }: TestimonialsSectionProps) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-[var(--gap-sm)] mb-[var(--gap-md)]">
           <div>
             <p className="text-[var(--eyebrow-size)] tracking-[var(--eyebrow-letter-spacing)] uppercase text-current/60 mb-[var(--eyebrow-margin-bottom)] leading-[var(--eyebrow-line-height)]">
-              Erfahrungen aus unserer Gemeinschaft
+              {t("testimonials.eyebrow")}
             </p>
-            <h2>Stimmen, die ber&uuml;hren</h2>
+            <h2>{t("testimonials.title")}</h2>
           </div>
           <p className="text-[var(--text-lg-size)] text-current/70 leading-[1.6] lg:pt-8">
-            Unsere Teilnehmer*innen teilen, wie die taoistischen Praktiken ihr
-            Leben bereichern – mit mehr Ruhe, innerer Balance und neuer
-            Lebensenergie. Lass dich inspirieren und finde deinen eigenen Weg in
-            die Mitte.
+            {t("testimonials.subtitle")}
           </p>
         </div>
 
@@ -80,7 +80,7 @@ export function TestimonialsSection({ content }: TestimonialsSectionProps) {
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center bg-secondary text-secondary-foreground py-[1em] px-[1.5em] rounded-[var(--radius-button)] text-[1rem] font-normal leading-[1.2] hover:opacity-90 transition-all"
           >
-            Mehr Rezensionen auf Google
+            {t("testimonials.google")}
           </a>
         </div>
       </div>

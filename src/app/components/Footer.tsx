@@ -1,16 +1,5 @@
 import { Link } from "react-router";
-
-const angeboteLinks = [
-  { label: "Tao Yin", href: "/taoyin" },
-  { label: "Qigong", href: "/qi-gong" },
-  { label: "Chi Nei Tsang Massage", href: "/chi-nei-tsang" },
-  { label: "Psychotherapie", href: "/psychotherapie" },
-];
-
-const serviceLinks = [
-  { label: "Anfahrt & Kontakt", href: "/kontakt" },
-  { label: "Impressum & Datenschutz", href: "/impressum" },
-];
+import { useTranslation, useLangLink } from "../../hooks/useTranslation";
 
 function InstagramIcon() {
   return (
@@ -23,13 +12,28 @@ function InstagramIcon() {
 }
 
 export function Footer() {
+  const { t } = useTranslation();
+  const ll = useLangLink();
+
+  const angeboteLinks = [
+    { label: "Tao Yin", href: "/taoyin" },
+    { label: "Qigong", href: "/qi-gong" },
+    { label: t("footer.cntMassage"), href: "/chi-nei-tsang" },
+    { label: t("footer.psychotherapie"), href: "/psychotherapie" },
+  ];
+
+  const serviceLinks = [
+    { label: t("footer.anfahrt"), href: "/kontakt" },
+    { label: t("footer.impressum"), href: "/impressum" },
+  ];
+
   return (
     <footer className="w-full bg-primary text-primary-foreground">
       <div className="max-w-[1280px] mx-auto px-[var(--container-padding)] py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)]">
         {/* Top: Heading + Emails */}
         <div className="mb-[var(--gap-lg)]">
           <h2 className="text-primary-foreground">
-            In deine Mitte finden
+            {t("footer.heading")}
           </h2>
           <a
             href="mailto:info@taoyin-zentrum.de?subject=Neue%20Anfrage%20Taoyin%20Zentrum"
@@ -50,18 +54,18 @@ export function Footer() {
         {/* Middle: Description + Links */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-[var(--gap-lg)] mb-[var(--gap-lg)]">
           <p className="text-current/50 text-[1rem] leading-relaxed">
-            Raum f&uuml;r Achtsamkeit & Balance
+            {t("footer.tagline")}
           </p>
           <div className="grid grid-cols-2 gap-[var(--gap-lg)]">
             <div>
               <h3 className="text-[var(--eyebrow-size)] tracking-[0.1em] uppercase text-current/40 mb-[var(--space-1x)]">
-                Angebote
+                {t("footer.angebote")}
               </h3>
               <ul className="space-y-2.5">
                 {angeboteLinks.map((link) => (
                   <li key={link.href}>
                     <Link
-                      to={link.href}
+                      to={ll(link.href)}
                       className="text-[1rem] text-current/60 hover:text-current transition-colors"
                     >
                       {link.label}
@@ -72,13 +76,13 @@ export function Footer() {
             </div>
             <div>
               <h3 className="text-[var(--eyebrow-size)] tracking-[0.1em] uppercase text-current/40 mb-[var(--space-1x)]">
-                Service
+                {t("footer.service")}
               </h3>
               <ul className="space-y-2.5">
                 {serviceLinks.map((link) => (
                   <li key={link.href}>
                     <Link
-                      to={link.href}
+                      to={ll(link.href)}
                       className="text-[1rem] text-current/60 hover:text-current transition-colors"
                     >
                       {link.label}
@@ -92,7 +96,7 @@ export function Footer() {
 
         {/* Bottom: Logo + Social */}
         <div className="border-t border-current/10 pt-[var(--space-2x)] flex items-center justify-between">
-          <Link to="/">
+          <Link to={ll("/")}>
             <img
               src="https://cdn.prod.website-files.com/6890d61524a7dba397203fde/6890d8b72344be05aef5a64a_tao_logo_white.png"
               alt="Taoyin Zentrum"

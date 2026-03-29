@@ -1,3 +1,5 @@
+import { useTranslation } from "../../hooks/useTranslation";
+
 const newsItems = [
   {
     image:
@@ -42,19 +44,19 @@ function ArrowIcon() {
 }
 
 export function NewsSection() {
+  const { t } = useTranslation();
   return (
     <section className="w-full bg-background py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)] hidden">
       <div className="max-w-[1280px] mx-auto px-[var(--container-padding)]">
         <div className="mb-[var(--gap-md)]">
           <p className="text-[var(--eyebrow-size)] tracking-[var(--eyebrow-letter-spacing)] uppercase text-current/60 mb-[var(--eyebrow-margin-bottom)] leading-[var(--eyebrow-line-height)]">
-            Raum für dich
+            {t("news.eyebrow")}
           </p>
           <h2 className="mb-[var(--space-1x)]">
-            Neuigkeiten und Interessantes
+            {t("news.title")}
           </h2>
           <p className="text-[var(--text-lg-size)] text-current/70 leading-[1.6] max-w-[var(--container-sm-width)]">
-            Hier findest du alle Neuigkeiten unseres Tao Yin Zentrums und
-            interessante Artikel zum Lesen.
+            {t("news.subtitle")}
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-[var(--gap-sm)]">
@@ -77,7 +79,7 @@ export function NewsSection() {
               </h3>
               <p className="text-[14px] text-foreground/60 mb-3">{item.desc}</p>
               <div className="inline-flex items-center gap-2 text-[14px] text-secondary group-hover:opacity-80 transition-opacity">
-                Mehr dazu
+                {t("news.more")}
                 <span className="group-hover:translate-x-1 transition-transform">
                   <ArrowIcon />
                 </span>

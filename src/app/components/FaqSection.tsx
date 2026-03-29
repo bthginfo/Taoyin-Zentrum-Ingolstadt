@@ -1,28 +1,6 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-
-const fallbackFaqs = [
-  {
-    question: "Was ist Tao Yin und wie wirkt es?",
-    answer:
-      "Tao Yin verbindet sanfte Bewegung, Atmung und innere Präsenz. Die Praxis stärkt deine Wirbelsäule, löst Verspannungen und bringt deine Lebensenergie (Chi) in Fluss. Du findest so zu mehr Ruhe, Flexibilität und innerer Balance.",
-  },
-  {
-    question: "Für wen sind die Kurse geeignet?",
-    answer:
-      "Unsere Angebote richten sich an alle – egal ob Anfänger*in, Fortgeschrittene, jung oder alt. Besonders profitieren Menschen mit Stress, Rückenschmerzen oder dem Wunsch nach mehr innerer Ruhe und Selbstfürsorge.",
-  },
-  {
-    question: "Was ist das Besondere an Chi Nei Tsang?",
-    answer:
-      "Chi Nei Tsang ist eine tiefgehende Bauchmassage, die emotionale und energetische Blockaden löst. Sie unterstützt die Verdauung, stärkt die Organe und hilft dir, dich mit deinem Zentrum zu verbinden.",
-  },
-  {
-    question: "Wie kann ich einen Termin buchen?",
-    answer:
-      "Du kannst ganz einfach per WhatsApp, E-Mail oder Telefon einen Termin vereinbaren. Wir beraten dich gerne persönlich und finden gemeinsam das passende Angebot für dich.",
-  },
-];
+import { useTranslation } from "../../hooks/useTranslation";
 
 interface FaqSectionProps {
   content?: {
@@ -38,9 +16,17 @@ interface FaqSectionProps {
 
 export function FaqSection({ content }: FaqSectionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const { t } = useTranslation();
+
+  const fallbackFaqs = [
+    { question: t("faq.q1"), answer: t("faq.a1") },
+    { question: t("faq.q2"), answer: t("faq.a2") },
+    { question: t("faq.q3"), answer: t("faq.a3") },
+    { question: t("faq.q4"), answer: t("faq.a4") },
+  ];
   
-  const title = content?.faq_title || "Raum für Achtsamkeit & Balance";
-  const subtitle = content?.faq_subtitle || "Antworten auf häufige Fragen zu unseren taoistischen Angeboten, Methoden und deinem Weg zu mehr Wohlbefinden.";
+  const title = content?.faq_title || t("faq.title");
+  const subtitle = content?.faq_subtitle || t("faq.subtitle");
   const faqs = Array.isArray(content?.faq_items) ? content.faq_items : fallbackFaqs;
 
   return (

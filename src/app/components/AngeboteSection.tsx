@@ -1,4 +1,5 @@
 import { Check, MapPin, Clock } from "lucide-react";
+import { useTranslation } from "../../hooks/useTranslation";
 
 interface PricingCard {
   price: string;
@@ -11,70 +12,9 @@ interface PricingCard {
   wide?: boolean;
   ort?: string;
   uhrzeit?: string;
+  phoneLabel: string;
+  mailLabel: string;
 }
-
-const cards: PricingCard[] = [
-  {
-    price: "280 €",
-    priceNote: "(3,5 - 4 Std.)",
-    title: "Tao Basis (Einführung)",
-    description:
-      "„TaoBasis – Qi Gong Kurse & Chi Nei Tsang Bauchmassage. Finden Sie Ruhe, Energie & innere Balance.",
-    features: [
-      "Tao Grundlagen",
-      "Einsteigerkurs Qi Gong",
-      "Grundlagen der Chi Nei Tsang Massage",
-    ],
-    phone: "+4915115539416",
-    email: "info@taoyin-zentrum.de",
-  },
-  {
-    price: "150 €",
-    priceNote: "(Zehnerkarte)",
-    title: "Medizinisches Qi Gong",
-    description:
-      "Dreimal pro Woche treffen wir uns zur gemeinsamen Übungsstunde. Regelmäßiges Qi Gong wirkt wie Medizin für Körper und Geist.",
-    features: [
-      "Stärkung des Immunsystems",
-      "Verbesserung von Haltung und Beweglichkeit",
-      "Reduzierung von Stress, Müdigkeit und Schmerzen",
-      "mehr Energie im Alltag",
-    ],
-    phone: "+4915115539416",
-    email: "info@taoyin-zentrum.de",
-  },
-  {
-    price: "95 €",
-    priceNote: "(Einführungspreis)",
-    title: "Chi Nei Tsang Behandlung",
-    description:
-      "Chi Nei Tsang ist eine taoistische Massagekunst, die die inneren Organe harmonisiert und den Energiefluss (Qi) im Körper aktiviert.",
-    features: [
-      "Blockaden in den Meridianen lösen",
-      "Schmerzen und Verspannungen lindern",
-      "Ihre Selbstheilungskräfte aktivieren",
-      "Körper, Geist und Emotionen ins Gleichgewicht bringen",
-    ],
-    phone: "+4915115539416",
-    email: "info@taoyin-zentrum.de",
-  },
-  {
-    price: "5.500€",
-    priceNote: "(Jahresausbildung mit offizieller Zertifizierung)",
-    title: "Chi Nei Tsang Ausbildung",
-    description:
-      "Lernen Sie die Kunst der Selbstheilung durch Berührung.\nIn der Ausbildung erfahren Sie Schritt für Schritt.",
-    features: [
-      "wie Sie Qi-Blockaden erkennen und lösen",
-      "die Meridiane öffnen und Ihre Lebensenergie stärken",
-      "mit gezielten Massagegriffen Körper und Seele in Balance bringen",
-      "Techniken, die Sie für sich selbst und andere anwenden können",
-    ],
-    phone: "+4915115539416",
-    email: "info@taoyin-zentrum.de",
-    wide: true,
-  },
-];
 
 interface AngeboteSectionProps {
   content?: {
@@ -84,6 +24,56 @@ interface AngeboteSectionProps {
 }
 
 export function AngeboteSection({ content }: AngeboteSectionProps) {
+  const { t } = useTranslation();
+
+  const cards: PricingCard[] = [
+    {
+      price: "280 €",
+      priceNote: t("angebote.c1.note"),
+      title: t("angebote.c1.title"),
+      description: t("angebote.c1.desc"),
+      features: [t("angebote.c1.f1"), t("angebote.c1.f2"), t("angebote.c1.f3")],
+      phone: "+4915115539416",
+      email: "info@taoyin-zentrum.de",
+      phoneLabel: t("angebote.phone"),
+      mailLabel: t("angebote.mail"),
+    },
+    {
+      price: "150 €",
+      priceNote: t("angebote.c2.note"),
+      title: t("angebote.c2.title"),
+      description: t("angebote.c2.desc"),
+      features: [t("angebote.c2.f1"), t("angebote.c2.f2"), t("angebote.c2.f3"), t("angebote.c2.f4")],
+      phone: "+4915115539416",
+      email: "info@taoyin-zentrum.de",
+      phoneLabel: t("angebote.phone"),
+      mailLabel: t("angebote.mail"),
+    },
+    {
+      price: "95 €",
+      priceNote: t("angebote.c3.note"),
+      title: t("angebote.c3.title"),
+      description: t("angebote.c3.desc"),
+      features: [t("angebote.c3.f1"), t("angebote.c3.f2"), t("angebote.c3.f3"), t("angebote.c3.f4")],
+      phone: "+4915115539416",
+      email: "info@taoyin-zentrum.de",
+      phoneLabel: t("angebote.phone"),
+      mailLabel: t("angebote.mail"),
+    },
+    {
+      price: "5.500€",
+      priceNote: t("angebote.c4.note"),
+      title: t("angebote.c4.title"),
+      description: t("angebote.c4.desc"),
+      features: [t("angebote.c4.f1"), t("angebote.c4.f2"), t("angebote.c4.f3"), t("angebote.c4.f4")],
+      phone: "+4915115539416",
+      email: "info@taoyin-zentrum.de",
+      wide: true,
+      phoneLabel: t("angebote.phone"),
+      mailLabel: t("angebote.mail"),
+    },
+  ];
+
   const smallCards = cards.filter((c) => !c.wide);
   const wideCard = cards.find((c) => c.wide);
 
@@ -91,8 +81,8 @@ export function AngeboteSection({ content }: AngeboteSectionProps) {
     <section id="Angebote" className="w-full bg-[var(--wf-neutral-secondary)] py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)]">
       <div className="max-w-[var(--container-width)] mx-auto px-[var(--container-padding)]">
         <div className="text-center mb-[var(--gap-lg)]">
-          <h2>Meine Angebote für dich</h2>
-          <p className="text-[var(--text-lg-size)] text-current/60 leading-[1.6] max-w-[40rem] mx-auto">Individuell abgestimmt auf deine Bedürfnisse – finde das passende Angebot für deinen Weg zu mehr Balance und Wohlbefinden.</p>
+          <h2>{t("angebote.title")}</h2>
+          <p className="text-[var(--text-lg-size)] text-current/60 leading-[1.6] max-w-[40rem] mx-auto">{t("angebote.subtitle")}</p>
         </div>
 
         {/* 3 small cards */}
@@ -153,13 +143,13 @@ function SmallCard({ card }: { card: PricingCard }) {
             href={`tel:${card.phone}`}
             className="block w-full text-center bg-secondary text-secondary-foreground py-[1em] px-[1.5em] rounded-[var(--radius-button)] text-[1rem] font-normal leading-[1.2] hover:opacity-90 transition-all min-h-[48px]"
           >
-            Anfragen per Telefon
+            {card.phoneLabel}
           </a>
           <a
             href={`mailto:${card.email}?subject=Neue%20Anfrage%20Taoyin%20Zentrum`}
             className="block w-full text-center bg-transparent text-foreground py-[1em] px-[1.5em] rounded-[var(--radius-button)] text-[1rem] font-normal leading-[1.2] shadow-[inset_0_0_0_1px_var(--wf-inverse-a20)] hover:shadow-[inset_0_0_0_1px_var(--wf-inverse-a40)] transition-all min-h-[48px]"
           >
-            Anfragen per Mail
+            {card.mailLabel}
           </a>
         </div>
       </div>
@@ -221,13 +211,13 @@ function WideCard({ card }: { card: PricingCard }) {
               href={`tel:${card.phone}`}
               className="inline-flex items-center justify-center bg-secondary text-secondary-foreground py-[1em] px-[1.5em] rounded-[var(--radius-button)] text-[1rem] font-normal leading-[1.2] hover:opacity-90 transition-all min-h-[48px]"
             >
-              Anfragen per Telefon
+              {card.phoneLabel}
             </a>
             <a
               href={`mailto:${card.email}?subject=Neue%20Anfrage%20Taoyin%20Zentrum`}
               className="inline-flex items-center justify-center bg-transparent text-foreground py-[1em] px-[1.5em] rounded-[var(--radius-button)] text-[1rem] font-normal leading-[1.2] shadow-[inset_0_0_0_1px_var(--wf-inverse-a20)] hover:shadow-[inset_0_0_0_1px_var(--wf-inverse-a40)] transition-all min-h-[48px]"
             >
-              Anfragen per Mail
+              {card.mailLabel}
             </a>
           </div>
         </div>
