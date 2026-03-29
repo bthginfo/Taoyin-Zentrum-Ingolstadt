@@ -2,12 +2,17 @@
  * Storyblok RESEED Script – Deletes all existing content and reseeds
  * Includes ALL detail sections, angebot_card with Ort/Uhrzeit fields
  * 
- * Usage: node scripts/storyblok-reseed.mjs
+ * Usage: STORYBLOK_SPACE_ID=xxx STORYBLOK_PAT=xxx node scripts/storyblok-reseed.mjs
  */
 
-const SPACE_ID = '291082434696616';
-const PAT = 'JHCxNjskFfbKg9s74qPzrAtt-153719275866521-K_Sz7uHwTvBfchYpFy27';
+const SPACE_ID = process.env.STORYBLOK_SPACE_ID;
+const PAT = process.env.STORYBLOK_PAT;
 const API_BASE = 'https://mapi.storyblok.com/v1';
+
+if (!SPACE_ID || !PAT) {
+  console.error('❌ Missing environment variables. Set STORYBLOK_SPACE_ID and STORYBLOK_PAT.');
+  process.exit(1);
+}
 
 async function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 

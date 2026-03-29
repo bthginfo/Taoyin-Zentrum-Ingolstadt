@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useLocation } from "react-router";
 import { fetchStory, getStorySlug, getCurrentLanguage } from "../lib/storyblok";
 import { type StoryblokStory } from "../types/storyblok";
@@ -28,6 +28,27 @@ export function useStoryblokPage<T = any>(pageName: string) {
 
     loadStory();
   }, [pageName, location.pathname]);
+
+  // Listen for Storyblok Visual Editor bridge events (live preview)
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      if (
+        event.data &&
+        typeof event.data === "object" &&
+        event.data.action === "input" &&
+        event.data.story
+      ) {
+        const updatedStory = event.data.story;
+        // Only update if it's the same story
+        if (story && updatedStory.id === story.id) {
+          setStory(updatedStory);
+        }
+      }
+    };
+
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  }, [story?.id]);
 
   return { story, content: story?.content as T | null, loading, error };
 }

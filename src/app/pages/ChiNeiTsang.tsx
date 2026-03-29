@@ -14,6 +14,35 @@ export default function ChiNeiTsang() {
         description={text("seo_description", "cnt.heroText")}
         keywords={text("seo_keywords", "cnt.heroTitle")}
         url="/chi-nei-tsang"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "Chi Nei Tsang – Taoistische Bauchmassage",
+          "description": "Chi Nei Tsang ist eine tiefgreifende taoistische Bauchmassage zur Lösung emotionaler und körperlicher Blockaden.",
+          "provider": {
+            "@type": "HealthAndBeautyBusiness",
+            "name": "Taoyin Zentrum Ingolstadt",
+            "url": "https://taoyin-zentrum-ingolstadt.de"
+          },
+          "areaServed": {
+            "@type": "City",
+            "name": "Ingolstadt"
+          },
+          "availableChannel": {
+            "@type": "ServiceChannel",
+            "serviceLocation": {
+              "@type": "Place",
+              "name": "Taoyin Zentrum Ingolstadt",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Schleifmühle 3a",
+                "addressLocality": "Ingolstadt",
+                "postalCode": "85049",
+                "addressCountry": "DE"
+              }
+            }
+          }
+        }}
       />
       {/* Hero Header — .section (bg-primary = cream) with grid_5-col */}
       <header className="w-full bg-[var(--wf-neutral-primary)] text-foreground py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)]">

@@ -89,6 +89,22 @@ export default function Psychotherapie() {
         description={text("seo_description", "psycho.heroText")}
         keywords={text("seo_keywords", "psycho.heroTitle")}
         url="/psychotherapie"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "ProfessionalService",
+          "name": "Ganzheitliche Psychotherapie – Taoyin Zentrum Ingolstadt",
+          "description": "Psychotherapie nach dem Heilpraktikergesetz mit taoistischen Methoden, Körperarbeit und Achtsamkeit.",
+          "provider": {
+            "@type": "Person",
+            "name": "Estela Fuchs",
+            "jobTitle": "Heilpraktikerin für Psychotherapie"
+          },
+          "areaServed": {
+            "@type": "City",
+            "name": "Ingolstadt"
+          },
+          "url": "https://taoyin-zentrum-ingolstadt.de/psychotherapie"
+        }}
       />
 
       {/* Hero — .section.is-secondary, max-height_100vh_desktop */}

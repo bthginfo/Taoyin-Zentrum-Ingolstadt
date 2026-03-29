@@ -1500,6 +1500,33 @@ const translations = {
     en: "Understanding relationship problems and finding out how your love relationship can work,Getting to know and understand yourself and your partner better,Acquiring new tools that are useful in all life situations",
     es: "Comprender los problemas de relación y descubrir cómo puede funcionar tu relación amorosa,Conocer y comprender mejor a ti mismo y a tu pareja,Adquirir nuevas herramientas útiles en todas las situaciones de la vida",
   },
+
+  // ── Cookie Banner (DSGVO) ──
+  "cookie.title": {
+    de: "Cookie-Hinweis",
+    en: "Cookie Notice",
+    es: "Aviso de Cookies",
+  },
+  "cookie.text": {
+    de: "Diese Website verwendet nur technisch notwendige Cookies für den Betrieb der Seite. Es werden keine Tracking- oder Marketing-Cookies eingesetzt. Weitere Informationen finden Sie in unserer",
+    en: "This website only uses technically necessary cookies for the operation of the site. No tracking or marketing cookies are used. For more information, please see our",
+    es: "Este sitio web solo utiliza cookies técnicamente necesarias para el funcionamiento del sitio. No se utilizan cookies de seguimiento ni de marketing. Para más información, consulte nuestro",
+  },
+  "cookie.link": {
+    de: "Datenschutzerklärung.",
+    en: "Privacy Policy.",
+    es: "Política de Privacidad.",
+  },
+  "cookie.accept": {
+    de: "Verstanden",
+    en: "Got it",
+    es: "Entendido",
+  },
+  "cookie.reject": {
+    de: "Ablehnen",
+    en: "Decline",
+    es: "Rechazar",
+  },
 } as const;
 
 type TranslationKey = keyof typeof translations;

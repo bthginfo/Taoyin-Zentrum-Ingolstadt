@@ -1,3 +1,4 @@
+import { SEO } from "../components/SEO";
 import { CtaSection } from "../components/CtaSection";
 import { usePageContent } from "../../hooks/usePageContent";
 import type { BehandlungContent } from "../../types/storyblok";
@@ -7,6 +8,20 @@ export default function Behandlung() {
 
   return (
     <>
+      <SEO
+        title={text("seo_title", "behandlung.heroTitle")}
+        description={text("seo_description", "behandlung.heroText")}
+        keywords="Behandlungsziele Ingolstadt, ganzheitliche Heilung, Therapieziele, Taoyin Zentrum"
+        url="/behandlung-ziele"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "MedicalBusiness",
+          "name": "Taoyin Zentrum Ingolstadt – Behandlungsziele",
+          "description": "Behandlungsziele und ganzheitliche Therapieansätze im Taoyin Zentrum Ingolstadt.",
+          "url": "https://taoyin-zentrum-ingolstadt.de/behandlung-ziele",
+          "medicalSpecialty": "Alternative Medicine"
+        }}
+      />
       {/* Hero — .section (cream, default) */}
       <header className="w-full bg-[var(--wf-neutral-primary)] py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)]">
         <div className="max-w-[var(--container-width)] mx-auto px-[var(--container-padding)]">

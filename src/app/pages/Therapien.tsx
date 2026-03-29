@@ -1,3 +1,4 @@
+import { SEO } from "../components/SEO";
 import { CtaSection } from "../components/CtaSection";
 import { usePageContent } from "../../hooks/usePageContent";
 import type { TherapienContent } from "../../types/storyblok";
@@ -7,6 +8,20 @@ export default function Therapien() {
 
   return (
     <>
+      <SEO
+        title={text("seo_title", "therapien.heroTitle")}
+        description={text("seo_description", "therapien.heroText")}
+        keywords="Therapien Ingolstadt, ganzheitliche Therapie, Qi Gong Therapie, Chi Nei Tsang, Tao Yin, Psychotherapie Ingolstadt"
+        url="/therapien"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "MedicalBusiness",
+          "name": "Taoyin Zentrum Ingolstadt – Therapien",
+          "description": "Ganzheitliche Therapien: Qi Gong, Tao Yin, Chi Nei Tsang und Psychotherapie im Taoyin Zentrum Ingolstadt.",
+          "url": "https://taoyin-zentrum-ingolstadt.de/therapien",
+          "medicalSpecialty": "Alternative Medicine"
+        }}
+      />
       {/* Hero — .section.is-secondary */}
       <header className="w-full bg-[var(--wf-neutral-secondary)] py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)]">
         <div className="max-w-[var(--container-width)] mx-auto px-[var(--container-padding)]">

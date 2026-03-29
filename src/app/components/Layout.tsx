@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
 import { WhatsAppButton } from "./WhatsAppButton";
+import { CookieBanner } from "./CookieBanner";
 
 function PageLoader() {
   return (
@@ -33,6 +34,7 @@ export function Layout() {
         </motion.main>
         <Footer />
         <WhatsAppButton />
+        <CookieBanner />
       </div>
     </HelmetProvider>
   );

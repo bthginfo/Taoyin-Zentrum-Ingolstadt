@@ -13,6 +13,7 @@ if (accessToken) {
       apiOptions: {
         region: "eu",
       },
+      bridge: true, // Enable Storyblok Visual Editor bridge
     });
     storyblokApiInstance = getStoryblokApi();
     console.log("✅ Storyblok initialized");

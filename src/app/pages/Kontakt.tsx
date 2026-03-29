@@ -12,6 +12,32 @@ export default function Kontakt() {
         description={text("seo_description", "kontakt.directions")}
         keywords="Taoyin Zentrum Kontakt, Qi Gong Ingolstadt Adresse, Anfahrt Taoyin Zentrum, Schleifmühle Ingolstadt, Estela Fuchs Kontakt"
         url="/kontakt"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          "name": "Taoyin Zentrum Ingolstadt",
+          "url": "https://taoyin-zentrum-ingolstadt.de/kontakt",
+          "telephone": "+49-841-12345678",
+          "email": "info@taoyin-zentrum-ingolstadt.de",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Schleifmühle 3a",
+            "addressLocality": "Ingolstadt",
+            "postalCode": "85049",
+            "addressCountry": "DE"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 48.7665,
+            "longitude": 11.4258
+          },
+          "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "09:00",
+            "closes": "18:00"
+          }
+        }}
       />
       {/* Anfahrt & Kontakt — .section (cream) */}
       <section className="w-full bg-[var(--wf-neutral-primary)] text-foreground py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)] overflow-clip">

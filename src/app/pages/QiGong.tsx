@@ -14,6 +14,30 @@ export default function QiGong() {
         description={text("seo_description", "qigong.heroText")}
         keywords={text("seo_keywords", "qigong.heroTitle")}
         url="/qi-gong"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "Course",
+          "name": "Medizinisches Qi Gong",
+          "description": "Qi Gong Kurse zur Förderung von Gesundheit, innerer Ruhe und Lebensenergie im Taoyin Zentrum Ingolstadt.",
+          "provider": {
+            "@type": "HealthAndBeautyBusiness",
+            "name": "Taoyin Zentrum Ingolstadt",
+            "url": "https://taoyin-zentrum-ingolstadt.de"
+          },
+          "courseMode": "onsite",
+          "availableLanguage": ["de", "en", "es"],
+          "location": {
+            "@type": "Place",
+            "name": "Taoyin Zentrum Ingolstadt",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Schleifmühle 3a",
+              "addressLocality": "Ingolstadt",
+              "postalCode": "85049",
+              "addressCountry": "DE"
+            }
+          }
+        }}
       />
       {/* Hero Header — .section (bg-primary = cream) */}
       <header className="w-full bg-[var(--wf-neutral-primary)] text-foreground py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)]">

@@ -13,6 +13,20 @@ export default function About() {
         description={text("seo_description", "about.heroSubtitle")}
         keywords="Estela Fuchs, Psychotherapie Ingolstadt, Qi Gong Lehrerin, Taoismus, TaoBasis, Heilpraktiker Ingolstadt, Chi Nei Tsang Therapeutin, Taoyin Zentrum"
         url="/about"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "Person",
+          "name": "Estela Fuchs",
+          "jobTitle": "Heilpraktikerin für Psychotherapie, Qi Gong & Tao Yin Lehrerin",
+          "url": "https://taoyin-zentrum-ingolstadt.de/about",
+          "worksFor": {
+            "@type": "HealthAndBeautyBusiness",
+            "name": "Taoyin Zentrum Ingolstadt",
+            "url": "https://taoyin-zentrum-ingolstadt.de"
+          },
+          "knowsAbout": ["Qi Gong", "Tao Yin", "Chi Nei Tsang", "Psychotherapie", "Taoismus"],
+          "sameAs": ["https://taoyin-zentrum-ingolstadt.de"]
+        }}
       />
 
       {/* Hero — .section (cream), grid_5-col tablet-1-col gap-small */}

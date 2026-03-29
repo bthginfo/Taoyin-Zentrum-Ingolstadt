@@ -14,6 +14,30 @@ export default function TaoYin() {
         description={text("seo_description", "taoyin.heroText")}
         keywords={text("seo_keywords", "taoyin.heroTitle")}
         url="/taoyin"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "Course",
+          "name": "Tao Yin – Taoistische Bewegungskunst",
+          "description": "Tao Yin verbindet sanfte Dehnungen, bewusste Atmung und meditative Bewegungen zur Harmonisierung des Energieflusses.",
+          "provider": {
+            "@type": "HealthAndBeautyBusiness",
+            "name": "Taoyin Zentrum Ingolstadt",
+            "url": "https://taoyin-zentrum-ingolstadt.de"
+          },
+          "courseMode": "onsite",
+          "availableLanguage": ["de", "en", "es"],
+          "location": {
+            "@type": "Place",
+            "name": "Taoyin Zentrum Ingolstadt",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Schleifmühle 3a",
+              "addressLocality": "Ingolstadt",
+              "postalCode": "85049",
+              "addressCountry": "DE"
+            }
+          }
+        }}
       />
       {/* Hero Header — section.is-secondary */}
       <header className="w-full bg-[var(--wf-neutral-secondary)] text-foreground py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)]">
