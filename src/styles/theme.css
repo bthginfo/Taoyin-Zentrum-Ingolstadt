@@ -1,0 +1,381 @@
+@custom-variant dark (&:is(.dark *));
+
+/* ═══════════════════════════════════════════════════════════════════
+   Design Tokens – resolved from Webflow Shared CSS
+   Source: tao-yin-zentrum-ingolstadt-14f475.webflow.shared.60188023b.css
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Core Colors (Webflow) ── */
+  --wf-neutral-primary: #f9f6e5;        /* warm cream – page background */
+  --wf-neutral-secondary: #eff5f6;      /* cool blue-gray – secondary bg */
+  --wf-neutral-inverse: #037baf;        /* blue – dark bg / text-primary in WF */
+  --wf-accent-primary: #f19202;         /* orange – CTA / buttons */
+  --wf-accent-primary-hover: #f19202;   /* same orange on hover */
+  --wf-text-on-accent: #1b3153;         /* dark navy – text on orange */
+  --wf-text-accent-on-inverse: #eff5f6; /* light – accent links on dark bg */
+
+  /* ── Color Tints (alpha variants) ── */
+  --wf-inverse-a10: #1b31531a;
+  --wf-inverse-a20: #1b315333;
+  --wf-inverse-a40: #1b315366;
+  --wf-inverse-a60: #1b315399;
+  --wf-inverse-a80: #1b3153cc;
+  --wf-inverse-a90: #1b3153e6;
+  --wf-primary-a60: #f9f6e599;
+
+  /* ── Mapped Theme Tokens ── */
+  --font-size: 16px;
+  --background: #f9f6e5;                             /* warm cream (Webflow live) */
+  --background-secondary: var(--wf-neutral-secondary); /* #eff5f6 */
+  --foreground: #2D3748;                             /* dark gray body text */
+  --foreground-secondary: var(--wf-inverse-a60);     /* 60% opacity dark */
+  --card: #FFFFFF;
+  --card-foreground: #2D3748;
+  --popover: #FFFFFF;
+  --popover-foreground: #2D3748;
+  --primary: var(--wf-neutral-inverse);              /* #037baf blue */
+  --primary-foreground: var(--wf-neutral-primary);   /* cream on blue */
+  --secondary: var(--wf-accent-primary);             /* #f19202 orange */
+  --secondary-foreground: var(--wf-text-on-accent);  /* #1b3153 navy on orange */
+  --muted: var(--wf-neutral-secondary);              /* #eff5f6 */
+  --muted-foreground: var(--wf-inverse-a60);         /* #1b315399 */
+  --accent: var(--wf-accent-primary);                /* #f19202 */
+  --accent-foreground: var(--wf-text-on-accent);     /* #1b3153 */
+  --destructive: #d4183d;
+  --destructive-foreground: #ffffff;
+  --border: var(--wf-inverse-a10);                   /* 10% dark */
+  --border-secondary: var(--wf-inverse-a20);         /* 20% dark */
+  --input: transparent;
+  --input-background: var(--wf-neutral-primary);
+  --switch-background: #cbced4;
+  --ring: var(--wf-accent-primary);
+
+  /* ── Font Weights ── */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+
+  /* ── Spacing Scale (Webflow) ── */
+  --space-0-25x: 0.25rem;   /*  4px */
+  --space-0-5x: 0.5rem;     /*  8px */
+  --space-0-75x: 0.75rem;   /* 12px */
+  --space-1x: 1rem;         /* 16px */
+  --space-1-25x: 1.25rem;   /* 20px */
+  --space-1-5x: 1.5rem;     /* 24px */
+  --space-2x: 2rem;         /* 32px */
+  --space-3x: 3rem;         /* 48px */
+  --space-4x: 4rem;         /* 64px */
+  --space-5x: 5rem;         /* 80px */
+  --space-6x: 6rem;         /* 96px */
+  --space-7x: 7rem;         /* 112px */
+  --space-8x: 8rem;         /* 128px */
+
+  /* ── Gap Scale ── */
+  --gap-xxs: var(--space-0-5x);    /* 0.5rem */
+  --gap-xs: var(--space-1x);       /* 1rem */
+  --gap-sm: var(--space-2x);       /* 2rem */
+  --gap-md: var(--space-3x);       /* 3rem */
+  --gap-lg: var(--space-4x);       /* 4rem */
+  --gap-xl: var(--space-5x);       /* 5rem */
+  --gap-xxl: var(--space-6x);      /* 6rem */
+
+  /* ── Section Padding ── */
+  --section-padding: var(--space-8x);          /* 8rem desktop */
+  --section-padding-tablet: var(--space-7x);   /* 7rem */
+  --section-padding-mobile-l: var(--space-6x); /* 6rem */
+  --section-padding-mobile-p: var(--space-5x); /* 5rem */
+
+  /* ── Container Widths ── */
+  --container-width: 1280px;
+  --container-lg-width: 1440px;
+  --container-sm-width: 1000px;
+  --container-padding: var(--space-1x);  /* 1rem */
+
+  /* ── Border Radius ── */
+  --wf-radius-sm: 0.25rem;
+  --wf-radius-md: 0.5rem;
+  --wf-radius-lg: 0.75rem;
+  --wf-radius-xl: 1rem;
+  --wf-radius-round: 100rem;
+  --radius-button: 0.75rem;
+  --radius-card: 1rem;
+  --radius-image: 1rem;
+
+  /* ── Button Tokens ── */
+  --button-padding-v: 1em;
+  --button-padding-h: 1.5em;
+  --button-font-size: 1rem;
+  --button-line-height: 1.2;
+  --button-font-weight: 400;
+
+  /* ── Card Tokens ── */
+  --card-padding: var(--space-3x);           /* 3rem desktop */
+  --card-padding-tablet: var(--space-2x);    /* 2rem */
+  --card-padding-mobile: var(--space-1-5x);  /* 1.5rem */
+
+  /* ── Typography – Headings ── */
+  --h1-size: 4.21rem;
+  --h1-size-tablet: 3.37rem;
+  --h1-size-mobile-l: 2.69rem;
+  --h1-size-mobile-p: 2.15rem;
+  --h1-line-height: 1.04;
+  --h1-weight: 500;
+  --h1-letter-spacing: -0.01em;
+  --h1-margin-bottom: 0.3em;
+
+  --h2-size: 2.37rem;
+  --h2-size-tablet: 1.89rem;
+  --h2-size-mobile-l: 1.52rem;
+  --h2-size-mobile-p: 1.21rem;
+  --h2-line-height: 1.04;
+  --h2-weight: 500;
+  --h2-letter-spacing: -0.01em;
+  --h2-margin-bottom: 0.35em;
+
+  --h3-size: 1.78rem;
+  --h3-size-tablet: 1.42rem;
+  --h3-size-mobile-l: 1.14rem;
+  --h3-size-mobile-p: 0.91rem;
+  --h3-line-height: 1.04;
+  --h3-weight: 500;
+  --h3-letter-spacing: -0.01em;
+  --h3-margin-bottom: 0.5em;
+
+  --h4-size: 1.33rem;
+  --h4-size-tablet: 1.2rem;
+  --h4-size-mobile-l: 1.08rem;
+  --h4-size-mobile-p: 0.97rem;
+  --h4-line-height: 1.3;
+  --h4-weight: 500;
+  --h4-letter-spacing: -0.01em;
+  --h4-margin-bottom: 0.35em;
+
+  --h5-size: 1rem;
+  --h5-line-height: 1.3;
+  --h5-weight: 500;
+  --h5-letter-spacing: 0em;
+  --h5-margin-bottom: 0.5em;
+
+  --h6-size: 0.75rem;
+  --h6-line-height: 1.3;
+  --h6-weight: 500;
+  --h6-letter-spacing: 0.1em;
+  --h6-margin-bottom: 0.5em;
+
+  /* ── Typography – Body ── */
+  --text-base-size: 1rem;
+  --text-base-line-height: 1.6;
+  --text-base-letter-spacing: 0em;
+  --text-base-margin-bottom: 0.7em;
+
+  --text-sm-size: 0.88rem;
+  --text-lg-size: 1.13rem;
+  --text-xl-size: 1.5rem;
+  --text-xxl-size: 2rem;
+
+  /* ── Typography – Eyebrow ── */
+  --eyebrow-size: 0.9rem;
+  --eyebrow-line-height: 1.3;
+  --eyebrow-letter-spacing: 0.01em;
+  --eyebrow-margin-bottom: var(--space-1-25x);
+
+  /* ── Chart colors (kept from original) ── */
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+
+  /* ── Sidebar (kept) ── */
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: #030213;
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Tailwind v4 @theme mapping
+   ═══════════════════════════════════════════════════════════════════ */
+@theme inline {
+  --color-background: var(--background);
+  --color-background-secondary: var(--background-secondary);
+  --color-foreground: var(--foreground);
+  --color-foreground-secondary: var(--foreground-secondary);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-border-secondary: var(--border-secondary);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: var(--wf-radius-sm);
+  --radius-md: var(--wf-radius-md);
+  --radius-lg: var(--wf-radius-lg);
+  --radius-xl: var(--wf-radius-xl);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Base Styles
+   ═══════════════════════════════════════════════════════════════════ */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Source Sans 3', 'Source Sans Pro', sans-serif;
+    font-size: var(--text-base-size);
+    line-height: var(--text-base-line-height);
+  }
+
+  html {
+    font-size: var(--font-size);
+    scroll-behavior: smooth;
+  }
+
+  /* ── Headings ── */
+  h1 {
+    font-family: 'Petrona', Georgia, serif;
+    font-size: var(--h1-size);
+    font-weight: var(--h1-weight);
+    line-height: var(--h1-line-height);
+    letter-spacing: var(--h1-letter-spacing);
+    margin-bottom: var(--h1-margin-bottom);
+    font-style: italic;
+    text-wrap: balance;
+    color: var(--primary);
+  }
+
+  h2 {
+    font-family: 'Petrona', Georgia, serif;
+    font-size: var(--h2-size);
+    font-weight: var(--h2-weight);
+    line-height: var(--h2-line-height);
+    letter-spacing: var(--h2-letter-spacing);
+    margin-bottom: var(--h2-margin-bottom);
+    font-style: italic;
+    text-wrap: balance;
+    color: var(--primary);
+  }
+
+  h3 {
+    font-family: 'Petrona', Georgia, serif;
+    font-size: var(--h3-size);
+    font-weight: var(--h3-weight);
+    line-height: var(--h3-line-height);
+    letter-spacing: var(--h3-letter-spacing);
+    margin-bottom: var(--h3-margin-bottom);
+    color: var(--primary);
+  }
+
+  h4 {
+    font-family: 'Petrona', Georgia, serif;
+    font-size: var(--h4-size);
+    font-weight: var(--h4-weight);
+    line-height: var(--h4-line-height);
+    letter-spacing: var(--h4-letter-spacing);
+    margin-bottom: var(--h4-margin-bottom);
+    color: var(--primary);
+  }
+
+  h5 {
+    font-family: 'Petrona', Georgia, serif;
+    font-size: var(--h5-size);
+    font-weight: var(--h5-weight);
+    line-height: var(--h5-line-height);
+    letter-spacing: var(--h5-letter-spacing);
+    margin-bottom: var(--h5-margin-bottom);
+    color: var(--primary);
+  }
+
+  h6 {
+    font-family: 'Petrona', Georgia, serif;
+    font-size: var(--h6-size);
+    font-weight: var(--h6-weight);
+    line-height: var(--h6-line-height);
+    letter-spacing: var(--h6-letter-spacing);
+    margin-bottom: var(--h6-margin-bottom);
+    color: var(--primary);
+  }
+
+  p {
+    font-family: 'Source Sans 3', sans-serif;
+    line-height: var(--text-base-line-height);
+    margin-bottom: var(--text-base-margin-bottom);
+  }
+
+  label {
+    font-size: var(--text-base-size);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  button {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: var(--text-base-size);
+    font-weight: var(--font-weight-normal);
+    line-height: 1.5;
+  }
+
+  input {
+    font-size: var(--text-base-size);
+    font-weight: var(--font-weight-normal);
+    line-height: 1.5;
+  }
+
+  /* ── Responsive Heading Sizes ── */
+  /* Tablet: max-width 991px */
+  @media (max-width: 991px) {
+    h1 { font-size: var(--h1-size-tablet); }
+    h2 { font-size: var(--h2-size-tablet); }
+    h3 { font-size: var(--h3-size-tablet); }
+    h4 { font-size: var(--h4-size-tablet); }
+  }
+
+  /* Mobile Landscape: max-width 767px */
+  @media (max-width: 767px) {
+    h1 { font-size: var(--h1-size-mobile-l); }
+    h2 { font-size: var(--h2-size-mobile-l); }
+    h3 { font-size: var(--h3-size-mobile-l); }
+    h4 { font-size: var(--h4-size-mobile-l); }
+  }
+
+  /* Mobile Portrait: max-width 478px */
+  @media (max-width: 478px) {
+    h1 { font-size: var(--h1-size-mobile-p); }
+    h2 { font-size: var(--h2-size-mobile-p); }
+    h3 { font-size: var(--h3-size-mobile-p); }
+    h4 { font-size: var(--h4-size-mobile-p); }
+  }
+}

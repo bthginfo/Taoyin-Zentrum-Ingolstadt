@@ -1,0 +1,104 @@
+@import './fonts.css';
+@import './tailwind.css';
+@import './theme.css';
+
+/* ── Smooth scroll offset for sticky nav ── */
+html {
+  scroll-padding-top: 4rem;
+}
+
+/* ── Rich text / prose styling for content pages ── */
+.prose-custom p {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: color-mix(in srgb, currentColor 75%, transparent);
+  margin-bottom: 0.7em;
+}
+
+.prose-custom h2 {
+  margin-top: 0;
+  margin-bottom: var(--space-1-25x, 1.25rem);
+}
+
+.prose-custom h3 {
+  margin-top: var(--space-2x, 2rem);
+  margin-bottom: var(--space-1x, 1rem);
+}
+
+.prose-custom h4 {
+  margin-top: var(--space-2x, 2rem);
+  margin-bottom: var(--space-0-75x, 0.75rem);
+}
+
+.prose-custom strong {
+  color: currentColor;
+}
+
+.prose-custom em {
+  font-style: italic;
+}
+
+.prose-custom blockquote {
+  border-left: 3px solid var(--wf-neutral-inverse, #037baf);
+  padding-left: 1.25rem;
+  margin: var(--space-2x, 2rem) 0;
+}
+
+.prose-custom blockquote p {
+  font-style: italic;
+  color: color-mix(in srgb, currentColor 65%, transparent);
+}
+
+.prose-custom blockquote footer {
+  font-style: normal;
+  font-size: 0.875rem;
+  color: color-mix(in srgb, currentColor 50%, transparent);
+  margin-top: 0.5rem;
+}
+
+.prose-custom figure {
+  margin: var(--space-2x, 2rem) 0;
+}
+
+.prose-custom ul {
+  padding-left: 1.5em;
+  margin: 0.7em 0;
+}
+
+.prose-custom ul li {
+  margin-bottom: 0.35em;
+  color: color-mix(in srgb, currentColor 75%, transparent);
+  line-height: 1.7;
+}
+
+.prose-custom a {
+  color: var(--wf-neutral-inverse, #037baf);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.prose-custom a:hover {
+  opacity: 0.8;
+}
+
+/* ── Section transition smoothing ── */
+section + section,
+header + section {
+  position: relative;
+}
+
+/* ── Focus-visible for accessibility ── */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--wf-accent-primary, #f19202);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ── Better touch targets on mobile ── */
+@media (max-width: 767px) {
+  .prose-custom ul li {
+    margin-bottom: 0.5em;
+  }
+}
