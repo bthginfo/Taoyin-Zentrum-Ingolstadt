@@ -4,6 +4,7 @@
 
 /* ── Smooth scroll offset for sticky nav ── */
 html {
+  scroll-behavior: smooth;
   scroll-padding-top: 4rem;
 }
 

@@ -60,6 +60,22 @@ export async function fetchStory(slug: string) {
   }
 }
 
+// Fetch list of news articles
+export async function fetchNewsList(lang: Language = "de") {
+  if (!storyblokApi) return [];
+  try {
+    const { data } = await storyblokApi.get("cdn/stories", {
+      version: import.meta.env.DEV ? "draft" : "published",
+      starts_with: `${lang}/news/`,
+      sort_by: "first_published_at:desc",
+    });
+    return data.stories || [];
+  } catch (error) {
+    console.error(`Error fetching news for ${lang}:`, error);
+    return [];
+  }
+}
+
 // Fetch global data (navbar, footer, etc.)
 export async function fetchGlobalData(lang: Language = "de") {
   if (!storyblokApi) {

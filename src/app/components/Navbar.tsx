@@ -17,12 +17,20 @@ export function Navbar() {
   const [angeboteOpen, setAngeboteOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [mobileAngeboteOpen, setMobileAngeboteOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const angeboteRef = useRef<HTMLDivElement>(null);
   const langRef = useRef<HTMLDivElement>(null);
   const { t, lang: currentLang } = useTranslation();
   const ll = useLangLink();
+
+  // Shrink navbar on scroll
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const angeboteItems = [
     {
@@ -68,8 +76,8 @@ export function Navbar() {
   }, [location.pathname]);
 
   return (
-    <nav className="w-full bg-[var(--background-secondary)] sticky top-0 z-50">
-      <div className="max-w-[1280px] mx-auto px-[var(--container-padding)] py-[var(--space-0-75x)] flex items-center rounded-b-[var(--radius-card)]">
+    <nav className={`w-full sticky top-0 z-50 transition-all duration-300 ${scrolled ? "bg-[var(--background-secondary)]/95 backdrop-blur-md shadow-sm" : "bg-[var(--background-secondary)]"}`}>
+      <div className={`max-w-[1280px] mx-auto px-[var(--container-padding)] flex items-center rounded-b-[var(--radius-card)] transition-all duration-300 ${scrolled ? "py-[var(--space-0-5x)]" : "py-[var(--space-0-75x)]"}`}>
         {/* Logo */}
         <Link to={ll("/")} className="flex-shrink-0 flex items-center h-10 mr-[var(--gap-sm)]">
           <img src={logoImg} alt="Taoyin Zentrum" className="h-10 w-auto" />

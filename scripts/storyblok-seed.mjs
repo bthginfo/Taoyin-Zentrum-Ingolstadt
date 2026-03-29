@@ -6,10 +6,16 @@
  * Usage: node scripts/storyblok-seed.mjs
  */
 
-const SPACE_ID = '291082434696616';
-const PAT = 'JHCxNjskFfbKg9s74qPzrAtt-153719275866521-K_Sz7uHwTvBfchYpFy27';
+const SPACE_ID = process.env.STORYBLOK_SPACE_ID;
+const PAT = process.env.STORYBLOK_PAT;
 const API_BASE = 'https://mapi.storyblok.com/v1';
 const REGION = 'eu';
+
+if (!SPACE_ID || !PAT) {
+  console.error('❌ Missing environment variables. Set STORYBLOK_SPACE_ID and STORYBLOK_PAT.');
+  console.error('   Usage: STORYBLOK_SPACE_ID=xxx STORYBLOK_PAT=xxx node scripts/storyblok-seed.mjs');
+  process.exit(1);
+}
 
 // Rate limit helper
 async function sleep(ms) {
@@ -239,6 +245,21 @@ const COMPONENTS = [
     schema: {
       title: { type: 'text', display_name: 'Title' },
       content_html: { type: 'richtext', display_name: 'Content' },
+    },
+  },
+  {
+    name: 'news_article',
+    display_name: 'News Article',
+    is_root: true,
+    is_nestable: false,
+    schema: {
+      title: { type: 'text', display_name: 'Title', required: true },
+      excerpt: { type: 'textarea', display_name: 'Excerpt' },
+      body: { type: 'textarea', display_name: 'Body' },
+      image: { type: 'asset', display_name: 'Image', filetypes: ['images'] },
+      date: { type: 'text', display_name: 'Date (YYYY-MM-DD)' },
+      seo_title: { type: 'text', display_name: 'SEO Title' },
+      seo_description: { type: 'textarea', display_name: 'SEO Description' },
     },
   },
 ];
@@ -646,6 +667,76 @@ const CONTENT = {
       title: 'Aviso Legal & Política de Privacidad',
     },
   },
+
+  // Sample news articles (optional – shows how to create news via seed)
+  news: {
+    de: [
+      {
+        slug: 'neuer-qi-gong-kurs',
+        name: 'Neuer Qi Gong Kurs (DE)',
+        content: {
+          title: 'Neuer Qi Gong Kurs ab April',
+          excerpt: 'Ab April bieten wir einen neuen Einsteiger-Kurs für medizinisches Qi Gong an. Jetzt anmelden!',
+          body: 'Wir freuen uns, einen neuen Qi Gong Kurs für Anfänger anzukündigen! Der Kurs findet ab April jeden Dienstag von 18:00 bis 19:30 Uhr statt. Lernen Sie sanfte Übungen, Atemtechniken und Energiearbeit für mehr Vitalität und Entspannung.\n\nDer Kurs ist ideal für alle, die einen Einstieg in die Welt des Qi Gong suchen. Keine Vorkenntnisse nötig.\n\nMelden Sie sich jetzt per WhatsApp oder E-Mail an!',
+          date: '2026-03-15',
+        },
+      },
+      {
+        slug: 'chi-nei-tsang-workshop',
+        name: 'Chi Nei Tsang Workshop (DE)',
+        content: {
+          title: 'Chi Nei Tsang Workshop im Mai',
+          excerpt: 'Intensiv-Workshop: Lernen Sie die Grundlagen der taoistischen Bauchmassage in einem Wochenend-Workshop.',
+          body: 'Im Mai veranstalten wir einen intensiven Wochenend-Workshop zu Chi Nei Tsang, der taoistischen Bauchmassage. Der Workshop richtet sich an alle, die diese kraftvolle Heilmethode kennenlernen möchten.\n\nInhalte: Grundlagen der Chi Nei Tsang Massage, Selbstbehandlung, Energetische Anatomie des Bauchraums.\n\nTermin: 10.-11. Mai 2026\nOrt: Taoyin Zentrum Ingolstadt\n\nPlätze sind begrenzt – sichern Sie sich Ihren Platz!',
+          date: '2026-03-20',
+        },
+      },
+    ],
+    en: [
+      {
+        slug: 'neuer-qi-gong-kurs',
+        name: 'New Qi Gong Course (EN)',
+        content: {
+          title: 'New Qi Gong Course Starting April',
+          excerpt: 'Starting April, we offer a new beginner course for medical Qi Gong. Register now!',
+          body: 'We are excited to announce a new Qi Gong course for beginners! The course takes place every Tuesday from 6:00 to 7:30 PM starting in April. Learn gentle exercises, breathing techniques and energy work for more vitality and relaxation.\n\nThe course is ideal for anyone looking to get started with Qi Gong. No prior experience needed.\n\nRegister now via WhatsApp or email!',
+          date: '2026-03-15',
+        },
+      },
+      {
+        slug: 'chi-nei-tsang-workshop',
+        name: 'Chi Nei Tsang Workshop (EN)',
+        content: {
+          title: 'Chi Nei Tsang Workshop in May',
+          excerpt: 'Intensive workshop: Learn the basics of Taoist abdominal massage in a weekend workshop.',
+          body: 'In May we are hosting an intensive weekend workshop on Chi Nei Tsang, the Taoist abdominal massage. The workshop is aimed at anyone who wants to learn about this powerful healing method.\n\nContent: Basics of Chi Nei Tsang massage, self-treatment, energetic anatomy of the abdomen.\n\nDate: May 10-11, 2026\nLocation: Taoyin Center Ingolstadt\n\nSpaces are limited – secure your spot!',
+          date: '2026-03-20',
+        },
+      },
+    ],
+    es: [
+      {
+        slug: 'neuer-qi-gong-kurs',
+        name: 'Nuevo Curso Qi Gong (ES)',
+        content: {
+          title: 'Nuevo Curso de Qi Gong desde Abril',
+          excerpt: 'A partir de abril, ofrecemos un nuevo curso para principiantes de Qi Gong médico. ¡Inscríbete ahora!',
+          body: '¡Nos complace anunciar un nuevo curso de Qi Gong para principiantes! El curso se llevará a cabo todos los martes de 18:00 a 19:30 a partir de abril. Aprende ejercicios suaves, técnicas de respiración y trabajo energético para más vitalidad y relajación.\n\nEl curso es ideal para todos los que buscan iniciarse en el mundo del Qi Gong. No se necesita experiencia previa.\n\n¡Inscríbete ahora por WhatsApp o email!',
+          date: '2026-03-15',
+        },
+      },
+      {
+        slug: 'chi-nei-tsang-workshop',
+        name: 'Taller Chi Nei Tsang (ES)',
+        content: {
+          title: 'Taller de Chi Nei Tsang en Mayo',
+          excerpt: 'Taller intensivo: Aprende los fundamentos del masaje abdominal taoísta en un taller de fin de semana.',
+          body: 'En mayo organizamos un taller intensivo de fin de semana sobre Chi Nei Tsang, el masaje abdominal taoísta. El taller está dirigido a todos los que quieran conocer este poderoso método de sanación.\n\nContenido: Fundamentos del masaje Chi Nei Tsang, autotratamiento, anatomía energética del abdomen.\n\nFecha: 10-11 de mayo de 2026\nLugar: Centro Taoyin Ingolstadt\n\n¡Las plazas son limitadas – asegura tu lugar!',
+          date: '2026-03-20',
+        },
+      },
+    ],
+  },
 };
 
 async function createStories() {
@@ -705,6 +796,41 @@ async function createStories() {
   console.log('\n  📋 Impressum Pages:');
   for (const lang of ['de', 'en', 'es']) {
     await createStory(folders[lang], 'impressum', `Impressum (${lang.toUpperCase()})`, 'page_impressum', CONTENT.impressum[lang]);
+  }
+
+  // 7. News folders + sample articles
+  console.log('\n  📰 News:');
+  for (const lang of ['de', 'en', 'es']) {
+    // Create news subfolder inside each language
+    const newsFolder = await apiCall('POST', '/stories', {
+      story: {
+        name: `News (${lang.toUpperCase()})`,
+        slug: 'news',
+        parent_id: folders[lang],
+        is_folder: true,
+        default_root: 'news_article',
+      },
+    });
+    if (newsFolder?.alreadyExists) {
+      console.log(`  ✅ /${lang}/news/ (already exists)`);
+    } else if (newsFolder) {
+      console.log(`  ✅ /${lang}/news/`);
+    }
+
+    // Get news folder ID
+    const newsFolderResult = await apiCall('GET', `/stories?with_slug=${lang}/news&is_folder=true`);
+    const newsFolderId = newsFolderResult?.stories?.[0]?.id;
+    if (!newsFolderId) {
+      console.log(`  ⚠️ Could not find news folder for ${lang}`);
+      continue;
+    }
+
+    // Create sample news articles
+    if (CONTENT.news?.[lang]) {
+      for (const article of CONTENT.news[lang]) {
+        await createStory(newsFolderId, article.slug, article.name, 'news_article', article.content);
+      }
+    }
   }
 }
 

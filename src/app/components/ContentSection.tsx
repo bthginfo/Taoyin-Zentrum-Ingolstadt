@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { ScrollReveal } from "../../lib/animations";
 
 interface ContentLink {
   label: string;
@@ -88,6 +89,7 @@ export function ContentSection({
   );
 
   return (
+    <ScrollReveal>
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-[var(--gap-md)] lg:gap-[var(--gap-lg)] items-center">
       {imageLeft ? (
         <>
@@ -101,5 +103,6 @@ export function ContentSection({
         </>
       )}
     </div>
+    </ScrollReveal>
   );
 }

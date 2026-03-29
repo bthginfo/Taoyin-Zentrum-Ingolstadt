@@ -14,6 +14,7 @@ const defaultTestimonials = [
 ];
 
 import { useTranslation } from "../../hooks/useTranslation";
+import { ScrollReveal, StaggerContainer, staggerItem, motion } from "../../lib/animations";
 
 interface TestimonialsSectionProps {
   content?: {
@@ -37,7 +38,7 @@ export function TestimonialsSection({ content }: TestimonialsSectionProps) {
     <section className="w-full bg-background py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)]">
       <div className="max-w-[1280px] mx-auto px-[var(--container-padding)]">
         {/* Header */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-[var(--gap-sm)] mb-[var(--gap-md)]">
+        <ScrollReveal className="grid grid-cols-1 lg:grid-cols-2 gap-[var(--gap-sm)] mb-[var(--gap-md)]">
           <div>
             <p className="text-[var(--eyebrow-size)] tracking-[var(--eyebrow-letter-spacing)] uppercase text-current/60 mb-[var(--eyebrow-margin-bottom)] leading-[var(--eyebrow-line-height)]">
               {t("testimonials.eyebrow")}
@@ -47,14 +48,15 @@ export function TestimonialsSection({ content }: TestimonialsSectionProps) {
           <p className="text-[var(--text-lg-size)] text-current/70 leading-[1.6] lg:pt-8">
             {t("testimonials.subtitle")}
           </p>
-        </div>
+        </ScrollReveal>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-[var(--gap-sm)] mb-[var(--gap-lg)]">
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-[var(--gap-sm)] mb-[var(--gap-lg)]">
           {testimonials.map((t) => (
-            <div
+            <motion.div
               key={t.name}
-              className="bg-white shadow-[inset_0_0_0_1px_var(--wf-inverse-a20)] rounded-[var(--radius-card)] p-[var(--card-padding-mobile)] md:p-[var(--card-padding-tablet)] lg:p-[var(--card-padding)] flex flex-col hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+              variants={staggerItem}
+              className="bg-white shadow-[inset_0_0_0_1px_var(--wf-inverse-a20)] rounded-[var(--radius-card)] p-[var(--card-padding-mobile)] md:p-[var(--card-padding-tablet)] lg:p-[var(--card-padding)] flex flex-col hover:shadow-xl hover:-translate-y-1.5 hover:shadow-secondary/10 transition-all duration-300"
             >
               {/* Star rating */}
               <div className="flex justify-center gap-0.5 mb-3">
@@ -68,9 +70,9 @@ export function TestimonialsSection({ content }: TestimonialsSectionProps) {
                 &bdquo;{t.text}&ldquo;
               </p>
               <p className="text-[14px] font-medium text-foreground mt-auto pt-3 border-t border-current/10">{t.name}</p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </StaggerContainer>
 
         {/* Google Link */}
         <div className="text-center">

@@ -698,6 +698,16 @@ const translations = {
     en: "Read more",
     es: "Leer más",
   },
+  "news.backHome": {
+    de: "Zurück zur Startseite",
+    en: "Back to home",
+    es: "Volver al inicio",
+  },
+  "news.notFound": {
+    de: "Artikel nicht gefunden",
+    en: "Article not found",
+    es: "Artículo no encontrado",
+  },
 } as const;
 
 type TranslationKey = keyof typeof translations;

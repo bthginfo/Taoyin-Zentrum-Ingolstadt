@@ -209,3 +209,15 @@ export interface BehandlungContent {
   title?: string;
   subtitle?: string;
 }
+
+// ─── News article ───
+export interface NewsArticleContent {
+  component: "news_article";
+  title: string;
+  excerpt?: string;
+  body?: string;
+  image?: StoryblokAsset;
+  date?: string;
+  seo_title?: string;
+  seo_description?: string;
+}

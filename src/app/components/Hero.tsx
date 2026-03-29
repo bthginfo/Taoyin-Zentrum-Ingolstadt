@@ -3,6 +3,8 @@ const heroImage1 = "https://cdn.prod.website-files.com/6890d61524a7dba397203fde/
 const heroImage2 = "https://cdn.prod.website-files.com/6890d61524a7dba397203fde/68c5370c877743c4a7999300_Estela-byaylin-3.jpg";
 
 import { useTranslation } from "../../hooks/useTranslation";
+import { motion } from "motion/react";
+import { Parallax } from "../../lib/animations";
 
 interface HeroProps {
   content?: {
@@ -35,7 +37,12 @@ export function Hero({ content }: HeroProps) {
       <div className="max-w-[var(--container-width)] mx-auto px-[var(--container-padding)] py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)] relative">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-[var(--gap-md)] lg:gap-[var(--gap-lg)] items-center">
           {/* Left: Text Content */}
-          <div className="order-2 lg:order-1 flex flex-col items-stretch">
+          <motion.div
+            className="order-2 lg:order-1 flex flex-col items-stretch"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+          >
             <div className="inline-flex items-center gap-2 mb-4 text-[var(--eyebrow-size)] tracking-[var(--eyebrow-letter-spacing)] uppercase text-[var(--secondary)]">
               <span className="w-8 h-px bg-[var(--secondary)]"></span>
               {t("hero.eyebrow")}
@@ -58,33 +65,38 @@ export function Hero({ content }: HeroProps) {
                 {button2Text}
               </a>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right: Image Composition – overlapping cards on desktop */}
-          <div className="order-1 lg:order-2">
+          <motion.div
+            className="order-1 lg:order-2"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+          >
             <div className="relative">
               <div className="rotate-0 lg:rotate-[8deg] transition-transform">
                 <div className="grid grid-cols-2 sm:grid-cols-1 gap-[var(--gap-xs)] sm:gap-[var(--gap-sm)]">
-                  <div className="overflow-hidden rounded-[var(--radius-image)] shadow-lg">
+                  <Parallax offset={20} className="overflow-hidden rounded-[var(--radius-image)] shadow-lg">
                     <img
                       src={image1}
                       alt={content?.hero_image_1?.alt || t("hero.imgAlt1")}
                       className="w-full object-cover aspect-[3/2] hover:scale-105 transition-transform duration-700"
                     />
-                  </div>
-                  <div className="overflow-hidden rounded-[var(--radius-image)] shadow-lg">
+                  </Parallax>
+                  <Parallax offset={30} className="overflow-hidden rounded-[var(--radius-image)] shadow-lg">
                     <img
                       src={image2}
                       alt={content?.hero_image_2?.alt || t("hero.imgAlt2")}
                       className="w-full object-cover aspect-[3/2] hover:scale-105 transition-transform duration-700"
                     />
-                  </div>
+                  </Parallax>
                 </div>
               </div>
               {/* Decorative accent */}
               <div className="hidden lg:block absolute -bottom-4 -left-4 w-24 h-24 rounded-full bg-[var(--secondary)]/10 blur-2xl" />
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </header>

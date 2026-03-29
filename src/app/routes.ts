@@ -1,16 +1,22 @@
 import { createBrowserRouter } from "react-router";
+import { lazy } from "react";
 import { Layout } from "./components/Layout";
+
+// Eagerly load Home (above the fold)
 import Home from "./pages/Home";
-import TaoYin from "./pages/TaoYin";
-import QiGong from "./pages/QiGong";
-import ChiNeiTsang from "./pages/ChiNeiTsang";
-import Psychotherapie from "./pages/Psychotherapie";
-import Therapien from "./pages/Therapien";
-import Behandlung from "./pages/Behandlung";
-import About from "./pages/About";
-import Kontakt from "./pages/Kontakt";
-import Impressum from "./pages/Impressum";
-import NotFound from "./pages/NotFound";
+
+// Lazy load all other pages for code splitting
+const TaoYin = lazy(() => import("./pages/TaoYin"));
+const QiGong = lazy(() => import("./pages/QiGong"));
+const ChiNeiTsang = lazy(() => import("./pages/ChiNeiTsang"));
+const Psychotherapie = lazy(() => import("./pages/Psychotherapie"));
+const Therapien = lazy(() => import("./pages/Therapien"));
+const Behandlung = lazy(() => import("./pages/Behandlung"));
+const About = lazy(() => import("./pages/About"));
+const Kontakt = lazy(() => import("./pages/Kontakt"));
+const Impressum = lazy(() => import("./pages/Impressum"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const NewsDetail = lazy(() => import("./pages/NewsDetail"));
 
 const pageRoutes = [
   { index: true, Component: Home },
@@ -23,6 +29,7 @@ const pageRoutes = [
   { path: "about", Component: About },
   { path: "kontakt", Component: Kontakt },
   { path: "impressum", Component: Impressum },
+  { path: "news/:slug", Component: NewsDetail },
 ];
 
 export const router = createBrowserRouter([

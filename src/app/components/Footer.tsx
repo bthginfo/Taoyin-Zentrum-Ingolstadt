@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { useTranslation, useLangLink } from "../../hooks/useTranslation";
+import { ScrollReveal } from "../../lib/animations";
 
 function InstagramIcon() {
   return (
@@ -31,7 +32,7 @@ export function Footer() {
     <footer className="w-full bg-primary text-primary-foreground">
       <div className="max-w-[1280px] mx-auto px-[var(--container-padding)] py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)]">
         {/* Top: Heading + Emails */}
-        <div className="mb-[var(--gap-lg)]">
+        <ScrollReveal className="mb-[var(--gap-lg)]">
           <h2 className="text-primary-foreground">
             {t("footer.heading")}
           </h2>
@@ -49,7 +50,7 @@ export function Footer() {
           >
             info@estela-fuchs.com
           </a>
-        </div>
+        </ScrollReveal>
 
         {/* Middle: Description + Links */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-[var(--gap-lg)] mb-[var(--gap-lg)]">

@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { useTranslation, useLangLink } from "../../hooks/useTranslation";
+import { ScrollReveal } from "../../lib/animations";
 
 interface PsychotherapieSectionProps {
   content?: {
@@ -22,7 +23,7 @@ export function PsychotherapieSection({ content }: PsychotherapieSectionProps) {
   return (
     <section className="w-full bg-primary text-primary-foreground py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)]">
       <div className="max-w-[1280px] mx-auto px-[var(--container-padding)]">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+        <ScrollReveal className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
           <div className="lg:col-span-1">
             <h2 className="text-primary-foreground mb-5">{content?.psycho_title || defaultTitle}</h2>
             <p className="text-current/60 text-[16px] leading-relaxed mb-8">
@@ -43,7 +44,7 @@ export function PsychotherapieSection({ content }: PsychotherapieSectionProps) {
               loading="lazy"
             />
           </div>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );

@@ -1,4 +1,6 @@
 import { useTranslation } from "../../hooks/useTranslation";
+import { ScrollReveal, motion, useScroll, useTransform } from "../../lib/animations";
+import { useRef } from "react";
 
 interface CtaSectionProps {
   content?: {
@@ -11,18 +13,22 @@ interface CtaSectionProps {
 
 export function CtaSection({ content }: CtaSectionProps) {
   const { t } = useTranslation();
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
   const defaultTitle = t("cta.title");
   const defaultDesc = t("cta.desc");
   const defaultImage = "https://cdn.prod.website-files.com/image-generation-assets/ee125b47-41aa-4ec5-a593-18b12a1fca27.avif";
   
   return (
-    <section className="relative w-full min-h-[70vh] lg:min-h-dvh grid grid-rows-1 overflow-hidden">
+    <section ref={ref} className="relative w-full min-h-[70vh] lg:min-h-dvh grid grid-rows-1 overflow-hidden">
       {/* Background image + overlay */}
       <div className="absolute inset-0">
-        <img
+        <motion.img
           src={content?.cta_background?.filename || defaultImage}
           alt={t("cta.imgAlt")}
           className="absolute inset-0 w-full h-full object-cover"
+          style={{ y: bgY }}
           loading="lazy"
         />
         <div
@@ -35,7 +41,7 @@ export function CtaSection({ content }: CtaSectionProps) {
 
       {/* Content */}
       <div className="relative z-10 flex items-end pb-[var(--section-padding-mobile-p)] md:pb-[var(--section-padding-tablet)] lg:pb-[var(--section-padding)] max-w-[var(--container-width)] mx-auto px-[var(--container-padding)] w-full">
-        <div className="w-full">
+        <ScrollReveal className="w-full">
           <div className="text-center max-w-[var(--container-sm-width)] mx-auto">
             <h2 className="text-white mb-[var(--space-1x)]" style={{ fontSize: "clamp(1.8rem, 4vw, 3.5rem)" }}>
               {content?.cta_title || defaultTitle}
@@ -66,7 +72,7 @@ export function CtaSection({ content }: CtaSectionProps) {
               </a>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );

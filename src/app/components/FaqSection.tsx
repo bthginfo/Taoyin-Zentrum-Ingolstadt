@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { useTranslation } from "../../hooks/useTranslation";
+import { ScrollReveal } from "../../lib/animations";
 
 interface FaqSectionProps {
   content?: {
@@ -36,17 +37,17 @@ export function FaqSection({ content }: FaqSectionProps) {
       {/* container.is-small like Webflow */}
       <div className="max-w-[var(--container-sm-width)] mx-auto px-[var(--container-padding)]">
         {/* header.is-align-center */}
-        <div className="text-center mb-[var(--gap-md)]">
+        <ScrollReveal className="text-center mb-[var(--gap-md)]">
           <h2 className="mb-[var(--space-1x)]">
             {title}
           </h2>
           <p className="text-[var(--text-lg-size)] leading-[1.6] text-current/60">
             {subtitle}
           </p>
-        </div>
+        </ScrollReveal>
 
         {/* Accordion list */}
-        <div className="flex flex-col">
+        <ScrollReveal className="flex flex-col">
           {faqs.map((faq, i) => (
             <div key={faq._uid || i} className="border-b border-current/10">
               <button
@@ -73,7 +74,7 @@ export function FaqSection({ content }: FaqSectionProps) {
               </div>
             </div>
           ))}
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );

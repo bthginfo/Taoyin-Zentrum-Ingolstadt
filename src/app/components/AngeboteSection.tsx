@@ -1,5 +1,6 @@
 import { Check, MapPin, Clock } from "lucide-react";
 import { useTranslation } from "../../hooks/useTranslation";
+import { ScrollReveal, StaggerContainer, staggerItem, motion } from "../../lib/animations";
 
 interface PricingCard {
   price: string;
@@ -80,20 +81,22 @@ export function AngeboteSection({ content }: AngeboteSectionProps) {
   return (
     <section id="Angebote" className="w-full bg-[var(--wf-neutral-secondary)] py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)]">
       <div className="max-w-[var(--container-width)] mx-auto px-[var(--container-padding)]">
-        <div className="text-center mb-[var(--gap-lg)]">
+        <ScrollReveal className="text-center mb-[var(--gap-lg)]">
           <h2>{t("angebote.title")}</h2>
           <p className="text-[var(--text-lg-size)] text-current/60 leading-[1.6] max-w-[40rem] mx-auto">{t("angebote.subtitle")}</p>
-        </div>
+        </ScrollReveal>
 
         {/* 3 small cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-[var(--gap-sm)] mb-[var(--gap-sm)]">
+        <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-[var(--gap-sm)] mb-[var(--gap-sm)]">
           {smallCards.map((card) => (
-            <SmallCard key={card.title} card={card} />
+            <motion.div key={card.title} variants={staggerItem}>
+              <SmallCard card={card} />
+            </motion.div>
           ))}
-        </div>
+        </StaggerContainer>
 
         {/* Wide card */}
-        {wideCard && <WideCard card={wideCard} />}
+        {wideCard && <ScrollReveal><WideCard card={wideCard} /></ScrollReveal>}
       </div>
     </section>
   );
@@ -103,7 +106,7 @@ function SmallCard({ card }: { card: PricingCard }) {
   return (
     <div className="flex flex-col">
       {/* Card with border */}
-      <div className="shadow-[inset_0_0_0_1px_var(--wf-inverse-a20)] rounded-[var(--radius-card)] p-[var(--card-padding-mobile)] md:p-[var(--card-padding-tablet)] lg:p-[var(--card-padding)] flex flex-col bg-white/40 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+      <div className="shadow-[inset_0_0_0_1px_var(--wf-inverse-a20)] rounded-[var(--radius-card)] p-[var(--card-padding-mobile)] md:p-[var(--card-padding-tablet)] lg:p-[var(--card-padding)] flex flex-col bg-white/40 hover:shadow-xl hover:-translate-y-1.5 hover:shadow-secondary/10 transition-all duration-300">
         {/* Price */}
         <div className="mb-1">
           <span className="text-[2rem] text-primary font-medium">{card.price}</span>

@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { useTranslation, useLangLink } from "../../hooks/useTranslation";
+import { ScrollReveal } from "../../lib/animations";
 
 interface PersoenlichesAngebotProps {
   content?: {
@@ -27,7 +28,7 @@ export function PersoenlichesAngebot({ content }: PersoenlichesAngebotProps) {
       {/* Decorative accent */}
       <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-[var(--secondary)]/[0.06] blur-3xl -translate-y-1/2 translate-x-1/4 pointer-events-none" />
       <div className="max-w-[var(--container-width)] mx-auto px-[var(--container-padding)]">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-[var(--gap-md)] lg:gap-[var(--gap-lg)] items-start">
+        <ScrollReveal className="grid grid-cols-1 lg:grid-cols-2 gap-[var(--gap-md)] lg:gap-[var(--gap-lg)] items-start">
           <h2>
             {content?.personal_title || t("personal.title")}
           </h2>
@@ -54,7 +55,7 @@ export function PersoenlichesAngebot({ content }: PersoenlichesAngebotProps) {
               </Link>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );
