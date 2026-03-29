@@ -25,7 +25,7 @@ export function CtaSection({ content }: CtaSectionProps) {
         <div
           className="absolute inset-0"
           style={{
-            background: "linear-gradient(to bottom, transparent 0%, rgba(3, 123, 175, 0.45) 40%, rgba(3, 123, 175, 0.7) 100%)",
+            background: "linear-gradient(to bottom, transparent 0%, rgba(3, 123, 175, 0.35) 30%, rgba(3, 123, 175, 0.65) 60%, rgba(3, 123, 175, 0.85) 100%)",
           }}
         />
       </div>

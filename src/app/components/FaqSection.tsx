@@ -44,7 +44,9 @@ export function FaqSection({ content }: FaqSectionProps) {
   const faqs = Array.isArray(content?.faq_items) ? content.faq_items : fallbackFaqs;
 
   return (
-    <section className="w-full bg-[var(--wf-neutral-secondary)] py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)]">
+    <section className="w-full bg-[var(--wf-neutral-secondary)] py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)] relative overflow-hidden">
+      {/* Decorative accent */}
+      <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full bg-[var(--primary)]/[0.05] blur-3xl translate-y-1/2 -translate-x-1/4 pointer-events-none" />
       {/* container.is-small like Webflow */}
       <div className="max-w-[var(--container-sm-width)] mx-auto px-[var(--container-padding)]">
         {/* header.is-align-center */}

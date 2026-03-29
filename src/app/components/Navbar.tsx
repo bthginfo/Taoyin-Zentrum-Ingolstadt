@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
+import { getCurrentLanguage, type Language } from "../../lib/storyblok";
 
 // Real logo from CDN
 const logoImg = "https://cdn.prod.website-files.com/6890d61524a7dba397203fde/6890d6bafdd0696561be5520_tao_logo.png";
@@ -35,8 +36,27 @@ export function Navbar() {
   const [langOpen, setLangOpen] = useState(false);
   const [mobileAngeboteOpen, setMobileAngeboteOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const angeboteRef = useRef<HTMLDivElement>(null);
   const langRef = useRef<HTMLDivElement>(null);
+  const currentLang = getCurrentLanguage();
+
+  // Switch language: navigate to /{newLang}/{currentPagePath}
+  const switchLanguage = (newLang: string) => {
+    const path = location.pathname;
+    // Strip existing language prefix
+    const stripped = path.replace(/^\/(de|en|es)(\/|$)/, '/');
+    const pagePath = stripped === '/' ? '' : stripped.slice(1);
+    
+    if (newLang === 'de') {
+      // German is default, no prefix
+      navigate(`/${pagePath}`);
+    } else {
+      navigate(`/${newLang}/${pagePath}`);
+    }
+    setLangOpen(false);
+    setMobileOpen(false);
+  };
 
   // Close dropdowns on route change
   useEffect(() => {
@@ -148,7 +168,7 @@ export function Navbar() {
             onMouseLeave={() => setLangOpen(false)}
           >
             <button className="flex items-center gap-[var(--gap-xxs)] py-2 px-3 rounded-[var(--radius-button)] text-[1rem] text-inherit hover:opacity-70 transition-opacity">
-              Sprache
+              {currentLang.toUpperCase()}
               <svg className={`w-3 h-3 transition-transform ${langOpen ? "rotate-180" : ""}`} viewBox="0 0 16 16" fill="none">
                 <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="2" />
               </svg>
@@ -156,12 +176,13 @@ export function Navbar() {
             {langOpen && (
               <div className="absolute top-full right-0 pt-2 z-50">
                 <div className="bg-background rounded-[var(--radius-button)] shadow-lg border border-[var(--wf-inverse-a10)] py-1 min-w-[80px]">
-                  {["DE", "EN", "ES"].map((lang) => (
+                  {["de", "en", "es"].map((lang) => (
                     <button
                       key={lang}
-                      className="block w-full text-left px-4 py-2 text-[1rem] text-inherit hover:opacity-70 transition-opacity"
+                      onClick={() => switchLanguage(lang)}
+                      className={`block w-full text-left px-4 py-2 text-[1rem] transition-opacity ${currentLang === lang ? "font-medium text-secondary" : "text-inherit hover:opacity-70"}`}
                     >
-                      {lang}
+                      {lang.toUpperCase()}
                     </button>
                   ))}
                 </div>
@@ -242,9 +263,13 @@ export function Navbar() {
 
             {/* Language in mobile */}
             <div className="py-3 flex gap-2">
-              {["DE", "EN", "ES"].map((lang) => (
-                <button key={lang} className="text-[1rem] text-inherit/70 hover:text-inherit px-2 py-1">
-                  {lang}
+              {["de", "en", "es"].map((lang) => (
+                <button
+                  key={lang}
+                  onClick={() => switchLanguage(lang)}
+                  className={`text-[1rem] px-2 py-1 ${currentLang === lang ? "font-medium text-secondary" : "text-inherit/70 hover:text-inherit"}`}
+                >
+                  {lang.toUpperCase()}
                 </button>
               ))}
             </div>

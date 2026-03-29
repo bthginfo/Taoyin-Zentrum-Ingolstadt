@@ -12,21 +12,30 @@ import Kontakt from "./pages/Kontakt";
 import Impressum from "./pages/Impressum";
 import NotFound from "./pages/NotFound";
 
+const pageRoutes = [
+  { index: true, Component: Home },
+  { path: "taoyin", Component: TaoYin },
+  { path: "qi-gong", Component: QiGong },
+  { path: "chi-nei-tsang", Component: ChiNeiTsang },
+  { path: "psychotherapie", Component: Psychotherapie },
+  { path: "psychotherapie/ziele", Component: Behandlung },
+  { path: "therapien", Component: Therapien },
+  { path: "about", Component: About },
+  { path: "kontakt", Component: Kontakt },
+  { path: "impressum", Component: Impressum },
+];
+
 export const router = createBrowserRouter([
   {
     path: "/",
     Component: Layout,
     children: [
-      { index: true, Component: Home },
-      { path: "taoyin", Component: TaoYin },
-      { path: "qi-gong", Component: QiGong },
-      { path: "chi-nei-tsang", Component: ChiNeiTsang },
-      { path: "psychotherapie", Component: Psychotherapie },
-      { path: "psychotherapie/ziele", Component: Behandlung },
-      { path: "therapien", Component: Therapien },
-      { path: "about", Component: About },
-      { path: "kontakt", Component: Kontakt },
-      { path: "impressum", Component: Impressum },
+      ...pageRoutes,
+      // Language-prefixed routes: /de/*, /en/*, /es/*
+      {
+        path: ":lang",
+        children: pageRoutes,
+      },
       { path: "*", Component: NotFound },
     ],
   },

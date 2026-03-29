@@ -25,7 +25,9 @@ export function PersoenlichesAngebot({ content }: PersoenlichesAngebotProps) {
       : items;
   
   return (
-    <section className="w-full bg-[var(--wf-neutral-primary)] py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)]">
+    <section className="w-full bg-[var(--wf-neutral-primary)] py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)] relative overflow-hidden">
+      {/* Decorative accent */}
+      <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-[var(--secondary)]/[0.06] blur-3xl -translate-y-1/2 translate-x-1/4 pointer-events-none" />
       <div className="max-w-[var(--container-width)] mx-auto px-[var(--container-padding)]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-[var(--gap-md)] lg:gap-[var(--gap-lg)] items-start">
           <h2>

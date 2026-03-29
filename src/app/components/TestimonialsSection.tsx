@@ -54,7 +54,7 @@ export function TestimonialsSection({ content }: TestimonialsSectionProps) {
           {testimonials.map((t) => (
             <div
               key={t.name}
-              className="bg-white shadow-[inset_0_0_0_1px_var(--wf-inverse-a20)] rounded-[var(--radius-card)] p-[var(--card-padding-mobile)] md:p-[var(--card-padding-tablet)] lg:p-[var(--card-padding)] flex flex-col"
+              className="bg-white shadow-[inset_0_0_0_1px_var(--wf-inverse-a20)] rounded-[var(--radius-card)] p-[var(--card-padding-mobile)] md:p-[var(--card-padding-tablet)] lg:p-[var(--card-padding)] flex flex-col hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
             >
               {/* Star rating */}
               <div className="flex justify-center gap-0.5 mb-3">

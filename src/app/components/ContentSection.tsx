@@ -77,11 +77,11 @@ export function ContentSection({
   );
 
   const imageContent = (
-    <div className="w-full">
+    <div className="w-full overflow-hidden rounded-[var(--radius-image)]">
       <img
         src={imageSrc}
         alt={imageAlt}
-        className="w-full h-auto rounded-[var(--radius-image)] object-contain"
+        className="w-full h-auto object-contain hover:scale-[1.03] transition-transform duration-700"
         loading="lazy"
       />
     </div>

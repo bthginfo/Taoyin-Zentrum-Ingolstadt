@@ -26,11 +26,17 @@ export function Hero({ content }: HeroProps) {
   const button2Link = content?.hero_button_2_link || "#Angebote";
 
   return (
-    <header className="w-full bg-[var(--background-secondary)] overflow-hidden lg:max-h-dvh">
-      <div className="max-w-[var(--container-width)] mx-auto px-[var(--container-padding)] py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)]">
+    <header className="w-full bg-[var(--background-secondary)] overflow-hidden lg:max-h-dvh relative">
+      {/* Subtle gradient accent */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary)]/[0.03] via-transparent to-[var(--secondary)]/[0.05] pointer-events-none" />
+      <div className="max-w-[var(--container-width)] mx-auto px-[var(--container-padding)] py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)] relative">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-[var(--gap-md)] lg:gap-[var(--gap-lg)] items-center">
           {/* Left: Text Content */}
           <div className="order-2 lg:order-1 flex flex-col items-stretch">
+            <div className="inline-flex items-center gap-2 mb-4 text-[var(--eyebrow-size)] tracking-[var(--eyebrow-letter-spacing)] uppercase text-[var(--secondary)]">
+              <span className="w-8 h-px bg-[var(--secondary)]"></span>
+              Taoyin Zentrum Ingolstadt
+            </div>
             <h1>{title}</h1>
             <p className="text-[var(--text-lg-size)] leading-[1.7] text-current/65 mb-[var(--space-1-5x)] max-w-[var(--container-sm-width)]" style={{ textWrap: 'balance' }}>
               {subtitle}
@@ -51,21 +57,29 @@ export function Hero({ content }: HeroProps) {
             </div>
           </div>
 
-          {/* Right: Image Composition – 12deg rotation on desktop, clean grid on mobile */}
+          {/* Right: Image Composition – overlapping cards on desktop */}
           <div className="order-1 lg:order-2">
-            <div className="rotate-0 lg:rotate-[12deg]">
-              <div className="grid grid-cols-2 sm:grid-cols-1 gap-[var(--gap-xs)] sm:gap-[var(--gap-sm)]">
-                <img
-                  src={image1}
-                  alt={content?.hero_image_1?.alt || "Spa-Ambiente im Taoyin Zentrum Ingolstadt"}
-                  className="w-full object-cover rounded-[var(--radius-image)] aspect-[3/2]"
-                />
-                <img
-                  src={image2}
-                  alt={content?.hero_image_2?.alt || "Estela Fuchs \u2013 Taoyin Zentrum Ingolstadt"}
-                  className="w-full object-cover rounded-[var(--radius-image)] aspect-[3/2]"
-                />
+            <div className="relative">
+              <div className="rotate-0 lg:rotate-[8deg] transition-transform">
+                <div className="grid grid-cols-2 sm:grid-cols-1 gap-[var(--gap-xs)] sm:gap-[var(--gap-sm)]">
+                  <div className="overflow-hidden rounded-[var(--radius-image)] shadow-lg">
+                    <img
+                      src={image1}
+                      alt={content?.hero_image_1?.alt || "Spa-Ambiente im Taoyin Zentrum Ingolstadt"}
+                      className="w-full object-cover aspect-[3/2] hover:scale-105 transition-transform duration-700"
+                    />
+                  </div>
+                  <div className="overflow-hidden rounded-[var(--radius-image)] shadow-lg">
+                    <img
+                      src={image2}
+                      alt={content?.hero_image_2?.alt || "Estela Fuchs – Taoyin Zentrum Ingolstadt"}
+                      className="w-full object-cover aspect-[3/2] hover:scale-105 transition-transform duration-700"
+                    />
+                  </div>
+                </div>
               </div>
+              {/* Decorative accent */}
+              <div className="hidden lg:block absolute -bottom-4 -left-4 w-24 h-24 rounded-full bg-[var(--secondary)]/10 blur-2xl" />
             </div>
           </div>
         </div>

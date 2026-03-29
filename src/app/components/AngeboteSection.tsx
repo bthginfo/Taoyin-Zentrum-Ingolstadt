@@ -1,4 +1,4 @@
-import { Check } from "lucide-react";
+import { Check, MapPin, Clock } from "lucide-react";
 
 interface PricingCard {
   price: string;
@@ -9,6 +9,8 @@ interface PricingCard {
   phone: string;
   email: string;
   wide?: boolean;
+  ort?: string;
+  uhrzeit?: string;
 }
 
 const cards: PricingCard[] = [
@@ -111,7 +113,7 @@ function SmallCard({ card }: { card: PricingCard }) {
   return (
     <div className="flex flex-col">
       {/* Card with border */}
-      <div className="shadow-[inset_0_0_0_1px_var(--wf-inverse-a20)] rounded-[var(--radius-card)] p-[var(--card-padding-mobile)] md:p-[var(--card-padding-tablet)] lg:p-[var(--card-padding)] flex flex-col bg-white/40">
+      <div className="shadow-[inset_0_0_0_1px_var(--wf-inverse-a20)] rounded-[var(--radius-card)] p-[var(--card-padding-mobile)] md:p-[var(--card-padding-tablet)] lg:p-[var(--card-padding)] flex flex-col bg-white/40 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
         {/* Price */}
         <div className="mb-1">
           <span className="text-[2rem] text-primary font-medium">{card.price}</span>
@@ -123,9 +125,27 @@ function SmallCard({ card }: { card: PricingCard }) {
 
         {/* Title & Description */}
         <h3 className="text-[18px] mb-2">{card.title}</h3>
-        <p className="text-[14px] text-foreground/60 leading-relaxed mb-6 flex-1">
+        <p className="text-[14px] text-foreground/60 leading-relaxed mb-4 flex-1">
           {card.description}
         </p>
+
+        {/* Optional Ort & Uhrzeit */}
+        {(card.ort || card.uhrzeit) && (
+          <div className="flex flex-col gap-1.5 mb-4 text-[13px] text-foreground/50">
+            {card.ort && (
+              <div className="flex items-center gap-1.5">
+                <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
+                <span>{card.ort}</span>
+              </div>
+            )}
+            {card.uhrzeit && (
+              <div className="flex items-center gap-1.5">
+                <Clock className="w-3.5 h-3.5 flex-shrink-0" />
+                <span>{card.uhrzeit}</span>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Buttons */}
         <div className="space-y-2">
@@ -176,6 +196,23 @@ function WideCard({ card }: { card: PricingCard }) {
             <p className="text-[14px] text-foreground/60 leading-relaxed whitespace-pre-line">
               {card.description}
             </p>
+            {/* Optional Ort & Uhrzeit */}
+            {(card.ort || card.uhrzeit) && (
+              <div className="flex flex-wrap gap-x-4 gap-y-1.5 mt-3 text-[13px] text-foreground/50">
+                {card.ort && (
+                  <div className="flex items-center gap-1.5">
+                    <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
+                    <span>{card.ort}</span>
+                  </div>
+                )}
+                {card.uhrzeit && (
+                  <div className="flex items-center gap-1.5">
+                    <Clock className="w-3.5 h-3.5 flex-shrink-0" />
+                    <span>{card.uhrzeit}</span>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Right: Buttons */}

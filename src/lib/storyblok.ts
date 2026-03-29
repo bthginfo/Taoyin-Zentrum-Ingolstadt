@@ -33,7 +33,7 @@ export type Language = typeof LANGUAGES[number];
 // Get current language from URL path
 export function getCurrentLanguage(): Language {
   const path = window.location.pathname;
-  const langMatch = path.match(/^\/(de|en|es)\//);
+  const langMatch = path.match(/^\/(de|en|es)(\/|$)/);
   return langMatch ? (langMatch[1] as Language) : "de";
 }
 
