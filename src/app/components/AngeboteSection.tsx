@@ -27,53 +27,73 @@ interface AngeboteSectionProps {
 export function AngeboteSection({ content }: AngeboteSectionProps) {
   const { t } = useTranslation();
 
-  const cards: PricingCard[] = [
-    {
-      price: "280 €",
-      priceNote: t("angebote.c1.note"),
-      title: t("angebote.c1.title"),
-      description: t("angebote.c1.desc"),
-      features: [t("angebote.c1.f1"), t("angebote.c1.f2"), t("angebote.c1.f3")],
-      phone: "+4915115539416",
-      email: "info@taoyin-zentrum.de",
-      phoneLabel: t("angebote.phone"),
-      mailLabel: t("angebote.mail"),
-    },
-    {
-      price: "150 €",
-      priceNote: t("angebote.c2.note"),
-      title: t("angebote.c2.title"),
-      description: t("angebote.c2.desc"),
-      features: [t("angebote.c2.f1"), t("angebote.c2.f2"), t("angebote.c2.f3"), t("angebote.c2.f4")],
-      phone: "+4915115539416",
-      email: "info@taoyin-zentrum.de",
-      phoneLabel: t("angebote.phone"),
-      mailLabel: t("angebote.mail"),
-    },
-    {
-      price: "95 €",
-      priceNote: t("angebote.c3.note"),
-      title: t("angebote.c3.title"),
-      description: t("angebote.c3.desc"),
-      features: [t("angebote.c3.f1"), t("angebote.c3.f2"), t("angebote.c3.f3"), t("angebote.c3.f4")],
-      phone: "+4915115539416",
-      email: "info@taoyin-zentrum.de",
-      phoneLabel: t("angebote.phone"),
-      mailLabel: t("angebote.mail"),
-    },
-    {
-      price: "5.500€",
-      priceNote: t("angebote.c4.note"),
-      title: t("angebote.c4.title"),
-      description: t("angebote.c4.desc"),
-      features: [t("angebote.c4.f1"), t("angebote.c4.f2"), t("angebote.c4.f3"), t("angebote.c4.f4")],
-      phone: "+4915115539416",
-      email: "info@taoyin-zentrum.de",
-      wide: true,
-      phoneLabel: t("angebote.phone"),
-      mailLabel: t("angebote.mail"),
-    },
-  ];
+  // Use Storyblok cards if available, otherwise fall back to hardcoded translations
+  const cards: PricingCard[] = content?.angebote_cards?.length
+    ? content.angebote_cards.map((card: any) => ({
+        price: card.price || "",
+        priceNote: card.price_note || "",
+        title: card.title || "",
+        description: card.description || "",
+        features: card.features
+          ? card.features.split("\n").filter((f: string) => f.trim())
+          : [],
+        phone: card.phone || "+4915115539416",
+        email: card.email || "info@taoyin-zentrum.de",
+        wide: card.wide || false,
+        ort: card.ort || undefined,
+        uhrzeit: card.uhrzeit || undefined,
+        phoneLabel: t("angebote.phone"),
+        mailLabel: t("angebote.mail"),
+      }))
+    : [
+        {
+          price: "280 €",
+          priceNote: t("angebote.c1.note"),
+          title: t("angebote.c1.title"),
+          description: t("angebote.c1.desc"),
+          features: [t("angebote.c1.f1"), t("angebote.c1.f2"), t("angebote.c1.f3")],
+          phone: "+4915115539416",
+          email: "info@taoyin-zentrum.de",
+          phoneLabel: t("angebote.phone"),
+          mailLabel: t("angebote.mail"),
+        },
+        {
+          price: "150 €",
+          priceNote: t("angebote.c2.note"),
+          title: t("angebote.c2.title"),
+          description: t("angebote.c2.desc"),
+          features: [t("angebote.c2.f1"), t("angebote.c2.f2"), t("angebote.c2.f3"), t("angebote.c2.f4")],
+          phone: "+4915115539416",
+          email: "info@taoyin-zentrum.de",
+          phoneLabel: t("angebote.phone"),
+          mailLabel: t("angebote.mail"),
+        },
+        {
+          price: "95 €",
+          priceNote: t("angebote.c3.note"),
+          title: t("angebote.c3.title"),
+          description: t("angebote.c3.desc"),
+          features: [t("angebote.c3.f1"), t("angebote.c3.f2"), t("angebote.c3.f3"), t("angebote.c3.f4")],
+          phone: "+4915115539416",
+          email: "info@taoyin-zentrum.de",
+          phoneLabel: t("angebote.phone"),
+          mailLabel: t("angebote.mail"),
+        },
+        {
+          price: "5.500€",
+          priceNote: t("angebote.c4.note"),
+          title: t("angebote.c4.title"),
+          description: t("angebote.c4.desc"),
+          features: [t("angebote.c4.f1"), t("angebote.c4.f2"), t("angebote.c4.f3"), t("angebote.c4.f4")],
+          phone: "+4915115539416",
+          email: "info@taoyin-zentrum.de",
+          wide: true,
+          phoneLabel: t("angebote.phone"),
+          mailLabel: t("angebote.mail"),
+        },
+      ];
+
+  const sectionTitle = content?.angebote_title || t("angebote.title");
 
   const smallCards = cards.filter((c) => !c.wide);
   const wideCard = cards.find((c) => c.wide);
@@ -82,7 +102,7 @@ export function AngeboteSection({ content }: AngeboteSectionProps) {
     <section id="Angebote" className="w-full bg-[var(--wf-neutral-secondary)] py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)]">
       <div className="max-w-[var(--container-width)] mx-auto px-[var(--container-padding)]">
         <ScrollReveal className="text-center mb-[var(--gap-lg)]">
-          <h2>{t("angebote.title")}</h2>
+          <h2>{sectionTitle}</h2>
           <p className="text-[var(--text-lg-size)] text-current/60 leading-[1.6] max-w-[40rem] mx-auto">{t("angebote.subtitle")}</p>
         </ScrollReveal>
 

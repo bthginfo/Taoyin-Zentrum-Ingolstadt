@@ -1,7 +1,8 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { getCurrentLanguage, type Language } from "../../lib/storyblok";
 import { useTranslation, useLangLink } from "../../hooks/useTranslation";
+import { useStoryblok } from "../../contexts/StoryblokContext";
 
 // Real logo from CDN
 const logoImg = "https://cdn.prod.website-files.com/6890d61524a7dba397203fde/6890d6bafdd0696561be5520_tao_logo.png";
@@ -24,6 +25,42 @@ export function Navbar() {
   const langRef = useRef<HTMLDivElement>(null);
   const { t, lang: currentLang } = useTranslation();
   const ll = useLangLink();
+  const { globalData } = useStoryblok();
+
+  // Use Storyblok navbar data if available, otherwise use translation fallback
+  const angeboteItems = useMemo(() => {
+    if (globalData?.navbar_categories?.length) {
+      return globalData.navbar_categories.map((cat: any) => ({
+        category: cat.category,
+        items: (cat.items || []).map((item: any) => ({
+          label: item.label,
+          desc: item.description || "",
+          href: item.href,
+        })),
+      }));
+    }
+    return [
+      {
+        category: t("nav.cat.taoyin"),
+        items: [
+          { label: t("nav.item.taoyin"), desc: t("nav.item.taoyinDesc"), href: "/taoyin" },
+          { label: t("nav.item.qigong"), desc: t("nav.item.qigongDesc"), href: "/qi-gong" },
+          { label: t("nav.item.cnt"), desc: t("nav.item.cntDesc"), href: "/chi-nei-tsang" },
+        ],
+      },
+      {
+        category: t("nav.cat.psycho"),
+        items: [
+          { label: t("nav.item.praxis"), desc: t("nav.item.praxisDesc"), href: "/psychotherapie" },
+          { label: t("nav.item.therapien"), desc: t("nav.item.therapienDesc"), href: "/therapien" },
+          { label: t("nav.item.behandlung"), desc: t("nav.item.behandlungDesc"), href: "/psychotherapie/ziele" },
+        ],
+      },
+    ];
+  }, [globalData, t]);
+
+  const ctaText = globalData?.navbar_cta_text || t("nav.kontaktAnfahrt");
+  const ctaLink = globalData?.navbar_cta_link || "/kontakt";
 
   // Shrink navbar on scroll
   useEffect(() => {
@@ -31,25 +68,6 @@ export function Navbar() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const angeboteItems = [
-    {
-      category: t("nav.cat.taoyin"),
-      items: [
-        { label: t("nav.item.taoyin"), desc: t("nav.item.taoyinDesc"), href: "/taoyin" },
-        { label: t("nav.item.qigong"), desc: t("nav.item.qigongDesc"), href: "/qi-gong" },
-        { label: t("nav.item.cnt"), desc: t("nav.item.cntDesc"), href: "/chi-nei-tsang" },
-      ],
-    },
-    {
-      category: t("nav.cat.psycho"),
-      items: [
-        { label: t("nav.item.praxis"), desc: t("nav.item.praxisDesc"), href: "/psychotherapie" },
-        { label: t("nav.item.therapien"), desc: t("nav.item.therapienDesc"), href: "/therapien" },
-        { label: t("nav.item.behandlung"), desc: t("nav.item.behandlungDesc"), href: "/psychotherapie/ziele" },
-      ],
-    },
-  ];
 
   // Switch language: navigate to /{newLang}/{currentPagePath}
   const switchLanguage = (newLang: string) => {
@@ -205,10 +223,10 @@ export function Navbar() {
 
           {/* CTA */}
           <Link
-            to={ll("/kontakt")}
+            to={ll(ctaLink)}
             className="inline-flex items-center justify-center bg-secondary text-secondary-foreground py-[1em] px-[1.5em] rounded-[var(--radius-button)] text-[1rem] font-normal leading-[1.2] hover:opacity-90 transition-all"
           >
-            {t("nav.kontaktAnfahrt")}
+            {ctaText}
           </Link>
         </div>
 
@@ -285,11 +303,11 @@ export function Navbar() {
             </div>
 
             <Link
-              to={ll("/kontakt")}
+              to={ll(ctaLink)}
               onClick={() => setMobileOpen(false)}
               className="block mt-2 bg-secondary text-secondary-foreground text-center py-[1em] px-[1.5em] rounded-[var(--radius-button)] text-[1rem] font-normal leading-[1.2]"
             >
-              {t("nav.kontaktAnfahrt")}
+              {ctaText}
             </Link>
           </div>
         </div>

@@ -38,6 +38,20 @@ export interface GlobalContent {
   component: "global";
   logo: StoryblokAsset;
   logo_white: StoryblokAsset;
+  navbar_categories?: Array<{
+    _uid: string;
+    category: string;
+    items: Array<{
+      _uid: string;
+      label: string;
+      description?: string;
+      href: string;
+      component: "nav_item";
+    }>;
+    component: "nav_category";
+  }>;
+  navbar_cta_text?: string;
+  navbar_cta_link?: string;
   navbar_links: Array<{
     _uid: string;
     label: string;

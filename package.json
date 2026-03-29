@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "build": "vite build",
-    "dev": "vite"
+    "dev": "vite",
+    "generate-types": "node scripts/generate-types.mjs",
+    "seed": "node scripts/storyblok-seed.mjs"
   },
   "dependencies": {
     "@radix-ui/react-slot": "1.1.2",
@@ -23,6 +25,7 @@
   "devDependencies": {
     "@tailwindcss/vite": "4.1.12",
     "@vitejs/plugin-react": "4.7.0",
+    "storyblok-generate-ts": "^2.2.0",
     "tailwindcss": "4.1.12",
     "vite": "6.3.5"
   },
