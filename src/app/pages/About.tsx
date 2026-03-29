@@ -1,12 +1,16 @@
 import { SEO } from "../components/SEO";
 import { CtaSection } from "../components/CtaSection";
+import { usePageContent } from "../../hooks/usePageContent";
+import type { AboutContent } from "../../types/storyblok";
 
 export default function About() {
+  const { text, t } = usePageContent<AboutContent>("about");
+
   return (
     <>
       <SEO
-        title="Über Estela Fuchs – Taoismus, Qi Gong & Psychotherapie Ingolstadt"
-        description="Estela Fuchs: Über 30 Jahre Erfahrung in Taoismus, Qi Gong und Psychotherapie. Authentische Begleitung im Taoyin Zentrum Ingolstadt."
+        title={text("seo_title", "about.heroName")}
+        description={text("seo_description", "about.heroSubtitle")}
         keywords="Estela Fuchs, Psychotherapie Ingolstadt, Qi Gong Lehrerin, Taoismus, TaoBasis, Heilpraktiker Ingolstadt, Chi Nei Tsang Therapeutin, Taoyin Zentrum"
         url="/about"
       />
@@ -19,7 +23,7 @@ export default function About() {
             <div className="lg:col-span-3 relative">
               <img
                 src="https://cdn.prod.website-files.com/6890d61524a7dba397203fde/68c5370c877743c4a7999300_Estela-byaylin-3.jpg"
-                alt="Estela Fuchs"
+                alt={text("hero_name", "about.heroName")}
                 className="w-full object-cover"
                 style={{
                   borderRadius: "0 0 0 var(--radius-image, 0.75rem)",
@@ -32,9 +36,9 @@ export default function About() {
 
             {/* Right 2 cols: header */}
             <div className="lg:col-span-2 flex flex-col">
-              <h1>Estela Fuchs</h1>
+              <h1>{text("hero_name", "about.heroName")}</h1>
               <p className="text-[var(--text-lg-size)] leading-[1.6] text-current/60 max-w-[30rem]">
-                Lernen Sie mich kennen und erfahren Sie mehr über mich und meinen Überzeugungen.
+                {text("hero_subtitle", "about.heroSubtitle")}
               </p>
             </div>
           </div>
@@ -45,28 +49,21 @@ export default function About() {
       <section className="w-full bg-[var(--wf-neutral-primary)] text-foreground py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)] overflow-clip">
         <div className="max-w-[var(--container-sm-width)] mx-auto px-[var(--container-padding)]">
           <article className="prose-custom">
-            <h2>Über mich – mein Weg mit TaoBasis</h2>
-            <p>
-              Nach einer längeren Pause und einer herausfordernden Heilungszeit möchte ich mich neu vorstellen.<br />
-              Vor einiger Zeit erlitt ich einen Bruch am Fußgelenk. Dieser Unfall brachte mich aus dem Gleichgewicht und verlangte viel Geduld und Achtsamkeit. Doch gerade in dieser Phase durfte ich erfahren, wie tiefgreifend Qi Gong und die taoistischen Heilmethoden wirken.
-            </p>
+            <h2>{text("article_title", "about.articleTitle")}</h2>
+            {text("p1", "about.p1").split("\n").map((line, i) => (
+              <p key={i}>{line}</p>
+            ))}
             <ul>
-              <li>Sie unterstützten meine körperliche Regeneration.</li>
-              <li>Sie gaben mir Kraft, wieder sicher auf meinen Beinen zu stehen.</li>
-              <li>Sie öffneten mir die Tür zu einer noch tieferen Erfahrung von Heilung und Vertrauen.</li>
+              <li>{text("li1", "about.li1")}</li>
+              <li>{text("li2", "about.li2")}</li>
+              <li>{text("li3", "about.li3")}</li>
             </ul>
+            <p>{text("p2", "about.p2")}</p>
+            <p>{text("p3", "about.p3")}</p>
+            <p>{text("p4", "about.p4")}</p>
             <p>
-              Seit über 30 Jahren gehe ich den Weg des Taoismus. Viele Jahre habe ich Qi Gong geübt, weitergegeben und Menschen begleitet. Doch diese persönliche Erfahrung hat meine Überzeugung vertieft: Taoistische Praktiken sind nicht nur Bewegungen, sondern lebendige Werkzeuge für Heilung, Balance und innere Stärke.
-            </p>
-            <p>
-              Parallel dazu habe ich mich intensiv mit Psychotherapie beschäftigt. In meiner heutigen Arbeit fließen diese beiden Wege zusammen: die tiefgehende innere Arbeit der Psychotherapie und die körperlich-seelische Dimension der taoistischen Praxis. Diese Verbindung ermöglicht es, nicht nur auf einer geistigen Ebene Themen zu bearbeiten, sondern Heilung und Veränderung ganzheitlich zu erfahren.
-            </p>
-            <p>
-              Heute möchte ich das, was mir selbst so viel geschenkt hat, weitergeben – authentisch, mitfühlend und voller Hingabe.
-            </p>
-            <p>
-              ✨ Mein Angebot an Sie:<br />
-              Nicht nur Techniken zu lernen, sondern eine lebendige Praxis zu erfahren, die Körper, Geist und Seele verbindet – und die Ihnen im Alltag neue Energie, Vertrauen und innere Ruhe schenkt. Gleichzeitig biete ich einen geschützten psychotherapeutischen Raum, in dem persönliche Themen angeschaut, verarbeitet und in neue Stärke verwandelt werden können.
+              {text("p5_title", "about.p5title")}<br />
+              {text("p5", "about.p5")}
             </p>
           </article>
         </div>

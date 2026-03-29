@@ -1,14 +1,18 @@
 import { AngeboteSection } from "../components/AngeboteSection";
 import { CtaSection } from "../components/CtaSection";
 import { SEO } from "../components/SEO";
+import { usePageContent } from "../../hooks/usePageContent";
+import type { TaoYinContent } from "../../types/storyblok";
 
 export default function TaoYin() {
+  const { text, t } = usePageContent<TaoYinContent>("taoyin");
+
   return (
     <>
       <SEO
-        title="Tao Yin Ingolstadt – Taoistische Bewegungs- & Atempraxis"
-        description="Tao Yin in Ingolstadt: Sanfte Dehnungen, fließende Bewegungen und gezielte Atemtechniken für Gesundheit, innere Balance und Wohlbefinden. Kurse im Taoyin Zentrum."
-        keywords="Tao Yin Ingolstadt, Tao Yin Kurs, Taoistische Übungen, Yin Yang, Daoismus, Bewegungstherapie Ingolstadt, Atemübungen, Qi Gong Ingolstadt, Energiearbeit"
+        title={text("seo_title", "taoyin.heroTitle")}
+        description={text("seo_description", "taoyin.heroText")}
+        keywords={text("seo_keywords", "taoyin.heroTitle")}
         url="/taoyin"
       />
       {/* Hero Header — section.is-secondary */}
@@ -39,15 +43,9 @@ export default function TaoYin() {
 
             {/* Right: Header text */}
             <div className="flex flex-col">
-              <h1>Taoyin: was bedeutet es?</h1>
+              <h1>{text("hero_title", "taoyin.heroTitle")}</h1>
               <p className="text-[var(--text-lg-size)] leading-[1.6] text-current/70 text-balance max-w-[var(--container-sm-width)]">
-                Tao Yin ist eine jahrtausendealte chinesische Bewegungs- und
-                Atempraxis zur Förderung von Gesundheit und innerer Balance.
-                Sanfte Dehnungen, fließende Bewegungen und gezielte
-                Atemtechniken helfen, Körper und Geist zu harmonisieren.
-                Diese Übungen stärken die Lebensenergie (Qi), lösen
-                Verspannungen und unterstützen ein ganzheitliches
-                Wohlbefinden.
+                {text("hero_text", "taoyin.heroText")}
               </p>
             </div>
           </div>
@@ -58,48 +56,14 @@ export default function TaoYin() {
       <section className="w-full bg-[var(--wf-neutral-primary)] text-foreground py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)] overflow-clip">
         <div className="max-w-[var(--container-sm-width)] mx-auto px-[var(--container-padding)]">
           <article className="prose-custom">
-            <h2>TAO</h2>
-            <p>
-              Das Wort &bdquo;Daoismus&ldquo; leitet sich ab von &bdquo;Dao&ldquo;
-              (Tao), einem Begriff der chinesischen Philosophie, der bereits vor
-              dem Daodejing verwendet wurde, aber erst in diesem Text seine
-              zentrale Stellung und besondere, universale Bedeutung erhielt.
-              &bdquo;Dao&ldquo; bedeutete ursprünglich &bdquo;Weg&ldquo;, im
-              klassischen Chinesisch aber bereits &bdquo;Methode&ldquo;,
-              &bdquo;Prinzip&ldquo;, &bdquo;der rechte Weg&ldquo;. Bei Laozi nimmt
-              dann der Begriff des Dao die Bedeutung eines der ganzen Welt
-              zugrunde liegenden, alldurchdringenden Prinzips an. Es ist die
-              höchste Wirklichkeit und das höchste Mysterium, die
-              uranfängliche Einheit, das kosmische Gesetz und Absolute. Aus
-              dem Dao entstehen die &bdquo;zehntausend Dinge&ldquo;, also der
-              Kosmos, und auch die Ordnung der Dinge entsteht aus ihm,
-              ähnlich einem Naturgesetz, doch ist dem Dao selbst kein
-              omnipotentes Wesen zuzuschreiben, sondern es ist Ursprung und
-              Vereinigung der Gegensätze, womit es letztlich undefinierbar
-              ist.
-            </p>
-            <p>
-              Philosophisch könnte man das Dao als jenseits aller
-              Begrifflichkeit fassen, weil es der Grund des Seins, die
-              transzendente Ursache ist und somit alles, auch den Gegensatz von
-              Sein und Nicht-Sein, enthält. In diesem Sinne kann nichts
-              über das Dao ausgesagt werden, weil jede Definition eine
-              Begrenzung enthält. Das Dao ist aber sowohl unbegrenzte
-              Transzendenz, als auch das dem Kosmos, dem All immanente Prinzip.
-            </p>
+            <h2>{text("hero_title", "taoyin.taoTitle")}</h2>
+            <p>{text("tao_p1", "taoyin.taoP1")}</p>
+            <p>{text("tao_p2", "taoyin.taoP2")}</p>
             <blockquote>
-              <p>
-                &bdquo;Das Tao, das sich mit Worten beschreiben lässt, ist
-                nicht das wahre Tao.&ldquo;
-              </p>
-              <footer>– Lao Tse: Tao Te King</footer>
+              <p>{text("tao_quote", "taoyin.taoQuote")}</p>
+              <footer>{text("tao_quote_author", "taoyin.taoQuoteAuthor")}</footer>
             </blockquote>
-            <p>
-              Durch das Wirken des Dao wird die Schöpfung durch Zweiheit,
-              das Yin und das Yang, Licht und Schatten, hervorgebracht, aus
-              deren Wandlungen, Bewegungen und Wechselspielen dann die Welt
-              hervorgeht.
-            </p>
+            <p>{text("tao_p3", "taoyin.taoP3")}</p>
           </article>
 
           {/* YouTube Embed — Webflow .w-embed-youtubevideo */}
@@ -119,22 +83,12 @@ export default function TaoYin() {
       <section className="w-full bg-[var(--wf-neutral-secondary)] text-foreground py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)] overflow-clip">
         <div className="max-w-[var(--container-sm-width)] mx-auto px-[var(--container-padding)]">
           <article className="prose-custom">
-            <h2>Yin</h2>
+            <h2>{t("taoyin.yinTitle")}</h2>
             <p>
-              <strong>Yin und Yang</strong> (chinesisch 陰陽 /
-              阴阳, Pinyin <em>yīn yáng</em>) sind zwei
-              Begriffe der chinesischen Philosophie, insbesondere des Daoismus.
-              Sie stehen für polar einander entgegengesetzte und dennoch
-              aufeinander bezogene Kräfte oder Prinzipien. Ein weit
-              verbreitetes Symbol des Prinzips ist das Taijitu, in dem das
-              weiße Yang (hell, hart, heiß, männlich, aktiv,
-              Bewegung) und das schwarze Yin (dunkel, weich, kalt, weiblich,
-              passiv, Ruhe) gegenüberstehend dargestellt werden.
+              <strong>Yin und Yang</strong> {text("yin_p1", "taoyin.yinP1")}
             </p>
 
-            <h3>
-              Yin und Yang als Prinzipien der Wandlung und der Korrelation
-            </h3>
+            <h3>{text("yin_subtitle", "taoyin.yinSubtitle")}</h3>
 
             {/* Yin Yang Symbol — centered figure */}
             <figure className="flex justify-center my-[var(--space-2x)]">
@@ -146,56 +100,17 @@ export default function TaoYin() {
               />
             </figure>
 
-            <p>
-              Yin und Yang bezeichnen &bdquo;Gegensätze&ldquo; in ihrer
-              wechselseitigen Bezogenheit als eine Gesamtheit, einen ewigen
-              Kreislauf. Daher können sie zur Erklärung von
-              Wandlungsvorgängen und Prozessen und zur Darstellung der
-              gegenseitigen Begrenzung und Wiederkehr von Dingen benutzt werden.
-            </p>
-            <p>
-              Yin und Yang steigen und sinken immer abwechselnd. Nach einer
-              Hochphase des Yang folgt zwingend ein Absinken von Yang und ein
-              Ansteigen von Yin und umgekehrt.
-            </p>
+            <p>{text("yin_p2", "taoyin.yinP2")}</p>
+            <p>{text("yin_p3", "taoyin.yinP3")}</p>
 
             <blockquote>
-              <p>
-                &bdquo;Das Urprinzip bewegt sich und erzeugt Yang. Wenn die
-                Bewegung ihr Ende erreicht, so wird sie still, und diese Stille
-                erzeugt Yin. Wenn diese Stille ihr Ende erreicht, dann geht sie
-                wieder in Bewegung über. So haben wir abwechselnd bald
-                Bewegung, bald Ruhe. Sie beide bilden zusammen die Basis, von
-                der aus durch Abtrennung Yin und Yang entstehen und auf der die
-                beiden Modi ruhen.&ldquo;
-              </p>
-              <footer>– Alfred Forke</footer>
+              <p>{text("yin_quote", "taoyin.yinQuote")}</p>
+              <footer>{text("yin_quote_author", "taoyin.yinQuoteAuthor")}</footer>
             </blockquote>
 
-            <p>
-              Diese Vorstellung gehört zu einer volkstümlichen
-              beziehungsweise für das Volk bestimmten Ethik des mittleren
-              Maßes: So sollte das Volk in guten Zeiten nicht
-              überschwänglich agieren und z. B. eine gute Ernte
-              für schlechte Zeiten lagern. In schlechten Zeiten sollte im
-              Volk Hoffnung erweckt werden, dass nach der Yin-Yang-Lehre nach
-              diesen schlechten Zeiten auch zwingend wieder gute folgen werden.
-            </p>
-            <p>
-              Die Wandlung von Yin und Yang stellt neben diesen
-              Handlungsweisungen nach den altertümlichen Astronomen auch
-              noch den Grund dar, warum Naturereignisse so ablaufen, wie sie
-              ablaufen, aber auch warum diese Naturereignisse zu einem
-              bestimmten Sozialverhalten führen. So sind Yin und Yang und
-              deren Wandlung sowohl der Grund für den Wandel der
-              Jahreszeiten wie für das Verhalten der Menschen, die sich an
-              dem Wechsel der Jahreszeiten ausrichten.
-            </p>
-            <p>
-              Yin und Yang können nicht gleichzeitig ansteigen oder
-              absinken. Wenn Yang sich vergrößert, verringert sich
-              Yin und umgekehrt.
-            </p>
+            <p>{text("yin_p4", "taoyin.yinP4")}</p>
+            <p>{text("yin_p5", "taoyin.yinP5")}</p>
+            <p>{text("yin_p6", "taoyin.yinP6")}</p>
           </article>
         </div>
       </section>
@@ -204,35 +119,11 @@ export default function TaoYin() {
       <section className="w-full bg-[var(--wf-neutral-primary)] text-foreground py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)] overflow-clip">
         <div className="max-w-[var(--container-sm-width)] mx-auto px-[var(--container-padding)]">
           <article className="prose-custom">
-            <h2>TAOYIN</h2>
-            <p>
-              Tao Yin (manchmal als Taoist Yoga bezeichnet) ist eine Reihe von
-              Übungen (vor allem in liegenden und sitzenden Positionen,
-              aber auch in stehenden Positionen) von Taoisten, um ch&apos;i, die
-              innere Energie des Körpers nach traditioneller chinesischer
-              Medizin zu pflegen. Die Praxis von Tao Yin war ein Vorläufer
-              des Qigong und wurde in chinesischen taoistischen Klöstern
-              für die Gesundheit und zur spirituellen Kultivierung
-              praktiziert. Tao Yin ist auch ein Element in der bekannten
-              &bdquo;weichen Stil&ldquo; chinesischen Kampfkunst, T&apos;ai Chi Ch&apos;uan.
-            </p>
-            <p>
-              Das Hauptziel von Tao Yin ist es, Gleichgewicht zwischen inneren
-              und äußeren Energien zu schaffen und Körper, Geist
-              und Seele neu zu beleben, und Kraft und Flexibilität in
-              Muskeln und Sehnen zu entwickeln.
-            </p>
-            <p>
-              Im <strong>Taoyin</strong> Zentrum Ingolstadt erweitern wir diese
-              beiden Aspekte der taoistischen Gedankenwelt. Unsere heutige Welt
-              hat bereits genug Yang aufzuweisen – der Yin Charakter dagegen
-              fehlt. Wir möchten diesen Yin Charakter in uns stärken
-              und in der Welt zur Geltung bringen für eine bessere und
-              ausgewogenere Lebensweise für uns und unsere Kinder.
-            </p>
-            <p>
-              Euer <strong>Taoyin</strong> Team
-            </p>
+            <h2>{t("taoyin.taoyinTitle")}</h2>
+            <p>{text("taoyin_p1", "taoyin.taoyinP1")}</p>
+            <p>{text("taoyin_p2", "taoyin.taoyinP2")}</p>
+            <p>{text("taoyin_p3", "taoyin.taoyinP3")}</p>
+            <p>{text("taoyin_sign", "taoyin.taoyinSign")}</p>
           </article>
         </div>
       </section>

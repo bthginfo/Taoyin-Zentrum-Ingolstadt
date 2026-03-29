@@ -1,6 +1,9 @@
 import { Link } from "react-router";
 import { SEO } from "../components/SEO";
 import { CtaSection } from "../components/CtaSection";
+import { useLangLink } from "../../hooks/useTranslation";
+import { usePageContent } from "../../hooks/usePageContent";
+import type { PsychotherapieContent } from "../../types/storyblok";
 
 const ArrowIcon = () => (
   <svg
@@ -19,81 +22,72 @@ const ArrowIcon = () => (
   </svg>
 );
 
-const therapies = [
-  {
-    title: "Autogenes Training",
-    text: "Autogenes Training ist ein auf Autosuggestion basierendes Entspannungsverfahren. Es wurde vom Berliner Psychiater Johannes Heinrich Schultz aus der Hypnose entwickelt, 1926 erstmals vorgestellt und 1932 in seinem Buch Das autogene Training publiziert. Heute ist das autogene Training eine weit verbreitete und – beispielsweise in Deutschland und Österreich sogar gesetzlich – anerkannte Psychotherapiemethode.",
-  },
-  {
-    title: "Kognitive Verhaltenstherapie",
-    text: "Im Mittelpunkt der kognitiven Therapieverfahren stehen Kognitionen. Kognitionen umfassen Einstellungen, Gedanken, Bewertungen und Überzeugungen. Die kognitiven Therapieverfahren, zu denen die kognitive Therapie (KT) und die Rational-Emotive Verhaltenstherapie (REVT) gehören, gehen davon aus, dass die Art und Weise, wie wir denken, bestimmt, wie wir uns fühlen und verhalten und wie wir körperlich reagieren.",
-  },
-  {
-    title: "Massage",
-    text: 'Die Massage (von „massieren; berühren; betasten; kneten") dient zur mechanischen Beeinflussung von Haut, Bindegewebe und Muskulatur durch Dehnungs-, Zug- und Druckreiz. Die Wirkung der Massage erstreckt sich von der behandelten Stelle des Körpers über den gesamten Organismus und schließt auch die Psyche mit ein.',
-  },
-  {
-    title: "Meditation",
-    text: 'Meditation (von „nachdenken, nachsinnen, überlegen") ist eine in vielen Religionen und Kulturen ausgeübte spirituelle Praxis. Durch Achtsamkeits- oder Konzentrationsübungen soll sich der Geist beruhigen und sammeln. In östlichen Kulturen gilt sie als eine grundlegende und zentrale bewusstseinserweiternde Übung.',
-  },
-  {
-    title: "Paartherapie",
-    text: "Gemeinsam einen Schritt vorwärts machen – in Einzel- und Paargesprächen, ergänzt mit Elementen der taoistischen Traditionen in Meditation, Yoga und Qigong, verfolgen wir folgende Ziele: Beziehungsprobleme verstehen und herausfinden, wie Ihre Liebesbeziehung funktionieren kann. Sich selbst und den Partner besser erkennen und verstehen. Neue Werkzeuge in die Hand bekommen, die in allen Lebenslagen nützlich sind.",
-  },
-  {
-    title: "Progressive Muskelentspannung nach Jacobson",
-    text: "Bei der progressiven Muskelentspannung (kurz PME; auch progressive Muskelrelaxation, kurz PMR, progressive Relaxation, kurz PR, oder Tiefenmuskelentspannung) nach Edmund Jacobson handelt es sich um ein Entspannungsverfahren, bei dem durch die willentliche und bewusste An- und Entspannung bestimmter Muskelgruppen ein Zustand tiefer Entspannung des ganzen Körpers erreicht werden soll.",
-  },
-  {
-    title: "Sokratischer Dialog",
-    text: "Der Sokratische Dialog ist eine Fragetechnik, derer sich Therapeuten bedienen, wenn es im therapeutisch-beratenden Gespräch um Begriffsklärung und Entscheidungsfindung geht. Es ist ein Prozess des kritischen Hinterfragens von Argumenten. So sollen Strukturen und Verhaltensmuster sichtbar, das eigene Denken und Handeln verstehbar und damit auch veränderbar werden.",
-  },
-  {
-    title: "Yoga, Qigong, Tai Chi",
-    text: "Yoga, Qigong und Tai Chi sind Techniken, die an der Körperstruktur und an der Körperwahrnehmung arbeiten. In Verbindung mit Meditation und Massage führen diese Praktiken zu einem neuen Selbstbewußtsein, eine positivere und annehmendere Haltung zu sich selbst und zum eigenen Körper und ein zunehmendes Gefühl für die eigene Gesundheit.",
-  },
-];
+const therapyKeys = [
+  { titleKey: "therapy.autogenes.title", textKey: "therapy.autogenes.short", sbTitle: "therapy_autogenes_title", sbText: "therapy_autogenes_text" },
+  { titleKey: "therapy.kognitiv.title", textKey: "therapy.kognitiv.short", sbTitle: "therapy_kognitiv_title", sbText: "therapy_kognitiv_text" },
+  { titleKey: "therapy.massage.title", textKey: "therapy.massage.short", sbTitle: "therapy_massage_title", sbText: "therapy_massage_text" },
+  { titleKey: "therapy.meditation.title", textKey: "therapy.meditation.short", sbTitle: "therapy_meditation_title", sbText: "therapy_meditation_text" },
+  { titleKey: "therapy.paar.title", textKey: "therapy.paar.short", sbTitle: "therapy_paar_title", sbText: "therapy_paar_text" },
+  { titleKey: "therapy.pmr.title", textKey: "therapy.pmr.short", sbTitle: "therapy_pmr_title", sbText: "therapy_pmr_text" },
+  { titleKey: "therapy.sokrat.title", textKey: "therapy.sokrat.short", sbTitle: "therapy_sokrat_title", sbText: "therapy_sokrat_text" },
+  { titleKey: "therapy.yoga.title", textKey: "therapy.yoga.short", sbTitle: "therapy_yoga_title", sbText: "therapy_yoga_text" },
+] as const;
 
-const detailBlocks = [
+const detailBlockKeys = [
   {
-    eyebrow: "Orientierung. Stabilisierung. Unterstützung",
-    title: "Ihr Ziel & die Behandlung",
-    text: "Sie stehen an einem Scheideweg? Sie befinden sich in einer Krise? Sie fühlen sich unwohl? Egal was das aktuelle Problem ist, gemeinsam finden wir eine Lösung und die passende Therapie. Ob Beratung, Einzelsitzungen oder eine körperorientierte Psychotherapie. Mein ganzheitlicher Ansatz bringt den Körper und Geist wieder in Einklang.",
-    linkText: "Mehr erfahren",
+    eyebrowKey: "psycho.detail1Eyebrow",
+    titleKey: "psycho.detail1Title",
+    textKey: "psycho.detail1Text",
+    linkTextKey: "psycho.detail1Link",
+    sbEyebrow: "detail1_eyebrow",
+    sbTitle: "detail1_title",
+    sbText: "detail1_text",
+    sbLink: "detail1_link",
     linkTo: "/behandlung",
     image: "https://cdn.prod.website-files.com/6890d61524a7dba397203fde/6890d6745cc734423847d58b_9ae3166a-4496-49f1-9d77-c97f40759bdb.avif",
     imageAlt: "Ruhige Landschaft",
     imageFirst: false,
   },
   {
-    eyebrow: "Estela Fuchs",
-    title: "Über mich",
-    text: "Seit vielen Jahren begleite ich Menschen psychotherapeutisch auf ihrem Weg zu mehr Klarheit, innerer Stabilität und Selbstvertrauen. In meiner Arbeit verbinde ich bewährte Methoden der Psychotherapie mit achtsamen Körper- und Atemübungen sowie taoistischen Praktiken, die das seelische Wachstum unterstützen und vertiefen.\n\nDiese Kombination ermöglicht es, nicht nur über Gedanken und Gefühle zu sprechen, sondern auch den Körper einzubeziehen – und damit Heilung auf mehreren Ebenen zu fördern.\n\nMein Anliegen ist es, Menschen dabei zu unterstützen, ihre eigenen Ressourcen zu entdecken, Krisen zu bewältigen und einen liebevollen Zugang zu sich selbst zu finden.",
-    linkText: "Mehr erfahren",
+    eyebrowKey: "psycho.detail2Eyebrow",
+    titleKey: "psycho.detail2Title",
+    textKey: "psycho.detail2Text",
+    linkTextKey: "psycho.detail2Link",
+    sbEyebrow: "detail2_eyebrow",
+    sbTitle: "detail2_title",
+    sbText: "detail2_text",
+    sbLink: "detail2_link",
     linkTo: "/about",
     image: "https://cdn.prod.website-files.com/6890d61524a7dba397203fde/68c537114c0ae0a617d65064_Estela-byaylin-29-min.jpg",
     imageAlt: "Estela Fuchs",
     imageFirst: true,
   },
   {
-    eyebrow: "Ich berate und unterstütze Sie gerne",
-    title: "Taoyin Zentrum Ingolstadt",
-    text: "Entdecke sanfte taoistische Praktiken, die Körper, Geist und Seele verbinden – für mehr Energie, Gelassenheit und Wohlbefinden im Alltag.",
-    linkText: "zum Taoyin Zentrum",
+    eyebrowKey: "psycho.detail3Eyebrow",
+    titleKey: "psycho.detail3Title",
+    textKey: "psycho.detail3Text",
+    linkTextKey: "psycho.detail3Link",
+    sbEyebrow: "detail3_eyebrow",
+    sbTitle: "detail3_title",
+    sbText: "detail3_text",
+    sbLink: "detail3_link",
     linkTo: "/",
     image: "https://cdn.prod.website-files.com/6890d61524a7dba397203fde/68c5371146ec6241e81774b7_Estela-byaylin-52-min.jpg",
     imageAlt: "Taoyin Zentrum",
     imageFirst: true,
   },
-];
+] as const;
 
 export default function Psychotherapie() {
+  const { text, t } = usePageContent<PsychotherapieContent>("psychotherapie");
+  const langLink = useLangLink();
+
   return (
     <>
       <SEO 
-        title="Psychotherapie Ingolstadt – Ganzheitliche Heilung & Begleitung"
-        description="Ganzheitliche Psychotherapie in Ingolstadt: Verhaltenstherapie, Autogenes Training, Paartherapie, Meditation & körperorientierte Psychotherapie. Praxis Estela Fuchs."
-        keywords="Psychotherapie Ingolstadt, Verhaltenstherapie Ingolstadt, Autogenes Training, Paartherapie Ingolstadt, Meditation, Entspannung, Heilpraktiker Psychotherapie Ingolstadt, Körperorientierte Psychotherapie, Progressive Muskelentspannung, Sokratischer Dialog"
+        title={text("seo_title", "psycho.heroTitle")}
+        description={text("seo_description", "psycho.heroText")}
+        keywords={text("seo_keywords", "psycho.heroTitle")}
         url="/psychotherapie"
       />
 
@@ -103,27 +97,22 @@ export default function Psychotherapie() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-[var(--gap-lg)] items-center">
             {/* Left: Header */}
             <div className="flex flex-col">
-              <h1>
-                Willkommen in meiner Praxis für ganzheitliche Psychotherapie
-              </h1>
+              <h1>{text("hero_title", "psycho.heroTitle")}</h1>
               <p className="text-[var(--text-lg-size)] leading-[1.6] text-current/60 mb-[var(--space-2x)] max-w-[var(--container-sm-width)]">
-                Ich arbeite mit klassischen Verfahren wie
-                Entspannungstechniken und Verhaltenstherapie sowie mit
-                alternativen Methoden aus den Bereichen der Meditation, des
-                Qigong, des Tai Chi und der Ernährung nach den 5 Elementen.
+                {text("hero_text", "psycho.heroText")}
               </p>
               <div className="flex flex-wrap gap-[var(--space-0-5x)]">
                 <a
                   href="#Details"
                   className="inline-flex items-center justify-center bg-secondary text-secondary-foreground py-[1em] px-[1.5em] rounded-[var(--radius-button)] text-[1rem] leading-[1.2] hover:opacity-90 transition-all"
                 >
-                  Mehr erfahren
+                  {text("hero_btn1", "psycho.heroBtn1")}
                 </a>
                 <a
                   href="#therapien"
                   className="inline-flex items-center justify-center border border-current/20 py-[1em] px-[1.5em] rounded-[var(--radius-button)] text-[1rem] leading-[1.2] hover:bg-current/5 transition-all"
                 >
-                  Therapien entdecken
+                  {text("hero_btn2", "psycho.heroBtn2")}
                 </a>
               </div>
             </div>
@@ -151,9 +140,9 @@ export default function Psychotherapie() {
       <section id="Details" className="w-full bg-[var(--wf-neutral-primary)] text-foreground py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)]">
         <div className="max-w-[var(--container-width)] mx-auto px-[var(--container-padding)]">
           <div className="flex flex-col gap-[var(--gap-xxl)]">
-            {detailBlocks.map((block, i) => (
+            {detailBlockKeys.map((block) => (
               <div
-                key={block.title}
+                key={block.titleKey}
                 className="grid grid-cols-1 lg:grid-cols-2 gap-[var(--gap-lg)] items-center"
               >
                 {/* Image — placed first on even blocks (imageFirst) */}
@@ -169,10 +158,10 @@ export default function Psychotherapie() {
                 {/* Text */}
                 <div className="flex flex-col">
                   <span className="text-[0.75rem] tracking-[0.15em] uppercase text-[var(--wf-accent-primary)] mb-[var(--space-0-5x)]">
-                    {block.eyebrow}
+                    {text(block.sbEyebrow as any, block.eyebrowKey)}
                   </span>
-                  <h2 className="mb-[var(--space-1x)]">{block.title}</h2>
-                  {block.text.split("\n\n").map((paragraph, pi) => (
+                  <h2 className="mb-[var(--space-1x)]">{text(block.sbTitle as any, block.titleKey)}</h2>
+                  {text(block.sbText as any, block.textKey).split("\n\n").map((paragraph, pi) => (
                     <p
                       key={pi}
                       className="text-[var(--text-lg-size)] leading-[1.6] text-current/60 mb-[var(--space-0-75x)]"
@@ -182,10 +171,10 @@ export default function Psychotherapie() {
                   ))}
                   <div className="flex items-center gap-2 mt-[var(--space-0-5x)]">
                     <Link
-                      to={block.linkTo}
+                      to={langLink(block.linkTo)}
                       className="inline-flex items-center gap-2 text-[var(--wf-accent-primary)] hover:underline"
                     >
-                      {block.linkText} <ArrowIcon />
+                      {text(block.sbLink as any, block.linkTextKey)} <ArrowIcon />
                     </Link>
                   </div>
                 </div>
@@ -213,19 +202,19 @@ export default function Psychotherapie() {
         <div className="max-w-[var(--container-width)] mx-auto px-[var(--container-padding)]">
           {/* header.is-align-center */}
           <div className="text-center mb-[var(--gap-md)]">
-            <h2>Meine Therapie-Angebote</h2>
+            <h2>{text("therapies_title", "psycho.therapiesTitle")}</h2>
           </div>
 
           {/* grid_2-col gap-small with card.on-secondary */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-[var(--gap-sm)]">
-            {therapies.map((therapy) => (
+            {therapyKeys.map((therapy) => (
               <div
-                key={therapy.title}
+                key={therapy.titleKey}
                 className="bg-white rounded-[var(--radius-card)] p-[var(--space-2x)]"
               >
-                <h3 className="text-center mb-[var(--space-0-75x)]">{therapy.title}</h3>
+                <h3 className="text-center mb-[var(--space-0-75x)]">{text(therapy.sbTitle as any, therapy.titleKey)}</h3>
                 <p className="text-[1rem] leading-[1.8] text-current/60 text-left">
-                  {therapy.text}
+                  {text(therapy.sbText as any, therapy.textKey)}
                 </p>
               </div>
             ))}
@@ -234,16 +223,16 @@ export default function Psychotherapie() {
           {/* Button group */}
           <div className="flex flex-wrap justify-center gap-[var(--space-0-5x)] mt-[var(--space-2x)]">
             <Link
-              to="/therapien"
+              to={langLink("/therapien")}
               className="inline-flex items-center justify-center bg-secondary text-secondary-foreground py-[1em] px-[1.5em] rounded-[var(--radius-button)] text-[1rem] leading-[1.2] hover:opacity-90 transition-all"
             >
-              Mehr Details
+              {text("therapies_more", "psycho.therapiesMore")}
             </Link>
             <a
               href="#anfrage"
               className="inline-flex items-center justify-center border border-current/20 py-[1em] px-[1.5em] rounded-[var(--radius-button)] text-[1rem] leading-[1.2] hover:bg-current/5 transition-all"
             >
-              Therapie Anfragen
+              {text("therapies_inquiry", "psycho.therapiesInquiry")}
             </a>
           </div>
         </div>
@@ -252,8 +241,8 @@ export default function Psychotherapie() {
       {/* CTA Section — with Psychotherapie-specific text */}
       <CtaSection
         content={{
-          cta_title: "Finde deine Mitte. Spüre dein Chi.",
-          cta_description: "Lernen Sie die Kraft der Integration von Körper, Geist und Seele für Sich zu nutzen.",
+          cta_title: t("cta.title"),
+          cta_description: t("details.s6.text"),
         }}
       />
     </>

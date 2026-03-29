@@ -1,11 +1,15 @@
 import { SEO } from "../components/SEO";
+import { usePageContent } from "../../hooks/usePageContent";
+import type { KontaktContent } from "../../types/storyblok";
 
 export default function Kontakt() {
+  const { text, t } = usePageContent<KontaktContent>("kontakt");
+
   return (
     <>
       <SEO
-        title="Kontakt & Anfahrt – Taoyin Zentrum Ingolstadt"
-        description="So erreichen Sie das Taoyin Zentrum in Ingolstadt: Adresse, Telefon, E-Mail und WhatsApp. Bei der Schleifmühle 34b, 85049 Ingolstadt."
+        title={text("seo_title", "kontakt.title")}
+        description={text("seo_description", "kontakt.directions")}
         keywords="Taoyin Zentrum Kontakt, Qi Gong Ingolstadt Adresse, Anfahrt Taoyin Zentrum, Schleifmühle Ingolstadt, Estela Fuchs Kontakt"
         url="/kontakt"
       />
@@ -13,19 +17,19 @@ export default function Kontakt() {
       <section className="w-full bg-[var(--wf-neutral-primary)] text-foreground py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)] overflow-clip">
         <div className="max-w-[var(--container-sm-width)] mx-auto px-[var(--container-padding)]">
           <article className="prose-custom">
-            <h2>Anfahrt &amp; Kontakt</h2>
+            <h2>{text("title", "kontakt.title")}</h2>
             <p>
-              Sie erreichen mich telefonisch unter der Nummer:{" "}
+              {text("phone_intro", "kontakt.phone")}{" "}
               <a href="tel:+4915115539416">015115539416</a>
             </p>
             <p>
-              Anfragen für das Taoyin Zentrum schicken Sie an:{" "}
+              {text("email_intro", "kontakt.emailIntro")}{" "}
               <a href="mailto:info@taoyin-zentrum.de">info@taoyin-zentrum.de</a>{" "}
-              und für meine Praxis für Psychotherapie an:{" "}
+              {text("email_praxis", "kontakt.emailPraxis")}{" "}
               <a href="mailto:info@estela-fuchs.com">info@estela-fuchs.com</a>
             </p>
             <p>
-              Sie können mich auch über{" "}
+              {text("whatsapp_intro", "kontakt.whatsapp")}{" "}
               <a
                 href="https://wa.me/4915115539416"
                 target="_blank"
@@ -33,10 +37,10 @@ export default function Kontakt() {
               >
                 WhatsApp
               </a>{" "}
-              erreichen.
+              {text("whatsapp_end", "kontakt.whatsappEnd")}
             </p>
             <p>
-              So finden Sie in unser Taoyin Zentrum in Ingolstadt ( Bei der Schleifmühle 34b, 85049 Ingolstadt).
+              {text("directions", "kontakt.directions")}
             </p>
           </article>
 
@@ -50,7 +54,7 @@ export default function Kontakt() {
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Taoyin Zentrum Ingolstadt auf Google Maps"
+              title={text("map_title", "kontakt.mapTitle")}
             />
           </div>
         </div>

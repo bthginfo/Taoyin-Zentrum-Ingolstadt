@@ -1,6 +1,10 @@
 import { CtaSection } from "../components/CtaSection";
+import { usePageContent } from "../../hooks/usePageContent";
+import type { TherapienContent } from "../../types/storyblok";
 
 export default function Therapien() {
+  const { text, t } = usePageContent<TherapienContent>("therapien");
+
   return (
     <>
       {/* Hero — .section.is-secondary */}
@@ -31,9 +35,9 @@ export default function Therapien() {
 
             {/* Right: Header */}
             <div className="flex flex-col">
-              <h1>Meine Therapien im Detail</h1>
+              <h1>{text("hero_title", "therapien.heroTitle")}</h1>
               <p className="text-[var(--text-lg-size)] leading-[1.6] text-current/60">
-                Erfahren Sie mehr zu meinen therapeutischen Ansätzen und verstehen Sie meinen ganzheitlichen Ansatz.
+                {text("hero_text", "therapien.heroText")}
               </p>
             </div>
           </div>
@@ -44,10 +48,8 @@ export default function Therapien() {
       <section className="w-full bg-[var(--wf-neutral-primary)] text-foreground py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)] overflow-clip">
         <div className="max-w-[var(--container-sm-width)] mx-auto px-[var(--container-padding)]">
           <article className="prose-custom">
-            <h2>Autogenes Training</h2>
-            <p>
-              <strong>Autogenes Training</strong> ist ein auf Autosuggestion basierendes Entspannungsverfahren. Es wurde vom Berliner Psychiater Johannes Heinrich Schultz aus der Hypnose entwickelt, 1926 erstmals vorgestellt und 1932 in seinem Buch <em>Das autogene Training</em> publiziert. Heute ist das autogene Training eine weit verbreitete und – beispielsweise in Deutschland und Österreich sogar gesetzlich – anerkannte Psychotherapiemethode.
-            </p>
+            <h2>{text("autogenes_title", "therapy.autogenes.title")}</h2>
+            <p>{text("autogenes_text", "therapy.autogenes.short")}</p>
           </article>
         </div>
       </section>
@@ -56,19 +58,15 @@ export default function Therapien() {
       <section className="w-full bg-[var(--wf-neutral-secondary)] text-foreground py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)] overflow-clip">
         <div className="max-w-[var(--container-sm-width)] mx-auto px-[var(--container-padding)]">
           <article className="prose-custom">
-            <h2>Kognitive Verhaltenstherapie</h2>
-            <p>
-              Im Mittelpunkt der kognitiven Therapieverfahren stehen Kognitionen. Kognitionen umfassen Einstellungen, Gedanken, Bewertungen und Überzeugungen. Die kognitiven Therapieverfahren, zu denen die kognitive Therapie (KT) und die Rational-Emotive Verhaltenstherapie (REVT) gehören, gehen davon aus, dass die Art und Weise, wie wir denken, bestimmt, wie wir uns fühlen und verhalten und wie wir körperlich reagieren. Schwerpunkte der Therapie sind
-            </p>
+            <h2>{text("kognitiv_title", "therapy.kognitiv.title")}</h2>
+            <p>{text("kognitiv_detail", "therapy.kognitiv.detail")}</p>
             <ul>
-              <li>die Bewusstmachung von Kognitionen,</li>
-              <li>die Überprüfung von Kognitionen und Schlussfolgerungen auf ihre Angemessenheit,</li>
-              <li>die Korrektur von irrationalen Einstellungen und</li>
-              <li>der Transfer der korrigierten Einstellungen ins konkrete Verhalten.</li>
+              <li>{text("kognitiv_li1", "therapy.kognitiv.li1")}</li>
+              <li>{text("kognitiv_li2", "therapy.kognitiv.li2")}</li>
+              <li>{text("kognitiv_li3", "therapy.kognitiv.li3")}</li>
+              <li>{text("kognitiv_li4", "therapy.kognitiv.li4")}</li>
             </ul>
-            <p>
-              Die kognitive Therapie stellt somit die aktive Gestaltung des Wahrnehmungsprozesses in den Vordergrund, weil in letzter Instanz nicht die objektive Realität, sondern die subjektive Sicht des Betrachtenden über das Verhalten entscheidet. Ist die Kognition inadäquat (z.&nbsp;B. durch Wahrnehmungsselektion und -bewertung), ist auch die Möglichkeit beeinträchtigt, Affekt und Verhalten zu korrigieren. Vor allem spontanes und emotional getriebenes Verhalten sind sehr von der Art beeinflusst, wie ein Mensch sein Modell der Umwelt gedanklich strukturiert hat.
-            </p>
+            <p>{text("kognitiv_detail2", "therapy.kognitiv.detail2")}</p>
           </article>
         </div>
       </section>
@@ -77,28 +75,15 @@ export default function Therapien() {
       <section className="w-full bg-[var(--wf-neutral-primary)] text-foreground py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)] overflow-clip">
         <div className="max-w-[var(--container-sm-width)] mx-auto px-[var(--container-padding)]">
           <article className="prose-custom">
-            <h2>Massage</h2>
-            <p>
-              Die <strong>Massage</strong> (von &bdquo;massieren; berühren; betasten; kneten&ldquo;) dient zur mechanischen Beeinflussung von Haut, Bindegewebe und Muskulatur durch Dehnungs-, Zug- und Druckreiz. Die Wirkung der Massage erstreckt sich von der behandelten Stelle des Körpers über den gesamten Organismus und schließt auch die Psyche mit ein.
-            </p>
-            <h3><strong>Wie wirkt die Massage auf die Gesundheit?</strong></h3>
+            <h2>{text("massage_title", "therapy.massage.title")}</h2>
+            <p>{text("massage_text", "therapy.massage.short")}</p>
+            <h3><strong>{text("massage_effects_title", "therapy.massage.detail.title")}</strong></h3>
             <ul>
-              <li>Lokale Steigerung der Durchblutung</li>
-              <li>Senkung von Blutdruck und Pulsfrequenz</li>
-              <li>Entspannung der Muskulatur</li>
-              <li>Lösen von Verklebungen und Narben</li>
-              <li>Verbesserte Wundheilung</li>
-              <li>Schmerzlinderung</li>
-              <li>Einwirken auf innere Organe über Reflexbögen</li>
-              <li>Psychische Entspannung</li>
-              <li>Reduktion von Stress</li>
-              <li>Verbesserung des Zellstoffwechsels im Gewebe</li>
-              <li>Entspannung von Haut und Bindegewebe</li>
-              <li>Beeinflussung des vegetativen Nervensystems</li>
+              {text("massage_effects", "therapy.massage.effects").split(",").map((item, i) => (
+                <li key={i}>{item}</li>
+              ))}
             </ul>
-            <p>
-              Der Hautkontakt, die Stoffwechselanregung und die Entspannung wirken sich positiv auf die psychische Verfassung aus. Die Massage eignet sich hervorragend dafür, die eigene Körperwahrnehmung zu verbessern und kann zur Vorbeugung bei Stress und ergänzend zur Therapie von Angststörungen oder Depressionen eingesetzt werden.
-            </p>
+            <p>{text("massage_detail2", "therapy.massage.detail2")}</p>
           </article>
         </div>
       </section>
@@ -107,40 +92,31 @@ export default function Therapien() {
       <section className="w-full bg-[var(--wf-neutral-secondary)] text-foreground py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)] overflow-clip">
         <div className="max-w-[var(--container-sm-width)] mx-auto px-[var(--container-padding)]">
           <article className="prose-custom">
-            <h2>Meditation</h2>
-            <p>
-              <strong>Meditation</strong> (von &bdquo;nachdenken, nachsinnen, überlegen&ldquo;) ist eine in vielen Religionen und Kulturen ausgeübte spirituelle Praxis. Durch Achtsamkeits- oder Konzentrationsübungen soll sich der Geist beruhigen und sammeln. In östlichen Kulturen gilt sie als eine grundlegende und zentrale bewusstseinserweiternde Übung.
-            </p>
+            <h2>{text("meditation_title", "therapy.meditation.title")}</h2>
+            <p>{text("meditation_text", "therapy.meditation.short")}</p>
 
-            <h2>Wie wirkt die Meditation?</h2>
-            <p>
-              Die Wirkung von Meditation ist vielschichtig. Studien belegen die positiven Effekte der Meditation auf die Gesundheit in folgenden Bereichen:
-            </p>
+            <h2>{text("meditation_how_title", "therapy.meditation.howTitle")}</h2>
+            <p>{text("meditation_how_text", "therapy.meditation.howText")}</p>
 
-            <p><strong>Meditation stärkt die physische Gesundheit</strong></p>
+            <p><strong>{text("meditation_phys_title", "therapy.meditation.physTitle")}</strong></p>
             <ul>
-              <li>Reduzierung von Bluthochdruck, der Herzschlag wird verlangsamt, die Atmung vertieft, Muskelspannungen reduziert.</li>
-              <li>Verbesserten Umgang mit chronischem und Spannungs-Schmerzen</li>
-              <li>Stärkung des Immunsystems und der Gesundheit</li>
-              <li>Reduzierung von Kopfschmerzen</li>
-              <li>Entspannende Wirkung bei Stress</li>
+              {text("meditation_phys_list", "therapy.meditation.physList").split(",").map((item, i) => (
+                <li key={i}>{item}</li>
+              ))}
             </ul>
 
-            <p><strong>Meditation stärkt die psychische Gesundheit</strong></p>
+            <p><strong>{text("meditation_psych_title", "therapy.meditation.psychTitle")}</strong></p>
             <ul>
-              <li>Reduzierung von Angstzuständen</li>
-              <li>Reduzierung und bessere Erholung bei Burnout und Depression</li>
-              <li>Minimierung von Schlafstörungen</li>
-              <li>Reduzierung von Stress Tinnitus, Zwangsstörung</li>
+              {text("meditation_psych_list", "therapy.meditation.psychList").split(",").map((item, i) => (
+                <li key={i}>{item}</li>
+              ))}
             </ul>
 
-            <p><strong>Meditation unterstützt Verhaltensänderungen, bzw. hilft bei Verhaltensstörungen</strong></p>
+            <p><strong>{text("meditation_behav_title", "therapy.meditation.behavTitle")}</strong></p>
             <ul>
-              <li>Reduzierung von Aggression</li>
-              <li>Genesung von Alkoholsucht</li>
-              <li>Minderung von Essstörungen</li>
-              <li>Überwindung von Lernschwierigkeiten</li>
-              <li>Verbesserter Umgang mit Sucht</li>
+              {text("meditation_behav_list", "therapy.meditation.behavList").split(",").map((item, i) => (
+                <li key={i}>{item}</li>
+              ))}
             </ul>
           </article>
         </div>
@@ -150,14 +126,12 @@ export default function Therapien() {
       <section className="w-full bg-[var(--wf-neutral-primary)] text-foreground py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)] overflow-clip">
         <div className="max-w-[var(--container-sm-width)] mx-auto px-[var(--container-padding)]">
           <article className="prose-custom">
-            <h2>Paartherapie</h2>
-            <p>
-              Gemeinsam einen Schritt vorwärts machen – in Einzel- und Paargesprächen, ergänzt mit Elementen der taoistischen Traditionen in Meditation, Yoga und Qigong, verfolgen wir folgende Ziele:
-            </p>
+            <h2>{text("paar_title", "therapy.paar.title")}</h2>
+            <p>{text("paar_text", "therapy.paar.short")}</p>
             <ul>
-              <li>Beziehungsprobleme verstehen und herausfinden, wie Ihre Liebesbeziehung funktionieren kann</li>
-              <li>Sich selbst und den Partner besser erkennen und verstehen</li>
-              <li>Neue Werkzeuge in die Hand bekommen, die in allen Lebenslagen nützlich sind</li>
+              {text("paar_goals", "therapy.paar.goals").split(",").map((item, i) => (
+                <li key={i}>{item}</li>
+              ))}
             </ul>
           </article>
         </div>
@@ -167,10 +141,8 @@ export default function Therapien() {
       <section className="w-full bg-[var(--wf-neutral-secondary)] text-foreground py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)] overflow-clip">
         <div className="max-w-[var(--container-sm-width)] mx-auto px-[var(--container-padding)]">
           <article className="prose-custom">
-            <h2>Sokratischer Dialog</h2>
-            <p>
-              Der Sokratische Dialog ist eine Fragetechnik, derer sich Therapeuten bedienen, wenn es im therapeutisch-beratenden Gespräch um Begriffsklärung und Entscheidungsfindung geht. Es ist ein Prozess des kritischen Hinterfragens von Argumenten. So sollen Strukturen und Verhaltensmuster sichtbar, das eigene Denken und Handeln verstehbar und damit auch veränderbar werden.
-            </p>
+            <h2>{text("sokrat_title", "therapy.sokrat.title")}</h2>
+            <p>{text("sokrat_text", "therapy.sokrat.short")}</p>
           </article>
         </div>
       </section>
@@ -179,10 +151,8 @@ export default function Therapien() {
       <section className="w-full bg-[var(--wf-neutral-primary)] text-foreground py-[var(--section-padding-mobile-p)] md:py-[var(--section-padding-tablet)] lg:py-[var(--section-padding)] overflow-clip">
         <div className="max-w-[var(--container-sm-width)] mx-auto px-[var(--container-padding)]">
           <article className="prose-custom">
-            <h2>Yoga, Qigong, Tai Chi</h2>
-            <p>
-              <strong>Yoga, Qigong</strong> und <strong>Tai Chi</strong> sind Techniken, die an der Körperstruktur und an der Körperwahrnehmung arbeiten. In Verbindung mit Meditation und Massage führen diese Praktiken zu einem neuen Selbstbewußtsein, eine positivere und annehmendere Haltung zu sich selbst und zum eigenen Körper und eine zunehmendes Gefühl für die eigene Gesundheit.
-            </p>
+            <h2>{text("yoga_title", "therapy.yoga.title")}</h2>
+            <p>{text("yoga_text", "therapy.yoga.short")}</p>
           </article>
         </div>
       </section>
@@ -190,8 +160,8 @@ export default function Therapien() {
       {/* CTA Section */}
       <CtaSection
         content={{
-          cta_title: "Finde deine Mitte. Spüre dein Chi.",
-          cta_description: "Lernen Sie die Kraft der Integration von Körper, Geist und Seele für Sich zu nutzen.",
+          cta_title: t("cta.title"),
+          cta_description: t("details.s6.text"),
         }}
       />
     </>

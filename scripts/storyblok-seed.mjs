@@ -6,6 +6,10 @@
  * Usage: node scripts/storyblok-seed.mjs
  */
 
+import { EXTRA_COMPONENTS, EXPANDED_ABOUT_SCHEMA, EXPANDED_KONTAKT_SCHEMA } from './storyblok-page-components.mjs';
+import { PAGE_CONTENT } from './storyblok-page-content.mjs';
+import { PAGE_CONTENT_PART2 } from './storyblok-page-content-2.mjs';
+
 const SPACE_ID = process.env.STORYBLOK_SPACE_ID;
 const PAT = process.env.STORYBLOK_PAT;
 const API_BASE = 'https://mapi.storyblok.com/v1';
@@ -46,7 +50,7 @@ async function apiCall(method, path, body = null, retries = 3) {
       if (res.status === 422) {
         const errBody = await res.json().catch(() => ({}));
         // If it's a "already taken" error, we can handle it
-        if (JSON.stringify(errBody).includes('has already been taken')) {
+        if (JSON.stringify(errBody).includes('already taken')) {
           return { alreadyExists: true, status: 422, body: errBody };
         }
         console.error(`  ❌ 422 error:`, JSON.stringify(errBody));
@@ -212,30 +216,14 @@ const COMPONENTS = [
     display_name: 'About Page',
     is_root: true,
     is_nestable: false,
-    schema: {
-      seo_title: { type: 'text', display_name: 'SEO Title' },
-      seo_description: { type: 'textarea', display_name: 'SEO Description' },
-      title: { type: 'text', display_name: 'Title' },
-      subtitle: { type: 'textarea', display_name: 'Subtitle' },
-      content_html: { type: 'richtext', display_name: 'Content' },
-    },
+    schema: EXPANDED_ABOUT_SCHEMA,
   },
   {
     name: 'page_kontakt',
     display_name: 'Contact Page',
     is_root: true,
     is_nestable: false,
-    schema: {
-      seo_title: { type: 'text', display_name: 'SEO Title' },
-      seo_description: { type: 'textarea', display_name: 'SEO Description' },
-      title: { type: 'text', display_name: 'Title' },
-      subtitle: { type: 'textarea', display_name: 'Subtitle' },
-      phone: { type: 'text', display_name: 'Phone' },
-      email: { type: 'text', display_name: 'Email' },
-      whatsapp: { type: 'text', display_name: 'WhatsApp' },
-      address: { type: 'textarea', display_name: 'Address' },
-      map_embed: { type: 'textarea', display_name: 'Google Maps Embed URL' },
-    },
+    schema: EXPANDED_KONTAKT_SCHEMA,
   },
   {
     name: 'page_impressum',
@@ -262,6 +250,8 @@ const COMPONENTS = [
       seo_description: { type: 'textarea', display_name: 'SEO Description' },
     },
   },
+  // Page-specific components (from storyblok-page-components.mjs)
+  ...EXTRA_COMPONENTS,
 ];
 
 async function createComponents() {
@@ -336,13 +326,45 @@ async function createStory(parentId, slug, name, componentName, content) {
   });
   
   if (result?.alreadyExists) {
-    console.log(`  ✅ ${slug} (already exists)`);
-    return true;
+    // Story exists – update it with the new component and content
+    console.log(`  🔄 ${slug} exists, updating...`);
+    return await updateStory(parentId, slug, name, componentName, content);
   } else if (result?.story) {
     console.log(`  ✅ ${slug}`);
     return true;
   } else {
     console.log(`  ❌ ${slug} failed`);
+    return false;
+  }
+}
+
+async function updateStory(parentId, slug, name, componentName, content) {
+  // Find the existing story by looking it up
+  const parentStory = await apiCall('GET', `/stories?by_slugs=*/${slug}&with_parent=${parentId}`);
+  const story = parentStory?.stories?.[0];
+  if (!story) {
+    console.log(`  ⚠️ ${slug} not found for update`);
+    return false;
+  }
+  
+  const result = await apiCall('PUT', `/stories/${story.id}`, {
+    story: {
+      name,
+      slug,
+      parent_id: parentId,
+      content: {
+        component: componentName,
+        ...content,
+      },
+    },
+    publish: 1,
+  });
+  
+  if (result?.story) {
+    console.log(`  ✅ ${slug} (updated)`);
+    return true;
+  } else {
+    console.log(`  ❌ ${slug} update failed`);
     return false;
   }
 }
@@ -506,155 +528,7 @@ const CONTENT = {
     },
   },
 
-  taoyin: {
-    de: {
-      seo_title: 'Tao Yin Ingolstadt – Taoistische Bewegungs- & Atempraxis',
-      seo_description: 'Tao Yin in Ingolstadt: Sanfte Dehnungen, fließende Bewegungen und gezielte Atemtechniken für Gesundheit und innere Balance.',
-      seo_keywords: 'Tao Yin Ingolstadt, Taoistische Übungen, Yin Yang, Daoismus, Bewegungstherapie',
-      hero_title: 'Taoyin: was bedeutet es?',
-      hero_subtitle: 'Tao Yin ist eine jahrtausendealte chinesische Bewegungs- und Atempraxis zur Förderung von Gesundheit und innerer Balance.',
-    },
-    en: {
-      seo_title: 'Tao Yin Ingolstadt – Taoist Movement & Breathing Practice',
-      seo_description: 'Tao Yin in Ingolstadt: Gentle stretches, flowing movements and targeted breathing techniques for health and inner balance.',
-      seo_keywords: 'Tao Yin Ingolstadt, Taoist Exercises, Yin Yang, Daoism, Movement Therapy',
-      hero_title: 'Taoyin: What does it mean?',
-      hero_subtitle: 'Tao Yin is an ancient Chinese movement and breathing practice for promoting health and inner balance.',
-    },
-    es: {
-      seo_title: 'Tao Yin Ingolstadt – Práctica Taoísta de Movimiento y Respiración',
-      seo_description: 'Tao Yin en Ingolstadt: Estiramientos suaves, movimientos fluidos y técnicas de respiración para la salud y el equilibrio interior.',
-      seo_keywords: 'Tao Yin Ingolstadt, Ejercicios Taoístas, Yin Yang, Taoísmo, Terapia de Movimiento',
-      hero_title: 'Taoyin: ¿Qué significa?',
-      hero_subtitle: 'Tao Yin es una milenaria práctica china de movimiento y respiración para promover la salud y el equilibrio interior.',
-    },
-  },
-
-  'qi-gong': {
-    de: {
-      seo_title: 'Qi Gong Ingolstadt – Medizinisches Qigong & Kurse',
-      seo_description: 'Qi Gong Kurse in Ingolstadt: Stärke dein Immunsystem, finde innere Ruhe und mehr Energie im Taoyin Zentrum.',
-      seo_keywords: 'Qi Gong Ingolstadt, Medizinisches Qi Gong, Qigong Kurs, Energiearbeit',
-      hero_title: 'Was ist Qigong?',
-      hero_subtitle: 'Qigong ist eine traditionelle chinesische Praxis zur Pflege von Gesundheit, Energie und innerer Ruhe.',
-    },
-    en: {
-      seo_title: 'Qi Gong Ingolstadt – Medical Qigong & Courses',
-      seo_description: 'Qi Gong courses in Ingolstadt: Strengthen your immune system, find inner peace and more energy at the Taoyin Center.',
-      seo_keywords: 'Qi Gong Ingolstadt, Medical Qi Gong, Qigong Course, Energy Work',
-      hero_title: 'What is Qigong?',
-      hero_subtitle: 'Qigong is a traditional Chinese practice for cultivating health, energy and inner calm.',
-    },
-    es: {
-      seo_title: 'Qi Gong Ingolstadt – Qigong Médico & Cursos',
-      seo_description: 'Cursos de Qi Gong en Ingolstadt: Fortalece tu sistema inmunológico, encuentra paz interior y más energía en el Centro Taoyin.',
-      seo_keywords: 'Qi Gong Ingolstadt, Qi Gong Médico, Curso Qigong, Trabajo Energético',
-      hero_title: '¿Qué es Qigong?',
-      hero_subtitle: 'Qigong es una práctica tradicional china para cultivar la salud, la energía y la calma interior.',
-    },
-  },
-
-  'chi-nei-tsang': {
-    de: {
-      seo_title: 'Chi Nei Tsang Ingolstadt – Taoistische Bauchmassage & Ausbildung',
-      seo_description: 'Chi Nei Tsang Behandlung & Ausbildung in Ingolstadt: Taoistische Bauchmassage für Verdauung, Entgiftung und emotionales Gleichgewicht.',
-      seo_keywords: 'Chi Nei Tsang Ingolstadt, Bauchmassage, Chi Nei Tsang Ausbildung, Taoistische Massage',
-      hero_title: 'Chi Nei Tsang Massage',
-      hero_subtitle: 'Chi Nei Tsang ist eine traditionelle taoistische Bauchmassage, die innere Organe sanft löst und energetisch harmonisiert.',
-    },
-    en: {
-      seo_title: 'Chi Nei Tsang Ingolstadt – Taoist Abdominal Massage & Training',
-      seo_description: 'Chi Nei Tsang treatment & training in Ingolstadt: Taoist abdominal massage for digestion, detoxification and emotional balance.',
-      seo_keywords: 'Chi Nei Tsang Ingolstadt, Abdominal Massage, Chi Nei Tsang Training, Taoist Massage',
-      hero_title: 'Chi Nei Tsang Massage',
-      hero_subtitle: 'Chi Nei Tsang is a traditional Taoist abdominal massage that gently releases and energetically harmonizes the internal organs.',
-    },
-    es: {
-      seo_title: 'Chi Nei Tsang Ingolstadt – Masaje Abdominal Taoísta & Formación',
-      seo_description: 'Tratamiento y formación Chi Nei Tsang en Ingolstadt: Masaje abdominal taoísta para digestión, desintoxicación y equilibrio emocional.',
-      seo_keywords: 'Chi Nei Tsang Ingolstadt, Masaje Abdominal, Formación Chi Nei Tsang, Masaje Taoísta',
-      hero_title: 'Masaje Chi Nei Tsang',
-      hero_subtitle: 'Chi Nei Tsang es un masaje abdominal taoísta tradicional que libera y armoniza energéticamente los órganos internos.',
-    },
-  },
-
-  psychotherapie: {
-    de: {
-      seo_title: 'Psychotherapie Ingolstadt – Ganzheitliche Heilung & Begleitung',
-      seo_description: 'Ganzheitliche Psychotherapie in Ingolstadt: Verhaltenstherapie, Autogenes Training, Paartherapie, Meditation & körperorientierte Psychotherapie.',
-      seo_keywords: 'Psychotherapie Ingolstadt, Verhaltenstherapie, Autogenes Training, Paartherapie, Heilpraktiker',
-      hero_title: 'Willkommen in meiner Praxis für ganzheitliche Psychotherapie',
-      hero_subtitle: 'Ich arbeite mit klassischen Verfahren wie Entspannungstechniken und Verhaltenstherapie sowie mit alternativen Methoden.',
-    },
-    en: {
-      seo_title: 'Psychotherapy Ingolstadt – Holistic Healing & Guidance',
-      seo_description: 'Holistic psychotherapy in Ingolstadt: Behavioral therapy, autogenic training, couples therapy, meditation & body-oriented psychotherapy.',
-      seo_keywords: 'Psychotherapy Ingolstadt, Behavioral Therapy, Autogenic Training, Couples Therapy, Holistic',
-      hero_title: 'Welcome to my practice for holistic psychotherapy',
-      hero_subtitle: 'I work with classical methods like relaxation techniques and behavioral therapy as well as alternative methods.',
-    },
-    es: {
-      seo_title: 'Psicoterapia Ingolstadt – Sanación Holística & Acompañamiento',
-      seo_description: 'Psicoterapia holística en Ingolstadt: Terapia conductual, entrenamiento autógeno, terapia de pareja, meditación y psicoterapia corporal.',
-      seo_keywords: 'Psicoterapia Ingolstadt, Terapia Conductual, Entrenamiento Autógeno, Terapia de Pareja',
-      hero_title: 'Bienvenido a mi consulta de psicoterapia holística',
-      hero_subtitle: 'Trabajo con métodos clásicos como técnicas de relajación y terapia conductual, así como métodos alternativos.',
-    },
-  },
-
-  about: {
-    de: {
-      seo_title: 'Über Estela Fuchs – Taoismus, Qi Gong & Psychotherapie Ingolstadt',
-      seo_description: 'Estela Fuchs: Über 30 Jahre Erfahrung in Taoismus, Qi Gong und Psychotherapie. Authentische Begleitung im Taoyin Zentrum Ingolstadt.',
-      title: 'Estela Fuchs',
-      subtitle: 'Lernen Sie mich kennen und erfahren Sie mehr über mich und meinen Überzeugungen.',
-    },
-    en: {
-      seo_title: 'About Estela Fuchs – Taoism, Qi Gong & Psychotherapy Ingolstadt',
-      seo_description: 'Estela Fuchs: Over 30 years of experience in Taoism, Qi Gong and psychotherapy. Authentic guidance at the Taoyin Center Ingolstadt.',
-      title: 'Estela Fuchs',
-      subtitle: 'Get to know me and learn more about my beliefs and practice.',
-    },
-    es: {
-      seo_title: 'Sobre Estela Fuchs – Taoísmo, Qi Gong & Psicoterapia Ingolstadt',
-      seo_description: 'Estela Fuchs: Más de 30 años de experiencia en taoísmo, Qi Gong y psicoterapia. Acompañamiento auténtico en el Centro Taoyin Ingolstadt.',
-      title: 'Estela Fuchs',
-      subtitle: 'Conóceme y descubre más sobre mis creencias y mi práctica.',
-    },
-  },
-
-  kontakt: {
-    de: {
-      seo_title: 'Kontakt & Anfahrt – Taoyin Zentrum Ingolstadt',
-      seo_description: 'So erreichen Sie das Taoyin Zentrum: Bei der Schleifmühle 34b, 85049 Ingolstadt. Telefon, E-Mail und WhatsApp.',
-      title: 'Anfahrt & Kontakt',
-      subtitle: 'Wir freuen uns auf Ihre Nachricht',
-      phone: '+4915115539416',
-      email: 'info@taoyin-zentrum.de',
-      whatsapp: '+4915115539416',
-      address: 'Bei der Schleifmühle 34b, 85049 Ingolstadt',
-    },
-    en: {
-      seo_title: 'Contact & Directions – Taoyin Center Ingolstadt',
-      seo_description: 'How to reach the Taoyin Center: Bei der Schleifmühle 34b, 85049 Ingolstadt. Phone, email and WhatsApp.',
-      title: 'Directions & Contact',
-      subtitle: 'We look forward to hearing from you',
-      phone: '+4915115539416',
-      email: 'info@taoyin-zentrum.de',
-      whatsapp: '+4915115539416',
-      address: 'Bei der Schleifmühle 34b, 85049 Ingolstadt, Germany',
-    },
-    es: {
-      seo_title: 'Contacto & Cómo llegar – Centro Taoyin Ingolstadt',
-      seo_description: 'Cómo llegar al Centro Taoyin: Bei der Schleifmühle 34b, 85049 Ingolstadt. Teléfono, email y WhatsApp.',
-      title: 'Cómo llegar & Contacto',
-      subtitle: 'Esperamos su mensaje',
-      phone: '+4915115539416',
-      email: 'info@taoyin-zentrum.de',
-      whatsapp: '+4915115539416',
-      address: 'Bei der Schleifmühle 34b, 85049 Ingolstadt, Alemania',
-    },
-  },
+  // Service pages content now comes from PAGE_CONTENT / PAGE_CONTENT_PART2
 
   impressum: {
     de: {
@@ -770,35 +644,25 @@ async function createStories() {
     await createStory(folders[lang], 'home', `Home (${lang.toUpperCase()})`, 'page_home', CONTENT.home[lang]);
   }
   
-  // 3. Service pages
-  const servicePages = ['taoyin', 'qi-gong', 'chi-nei-tsang', 'psychotherapie'];
-  console.log('\n  🧘 Service Pages:');
-  for (const page of servicePages) {
+  // Merge all page content
+  const ALL_PAGES = { ...PAGE_CONTENT, ...PAGE_CONTENT_PART2 };
+
+  // 3. Page-specific stories (taoyin, qi-gong, chi-nei-tsang, psychotherapie, therapien, behandlung, about, kontakt, not-found)
+  console.log('\n  🧘 Page Stories (with full content):');
+  for (const [key, page] of Object.entries(ALL_PAGES)) {
     for (const lang of ['de', 'en', 'es']) {
-      const name = `${page} (${lang.toUpperCase()})`;
-      await createStory(folders[lang], page, name, 'page_service', CONTENT[page][lang]);
+      const name = `${page.slug} (${lang.toUpperCase()})`;
+      await createStory(folders[lang], page.slug, name, page.component, page.data[lang]);
     }
   }
   
-  // 4. About pages
-  console.log('\n  👤 About Pages:');
-  for (const lang of ['de', 'en', 'es']) {
-    await createStory(folders[lang], 'about', `About (${lang.toUpperCase()})`, 'page_about', CONTENT.about[lang]);
-  }
-  
-  // 5. Kontakt pages
-  console.log('\n  📞 Contact Pages:');
-  for (const lang of ['de', 'en', 'es']) {
-    await createStory(folders[lang], 'kontakt', `Kontakt (${lang.toUpperCase()})`, 'page_kontakt', CONTENT.kontakt[lang]);
-  }
-  
-  // 6. Impressum pages
+  // 4. Impressum pages
   console.log('\n  📋 Impressum Pages:');
   for (const lang of ['de', 'en', 'es']) {
     await createStory(folders[lang], 'impressum', `Impressum (${lang.toUpperCase()})`, 'page_impressum', CONTENT.impressum[lang]);
   }
 
-  // 7. News folders + sample articles
+  // 5. News folders + sample articles
   console.log('\n  📰 News:');
   for (const lang of ['de', 'en', 'es']) {
     // Create news subfolder inside each language
@@ -859,9 +723,9 @@ async function main() {
   
   console.log('\n✅ Seeding complete!');
   console.log('\n📋 Summary:');
-  console.log('   - 10 Components created');
+  console.log('   - 17+ Components created (incl. page-specific types)');
   console.log('   - 3 Language folders (de/en/es)');
-  console.log('   - 27 Stories (9 pages × 3 languages)');
+  console.log('   - 42+ Stories (14 pages × 3 languages + news)');
   console.log('\n💡 Next steps:');
   console.log('   1. Go to https://app.storyblok.com');
   console.log('   2. Check your space and review the content');
