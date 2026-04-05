@@ -138,8 +138,6 @@ async function translateBatch(texts, targetLang, apiKey) {
     const params = new URLSearchParams();
     params.append("source_lang", "DE");
     params.append("target_lang", DEEPL_LANG_MAP[targetLang]);
-    // Preserve HTML/formatting
-    params.append("tag_handling", "html");
     batch.forEach((t) => params.append("text", t));
 
     const resp = await fetch(DEEPL_API, {
